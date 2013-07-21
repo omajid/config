@@ -27,6 +27,7 @@
 (let ((packages (list
 		 'cmake-mode
 		 'evil
+		 'flycheck
 		 'ido
 		 'ido-vertical-mode
 		 'ido-ubiquitous
@@ -116,6 +117,10 @@
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
 (yas--initialize)
 
+;
+; Flycheck
+;
+(add-hook 'after-init-hook 'global-flycheck-mode)
 
 ;
 ; Set up packages/settings for different modes
