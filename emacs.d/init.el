@@ -57,12 +57,6 @@
  )
 
 ;
-; Color themes
-;
-
-(color-theme-solarized-dark)
-
-;
 ; Navigation
 ;
 
@@ -135,6 +129,13 @@
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
 
 (setq graphviz-dot-view-command "dotty")
+
+;
+; Color themes
+;
+
+(load-theme 'solarized-dark t)
+
 
 ;
 ; Custom macros
