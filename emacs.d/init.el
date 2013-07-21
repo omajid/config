@@ -19,6 +19,28 @@
 (add-to-list 'package-archives '("marmalde" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
+; auto-install packages
+(defun ensure-package-installed (package)
+  (if (not (package-installed-p package))
+      (package-install package)))
+
+(let ((packages (list
+		 'cmake-mode
+		 'evil
+		 'ido
+		 'ido-vertical-mode
+		 'ido-ubiquitous
+		 'idomenu
+		 'markdown-mode
+		 'org
+		 'projectile 'dash
+		 'ruby-mode
+		 'smex
+		 'solarized-theme
+		 'yasnippet
+		 'zencoding-mode)))
+  (mapc 'ensure-package-installed packages))
+
 ;
 ; Basic UI
 ;
