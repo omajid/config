@@ -57,6 +57,7 @@
 (setq
  truncate-lines t ; line wrapping? wtf?
  comment-empty-lines t ; comment empty lines too
+ abbrev-file-name "~/.emacs.d/abbref_defs" ; save abbreviations here
  indent-tabs-mode nil) ; tabs are evil
 
 ; show matching parenthesis
