@@ -6,7 +6,7 @@
 #
 
 # the directory that contains all setup files
-CONFIG_DIR="~/config"
+CONFIG_DIR="$HOME/config"
 OVERWRITE_EXISTING_FILES="YES"
 
 # helper functions
