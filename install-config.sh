@@ -74,3 +74,6 @@ install-config "$CONFIG_DIR"/emacs.d/snippets ~/.emacs.d/snippets
 
 # custom folder names
 install-config "$CONFIG_DIR"/user-dirs ~/.config/user-dirs.dirs
+
+# terminals
+install-config "$CONFIG_DIR"/Xresources ~/.Xresources
