@@ -50,6 +50,10 @@
 ; evil - vi compatible keybindings
 (require 'evil)
 (evil-mode 1)
+(defadvice ansi-term (after turn-off-evil-in-ansi-term ())
+  "Disable whatever the fuck evil mode does in ansi-term"
+  (turn-off-evil-mode))
+(ad-activate 'ansi-term)
 
 ;
 ; Basic Configuration
