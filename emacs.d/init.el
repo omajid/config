@@ -107,6 +107,7 @@
 (require 'smex)
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
+(setq smex-key-advice-ignore-menu-bar t)
 
 ;
 ; Projects
