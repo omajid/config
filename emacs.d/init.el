@@ -21,11 +21,10 @@
 (package-initialize)
 
 ; auto-install packages
-(defun ensure-package-installed (package)
-  (if (not (package-installed-p package))
-      (package-install package)))
-
-(let ((packages (list
+(let ((ensure-package-installed (lambda (package)
+				  (if (not (package-installed-p package))
+				      (package-install package))))
+      (packages (list
 		 'cmake-mode
 		 'evil
 		 'flycheck
@@ -33,15 +32,18 @@
 		 'ido-vertical-mode
 		 'ido-ubiquitous
 		 'idomenu
+		 'jedi
 		 'markdown-mode
 		 'org
 		 'projectile 'dash
+		 'python-mode
+		 'rainbow-delimiters
 		 'ruby-mode
 		 'smex
 		 'solarized-theme
 		 'yasnippet
 		 'zencoding-mode)))
-  (mapc 'ensure-package-installed packages))
+  (mapc ensure-package-installed packages))
 
 ;
 ; Basic UI
@@ -116,6 +118,16 @@
 (require 'projectile)
 (projectile-global-mode)
 
+(require 'auto-complete)
+(setq ac-auto-show-menu t)
+(setq ac-candidate-menu-min)
+(setq ac-disable-inline t)
+(setq ac-dwim t)
+(setq ac-quick-help-delay 1)
+(setq ac-quick-help-height 60)
+(setq ac-show-menu-immediately-on-auto-complete t)
+(global-auto-complete-mode)
+
 ;
 ; Snippets
 ;
@@ -162,6 +174,15 @@
 (add-to-list 'auto-mode-alist '("\\.html$" . zencoding-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
 
+; python-mode
+(add-hook 'python-mode-hook 'autopair-mode)
+(add-hook 'python-mode-hook 'auto-complete-mode)
+; need to pip install epc and jedi
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-hook 'python-mode-hook 'jedi:ac-setup)
+; TODO: in evil's insert state, map the normal autocomplete to jedi
+
+; misc
 (setq graphviz-dot-view-command "dotty")
 
 ;
