@@ -182,6 +182,13 @@
 (add-hook 'python-mode-hook 'jedi:ac-setup)
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
 
+; java-mode
+(let ((spaces-for-indentation (lambda ()
+				(setq c-basic-offset 4
+				      tab-width 4
+				      indent-tabs-mode nil))))
+  (add-hook 'java-mode-hook spaces-for-indentation))
+
 ; misc
 (setq graphviz-dot-view-command "dotty")
 
