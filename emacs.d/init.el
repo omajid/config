@@ -126,6 +126,7 @@
 (setq ac-quick-help-delay 1)
 (setq ac-quick-help-height 60)
 (setq ac-show-menu-immediately-on-auto-complete t)
+(setq ac-use-fuzzy t)
 (global-auto-complete-mode)
 
 ;
@@ -188,6 +189,14 @@
 				      tab-width 4
 				      indent-tabs-mode nil))))
   (add-hook 'java-mode-hook spaces-for-indentation))
+
+; lisp mode
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda () (add-to-list 'ac-sources
+				  '(ac-source-symbols
+				    ac-source-variables
+				    ac-source-features
+				    ac-source-functions))))
 
 ; misc
 (setq graphviz-dot-view-command "dotty")
