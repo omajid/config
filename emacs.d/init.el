@@ -102,6 +102,10 @@
 (require 'ido-ubiquitous)
 (ido-ubiquitous-mode)
 
+(require 'flx-ido)
+(flx-ido-mode 1)
+;(setq ido-use-faces nil)
+
 (require 'imenu)
 (require 'idomenu)
 (global-set-key (kbd "C-c i") 'idomenu)
