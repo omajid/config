@@ -159,8 +159,8 @@
 (setq org-directory "~/notebook")
 (add-to-list 'auto-mode-alist '("~/notebook/.*" . org-mode))
 (setq org-default-notes-file (concat org-directory "/notes.org"))
- (setq org-todo-keywords
-       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+(setq org-log-states-order-reversed nil)
+(setq org-agenda-files '("~/notebook/"))
 
 ; markdown-mode
 (autoload 'markdown-mode "markdown-mode" nil t)
