@@ -1,0 +1,155 @@
+
+# set my own information
+set realname="Omair Majid"
+
+set ssl_ca_certificates_file = "/etc/pki/tls/certs/ca-bundle.crt"
+
+set query_command="~/bin/mutt_ldap_query '%s'"
+
+set header_cache="~/mail/cache/headers"
+set message_cachedir="~/mail/cache/message"
+set certificate_file="~/mail/certificates"
+
+set certificate_file=~/.mutt/certificates
+
+source "~/.mutt/work-config"
+
+# General mutt options ####################################################
+set timeout = 15
+set mail_check = 60
+set menu_scroll = yes
+set delete = yes
+set beep_new = no
+set auto_tag
+set date_format = "%a %d %b %l:%M%P"
+set envelope_from             # pass '-f' to sendmail binary
+set include=yes
+set send_charset="utf-8"
+
+
+# OS-Specific options ##################################################
+set print = ask-yes
+
+set ispell = ispell
+
+# Menu index ##############################################################
+set simple_search = "~f %s | ~s %s"
+set sort = threads
+set sort_browser = reverse-date
+set sort_aux = last-date-received
+set index_format="%3C %-18.18[%a %b %d %l:%M%P] %S %-17.17L %s"
+set status_format="Mutt -- Folder: %f           [Msgs: %M%?n? (%n new)?] %>\ Folders with new: %2b"
+set mark_old = no
+
+# Internal Pager ##########################################################
+set visual = vim
+set sig_dashes = yes
+set smart_wrap = yes
+set pager = "builtin"
+set pager_context = 2
+set pager_format = "Size: %4l B (%C of %m): %-20.20n %s"
+set pager_index_lines = 6
+#set pager_format = "(Status: %S) (%C of %m): %-20.20n %s"
+set pager_stop = yes
+set markers = no
+
+# Composing ###############################################################
+set use_domain
+set recall = ask-yes
+set editor="vim \"+setlocal spell spelllang=en_ca\""
+set fast_reply = yes
+
+# Replying ################################################################
+set attribution="* %n <%a> [%(%Y-%m-%d %H:%M)]:"
+
+# Forwarding ##############################################################
+set forward_decrypt = yes
+set forward_decode = yes
+set forward_format = "[%a: %s]"
+set forward_quote = yes
+
+set recall = ask-yes
+set move = no
+set confirmappend = no
+set confirmcreate = yes
+set fcc_clear = yes
+
+# Headers #################################################################
+set hdrs = yes
+set edit_headers = yes
+# This next line removes _all_ headers from display ...
+ignore *
+# ... and these next lines specify which headers I want to see
+unignore from date subject to cc
+#unignore x-mailer: x-mailing-list: user-agent:
+#hdr_order From From: To: Cc: X-mailer: User-Agent: Date: Subject:
+hdr_order From From: To: Cc: Date: Subject:
+
+# Sending #################################################################
+# Remove me from replies
+set metoo = no
+
+# Aliases ###################################################################
+#source "~/.muttrc.aliases"
+#set alias_file = "~/.muttrc.aliases"
+#set sort_alias = alias
+bind index x sync-mailbox
+
+# MIME ####################################################################
+unset implicit_autoview
+auto_view text/html
+#auto_view text/html  application/x-pgp-message
+set mailcap_path="~/.mailcap"
+set mailcap_path="~/.mutt/mailcap"
+#set mailcap_sanitize=yes
+
+# VIM-like Keybindings ###############################################
+
+# Generic
+bind generic l select-entry
+bind generic <right> select-entry
+bind generic gg first-entry
+bind generic G last-entry
+
+# Index
+bind index gg first-entry
+bind index G last-entry
+bind index l display-message
+bind index h change-folder
+bind index <right> display-message
+bind index <left> change-folder
+bind index H display-toggle-weed
+bind index R group-reply
+
+# Pager
+bind pager / search
+bind pager j next-line
+bind pager k previous-line
+bind pager h exit
+bind pager l view-attachments
+bind pager <down> next-line
+bind pager <up> previous-line
+bind pager <left> exit
+bind pager <right> view-attachments
+bind pager gg top
+bind pager G bottom
+bind pager H display-toggle-weed
+bind pager \cd next-page
+bind pager \cu previous-page
+bind pager <space> next-new-then-unread
+bind pager R group-reply
+
+# Attach
+bind attach l view-attach
+bind attach <right> view-attach
+bind attach h exit
+bind attach <left> exit
+bind attach H display-toggle-weed
+
+# Compose
+bind compose l view-attach
+bind compose <right> view-attach
+
+# Color Scheme ########################################################
+
+source "~/.mutt/color-solarized-dark"

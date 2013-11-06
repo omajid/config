@@ -78,3 +78,9 @@ install-config "$CONFIG_DIR"/user-dirs ~/.config/user-dirs.dirs
 
 # terminals
 install-config "$CONFIG_DIR"/Xresources ~/.Xresources
+
+# mutt
+mkdir -p ~/.mutt
+install-config "$CONFIG_DIR"/mutt.d/muttrc ~/.mutt/muttrc
+install-config "$CONFIG_DIR"/mutt.d/color-solarized-dark ~/.mutt/color-solarized-dark
+install-config "$CONFIG_DIR"/mutt.d/mailcap ~/.mutt/mailcap
