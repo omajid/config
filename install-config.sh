@@ -62,6 +62,7 @@ fi
 
 # basics
 install-config "$CONFIG_DIR"/bashrc ~/.bashrc
+install-config "$CONFIG_DIR"/dir-colors ~/.dir_colors
 install-config "$CONFIG_DIR"/tmux.conf ~/.tmux.conf
 
 # editors: vim
