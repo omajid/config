@@ -65,6 +65,9 @@ install-config "$CONFIG_DIR"/bashrc ~/.bashrc
 install-config "$CONFIG_DIR"/dir-colors ~/.dir_colors
 install-config "$CONFIG_DIR"/tmux.conf ~/.tmux.conf
 
+# X
+install-config "$CONFIG_DIR"/x-modmap ~/.Xmodmap
+
 # editors: vim
 install-config "$CONFIG_DIR"/vim.d/vimrc ~/.vimrc
 install-config "$CONFIG_DIR"/vim.d/colors/solarized.vim ~/.vim/colors/solarized.vim
