@@ -25,9 +25,11 @@
 				  (if (not (package-installed-p package))
 				      (package-install package))))
       (packages (list
+		 'autopair
 		 'cmake-mode
 		 'evil
 		 'flycheck
+		 'flx-ido
 		 'ido
 		 'ido-vertical-mode
 		 'ido-ubiquitous
