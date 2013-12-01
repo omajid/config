@@ -1,6 +1,8 @@
 
 # set my own information
 set realname="Omair Majid"
+set sig_dashes=no
+set signature="~/.mutt/signature"
 
 set ssl_ca_certificates_file = "/etc/pki/tls/certs/ca-bundle.crt"
 
@@ -43,7 +45,6 @@ set mark_old = no
 
 # Internal Pager ##########################################################
 set visual = vim
-set sig_dashes = yes
 set smart_wrap = yes
 set pager = "builtin"
 set pager_context = 2
@@ -90,8 +91,8 @@ hdr_order From From: To: Cc: Date: Subject:
 set metoo = no
 
 # Aliases ###################################################################
-#source "~/.muttrc.aliases"
-#set alias_file = "~/.muttrc.aliases"
+source "~/.mutt/aliases"
+set alias_file = "~/.mutt/aliases"
 #set sort_alias = alias
 bind index x sync-mailbox
 
