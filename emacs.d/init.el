@@ -196,6 +196,13 @@
 (add-hook 'python-mode-hook 'jedi:ac-setup)
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
 
+; c-mode
+(let ((spaces-for-indentation (lambda ()
+				(setq c-basic-offset 4
+				      tab-width 4
+				      indent-tabs-mode nil))))
+  (add-hook 'c-mode-hook spaces-for-indentation))
+
 ; java-mode
 (let ((spaces-for-indentation (lambda ()
 				(setq c-basic-offset 4
