@@ -89,3 +89,8 @@ mkdir -p ~/.mutt
 install-config "$CONFIG_DIR"/mutt.d/muttrc ~/.mutt/muttrc
 install-config "$CONFIG_DIR"/mutt.d/color-solarized-dark ~/.mutt/color-solarized-dark
 install-config "$CONFIG_DIR"/mutt.d/mailcap ~/.mutt/mailcap
+
+# awesome
+mkdir -p ~/.config/awesome
+install-config "$CONFIG_DIR"/awesome.d/rc.lua ~/.config/awesome/rc.lua
+install-config "$CONFIG_DIR"/awesome.d/solarized-dark.lua ~/.config/awesome/solarized-dark.lua
