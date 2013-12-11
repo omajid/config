@@ -124,15 +124,22 @@
 (require 'projectile)
 (projectile-global-mode)
 
+;
+; Auto-Complete
+;
+
 (require 'auto-complete)
-(setq ac-auto-show-menu t)
-(setq ac-candidate-menu-min)
+(require 'auto-complete-config)
+(ac-config-default)
+(setq ac-auto-show-menu 0.2)
+(setq ac-auto-start 0)
+(setq ac-candidate-menu-min 1)
+(setq ac-delay 0.2)
 (setq ac-disable-inline t)
-(setq ac-dwim t)
 (setq ac-quick-help-delay 1)
 (setq ac-quick-help-height 60)
 (setq ac-show-menu-immediately-on-auto-complete t)
-(setq ac-use-fuzzy t)
+(setq ac-use-quick-help t)
 (global-auto-complete-mode)
 
 ;
