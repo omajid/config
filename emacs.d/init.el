@@ -177,14 +177,6 @@
 (setq org-log-states-order-reversed nil)
 (setq org-agenda-files '("~/notebook/"))
 
-; markdown-mode
-(autoload 'markdown-mode "markdown-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-
-; ReStructured Text
-(autoload 'rst-mode "rst mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.re?st$" . rst-mode))
-
 ; js2-mode
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
