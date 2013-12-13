@@ -69,6 +69,7 @@
  abbrev-file-name "~/.emacs.d/abbref_defs" ; save abbreviations here
  indent-tabs-mode nil ; tabs are evil
  c-basic-offset 4
+ c-default-style "k&r"
  tab-width 4)
 
 ; show matching parenthesis
