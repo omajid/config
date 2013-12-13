@@ -27,6 +27,7 @@
       (packages (list
 		 'autopair
 		 'cmake-mode
+		 'emmet-mode
 		 'evil
 		 'flycheck
 		 'flx-ido
@@ -43,8 +44,7 @@
 		 'ruby-mode
 		 'smex
 		 'solarized-theme
-		 'yasnippet
-		 'zencoding-mode)))
+		 'yasnippet)))
   (mapc ensure-package-installed packages))
 
 ;
@@ -185,10 +185,10 @@
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-; zencoding
-(autoload 'zencoding-mode "zencoding mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.html$" . zencoding-mode))
-(add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
+; emmet
+(autoload 'emmet-mode "emmet mode" nil t)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
 
 ; python-mode
 (add-hook 'python-mode-hook 'autopair-mode)
