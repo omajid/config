@@ -67,7 +67,9 @@
  truncate-lines t ; line wrapping? wtf?
  comment-empty-lines t ; comment empty lines too
  abbrev-file-name "~/.emacs.d/abbref_defs" ; save abbreviations here
- indent-tabs-mode nil) ; tabs are evil
+ indent-tabs-mode nil ; tabs are evil
+ c-basic-offset 4
+ tab-width 4)
 
 ; show matching parenthesis
 (show-paren-mode 1)
@@ -195,20 +197,6 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'python-mode-hook 'jedi:ac-setup)
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
-
-; c-mode
-(let ((spaces-for-indentation (lambda ()
-				(setq c-basic-offset 4
-				      tab-width 4
-				      indent-tabs-mode nil))))
-  (add-hook 'c-mode-hook spaces-for-indentation))
-
-; java-mode
-(let ((spaces-for-indentation (lambda ()
-				(setq c-basic-offset 4
-				      tab-width 4
-				      indent-tabs-mode nil))))
-  (add-hook 'java-mode-hook spaces-for-indentation))
 
 ; lisp mode
 (add-hook 'emacs-lisp-mode-hook
