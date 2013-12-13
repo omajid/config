@@ -152,6 +152,9 @@
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
 (yas--initialize)
 
+(require 'autopair)
+(autopair-global-mode)
+
 ;
 ; Flycheck
 ;
@@ -191,7 +194,6 @@
 (add-hook 'css-mode-hook 'emmet-mode)
 
 ; python-mode
-(add-hook 'python-mode-hook 'autopair-mode)
 (add-hook 'python-mode-hook 'auto-complete-mode)
 ; need to pip install epc and jedi
 (add-hook 'python-mode-hook 'jedi:setup)
