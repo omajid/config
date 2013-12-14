@@ -193,14 +193,6 @@
 (add-hook 'python-mode-hook 'jedi:ac-setup)
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
 
-; lisp mode
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda () (add-to-list 'ac-sources
-				  '(ac-source-symbols
-				    ac-source-variables
-				    ac-source-features
-				    ac-source-functions))))
-
 ; misc
 (setq graphviz-dot-view-command "dotty")
 
