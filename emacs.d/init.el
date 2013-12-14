@@ -182,7 +182,7 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ; emmet
-(autoload 'emmet-mode "emmet mode" nil t)
+(autoload 'emmet-mode "emmet-mode" nil t)
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
 
