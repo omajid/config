@@ -170,12 +170,11 @@
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 
 ; org-mode
-(add-hook 'org-mode-hook 'turn-on-flyspell 'append)
 (setq org-directory "~/notebook")
-(add-to-list 'auto-mode-alist '("~/notebook/.*" . org-mode))
+(add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (setq org-log-states-order-reversed nil)
-(setq org-agenda-files '("~/notebook/"))
+(setq org-agenda-files (list org-directory))
 
 ; js2-mode
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
