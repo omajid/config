@@ -149,4 +149,4 @@ ulimit -c 100000000
 
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
-alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0| grep -E "state|to\ full|percentage"'
+alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0| grep -E "state| time\ to\ |percentage"'
