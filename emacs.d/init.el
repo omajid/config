@@ -120,6 +120,10 @@
 (global-set-key (kbd "M-x") 'smex)
 (setq smex-key-advice-ignore-menu-bar t)
 
+(require 'uniquify)
+(setq uniquify-strip-comon-prefix t)
+(setq uniquify-buffer-name-style 'forward)
+
 ;
 ; Projects
 ;
