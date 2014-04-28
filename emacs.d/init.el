@@ -63,6 +63,8 @@
 ; Basic Configuration
 ;
 
+(set-frame-font "Source Code Pro-10.5")
+
 (setq
  truncate-lines t ; line wrapping? wtf?
  comment-empty-lines t ; comment empty lines too
