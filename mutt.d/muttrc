@@ -27,6 +27,7 @@ set date_format = "%a %d %b %l:%M%P"
 set envelope_from             # pass '-f' to sendmail binary
 set include=yes
 set send_charset="utf-8"
+set sleep_time = 0
 
 
 # OS-Specific options ##################################################
