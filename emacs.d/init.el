@@ -191,7 +191,8 @@
 (add-hook 'python-mode-hook 'auto-complete-mode)
 ; need to pip install epc and jedi
 (add-hook 'python-mode-hook 'jedi:setup)
-(add-hook 'python-mode-hook 'jedi:ac-setup)
+(setq jedi:complete-on-dot t)
+(add-hook 'python-mode-hook 'sphinx-doc-mode)
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
 
 ; misc
