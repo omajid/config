@@ -1,4 +1,20 @@
 ;
+; Packages
+;
+
+(require 'package)
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalde" . "http://marmalade-repo.org/packages/") t)
+(package-initialize)
+
+(if (not (package-installed-p 'use-package))
+    (progn (package-refresh-contents)
+	   (package-install 'use-package)))
+(require 'use-package)
+
+;
 ; Minimal UI
 ;
 
@@ -11,53 +27,28 @@
  tooltip-use-echo-area t)
 
 ;
-; Packages
+; Color themes
 ;
 
-(require 'package)
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalde" . "http://marmalade-repo.org/packages/") t)
-(package-initialize)
-
-; auto-install packages
-(let ((ensure-package-installed (lambda (package)
-				  (if (not (package-installed-p package))
-				      (package-install package))))
-      (packages (list
-		 'autopair
-		 'cmake-mode
-		 'emmet-mode
-		 'evil
-		 'flycheck
-		 'flx-ido
-		 'ido
-		 'ido-vertical-mode
-		 'ido-ubiquitous
-		 'idomenu
-		 'jedi
-		 'markdown-mode
-		 'org
-		 'projectile 'dash
-		 'python-mode
-		 'rainbow-delimiters
-		 'ruby-mode
-		 'smex
-		 'solarized-theme
-		 'yasnippet)))
-  (mapc ensure-package-installed packages))
+(use-package solarized-theme
+  :ensure
+  :init
+  (load-theme 'solarized-dark t))
 
 ;
 ; Basic UI
 ;
 
 ; evil - vi compatible keybindings
-(require 'evil)
-(evil-mode 1)
-(defadvice ansi-term (after turn-off-evil-in-ansi-term ())
-  "Disable whatever the fuck evil mode does in ansi-term"
-  (turn-off-evil-mode))
-(ad-activate 'ansi-term)
+(use-package evil
+  :ensure
+  :config
+  (progn
+    (defadvice ansi-term (after turn-off-evil-in-ansi-term ())
+      "Disable whatever the fuck evil mode does in ansi-term"
+      (turn-off-evil-mode))
+    (ad-activate 'ansi-term)
+    (evil-mode 1)))
 
 ;
 ; Basic Configuration
@@ -80,6 +71,9 @@
 ; show column numbers too
 (column-number-mode 1)
 
+; save and restore previous sessions
+(desktop-save-mode 1)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -94,78 +88,134 @@
  ;; If there is more than one, they won't work right.
  )
 
+(use-package autopair
+  :ensure
+  :diminish autopair
+  :idle
+  (autopair-global-mode))
+
+; battery status
+(use-package fancy-battery
+  :ensure
+  :idle
+  (fancy-battery-mode))
+
 ;
 ; Navigation
 ;
 
-(require 'ido)
-(setq ido-everywhere t)
-(setq ido-enable-flex-matching t)
-(ido-mode 1)
+(use-package ido
+  :ensure
+  :config
+  (progn
+    (setq ido-everywhere t)
+    (setq ido-enable-flex-matching t))
+  :init
+  (ido-mode 1))
 
-(require 'ido-vertical-mode)
-(ido-vertical-mode)
+(use-package ido-vertical-mode
+  :ensure
+  :init
+  (ido-vertical-mode))
 
-(require 'ido-ubiquitous)
-(ido-ubiquitous-mode)
+(use-package ido-ubiquitous
+  :ensure
+  :init
+  (ido-ubiquitous-mode))
 
-(require 'flx-ido)
-(flx-ido-mode 1)
-;(setq ido-use-faces nil)
+(use-package flx-ido
+  :ensure
+  ; :config
+  ; (setq ido-use-faces nil)
+  :init
+  (flx-ido-mode 1))
 
-(require 'imenu)
-(require 'idomenu)
-(global-set-key (kbd "C-c i") 'idomenu)
+(use-package imenu
+  :ensure)
 
-(require 'smex)
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(setq smex-key-advice-ignore-menu-bar t)
+(use-package idomenu
+  :ensure
+  :bind
+  ("C-c i" . idomenu))
 
-(require 'uniquify)
-(setq uniquify-strip-comon-prefix t)
-(setq uniquify-buffer-name-style 'forward)
+(use-package smex
+  :ensure
+  :config
+  (setq smex-key-advice-ignore-menu-bar t)
+  :bind
+  ("M-x" . smex)
+  :init
+  (smex-initialize))
+
+;
+; Buffers
+;
+
+(use-package popwin
+  :ensure
+  :config
+  (popwin-mode 1))
+
+(use-package uniquify
+  :config
+  (progn
+    (setq uniquify-strip-comon-prefix t)
+    (setq uniquify-buffer-name-style 'forward)))
 
 ;
 ; Projects
 ;
 
-(require 'projectile)
-(projectile-global-mode)
+(use-package projectile
+  :ensure
+  :config
+  (projectile-global-mode))
+
+
+(use-package magit
+  :ensure
+  :commands magit-status)
 
 ;
 ; Auto-Complete
 ;
 
-(require 'auto-complete)
-(require 'auto-complete-config)
-(ac-config-default)
-(setq ac-auto-show-menu 0.2)
-(setq ac-auto-start 0)
-(setq ac-candidate-menu-min 1)
-(setq ac-delay 0.2)
-(setq ac-disable-inline t)
-(setq ac-quick-help-delay 1)
-(setq ac-quick-help-height 60)
-(setq ac-show-menu-immediately-on-auto-complete t)
-(setq ac-use-quick-help t)
-(global-auto-complete-mode)
+(use-package auto-complete
+  :ensure
+  :init
+  (progn
+    (require 'auto-complete-config)
+    (ac-config-default)
+    (setq ac-auto-show-menu 0.2)
+    (setq ac-auto-start 0)
+    (setq ac-candidate-menu-min 1)
+    (setq ac-delay 0.2)
+    (setq ac-disable-inline t)
+    (setq ac-quick-help-delay 1)
+    (setq ac-quick-help-height 60)
+    (setq ac-show-menu-immediately-on-auto-complete t)
+    (setq ac-use-quick-help t)
+    (global-auto-complete-mode)))
 
 ;
 ; Snippets
 ;
-(require 'yasnippet)
-; custom snippets
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
-(yas--initialize)
+(use-package yasnippet
+  :ensure
+  :idle
+  :config
+  (progn
+    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
+    (yas--initialize)))
 
-(require 'autopair)
-(autopair-global-mode)
 
 ;
 ; Flycheck
 ;
-(add-hook 'after-init-hook 'global-flycheck-mode)
+
+(use-package flycheck
+  :ensure
+  :idle (global-flycheck-mode))
 
 ;
 ; Set up packages/settings for different modes
@@ -176,37 +226,60 @@
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 
 ; org-mode
+(use-package org
+  :ensure)
 (setq org-directory "~/notebook")
 (add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (setq org-log-states-order-reversed nil)
 (setq org-agenda-files (list org-directory))
 
+(use-package markdown-mode
+  :ensure)
+
 ; js2-mode
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(use-package js2-mode
+  :ensure
+  :mode "\\.js\\'")
 
 ; emmet
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook 'emmet-mode)
+(use-package emmet-mode
+  :ensure
+  :commands emmet-mode
+  :init
+  (progn
+    (add-hook 'sgml-mode-hook 'emmet-mode)
+    (add-hook 'css-mode-hook 'emmet-mode)))
 
-; python-mode
-(add-hook 'python-mode-hook 'auto-complete-mode)
-; need to pip install epc and jedi
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
-(add-hook 'python-mode-hook 'sphinx-doc-mode)
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :init
+  (progn
+    (add-hook 'python-mode-hook 'auto-complete-mode)
+    (add-hook 'python-mode-hook 'sphinx-doc-mode)))
+
+(use-package jedi
+  :ensure
+  :init
+  (progn
+    ; need to pip install epc and jedi
+    (add-hook 'python-mode-hook 'jedi:setup)
+    (setq jedi:complete-on-dot t)))
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
 
-; misc
-(setq graphviz-dot-view-command "dotty")
+(use-package graphiviz-dot-mode
+  :mode "'\\.dot\\'"
+  :config
+  (setq graphviz-dot-view-command "dotty"))
 
-;
-; Color themes
-;
-
-(load-theme 'solarized-dark t)
+(use-package gist
+  :ensure
+  :defer t
+  :config
+  (setq gist-view-gist 1))
 
 
 ;
 ; Custom macros
 ;
+
