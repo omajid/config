@@ -284,6 +284,10 @@
   :config
   (setq gist-view-gist 1))
 
+(use-package rainbow-mode
+  :ensure
+  :idle
+  (rainbow-mode))
 
 ;
 ; Custom macros
