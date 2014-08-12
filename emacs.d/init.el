@@ -209,10 +209,9 @@
 (use-package yasnippet
   :ensure
   :idle
-  :config
   (progn
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
-    (yas--initialize)))
+    (yas-global-mode)))
 
 
 ;
