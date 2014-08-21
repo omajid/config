@@ -62,12 +62,14 @@
 
 (set-frame-font "Source Code Pro-10.5")
 
+(setq-default
+ indent-tabs-mode nil ; tabs are evil
+ c-basic-offset 4)
+
 (setq
  truncate-lines t ; line wrapping? wtf?
  comment-empty-lines t ; comment empty lines too
  abbrev-file-name "~/.emacs.d/abbref_defs" ; save abbreviations here
- indent-tabs-mode nil ; tabs are evil
- c-basic-offset 4
  c-default-style "k&r"
  tab-width 4)
 
