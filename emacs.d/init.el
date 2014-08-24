@@ -73,6 +73,9 @@
  c-default-style "k&r"
  tab-width 4)
 
+; single space after period ends sentence
+(setq sentence-end-double-space nil)
+
 ; show matching parenthesis
 (show-paren-mode 1)
 
