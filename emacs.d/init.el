@@ -186,33 +186,23 @@
 ; Auto-Complete
 ;
 
-(use-package auto-complete
+(use-package company
   :ensure
   :init
-  (progn
-    (require 'auto-complete-config)
-    (ac-config-default)
-    (setq ac-auto-show-menu 0.2)
-    (setq ac-auto-start 0)
-    (setq ac-candidate-menu-min 1)
-    (setq ac-delay 0.2)
-    (setq ac-disable-inline t)
-    (setq ac-quick-help-delay 1)
-    (setq ac-quick-help-height 60)
-    (setq ac-show-menu-immediately-on-auto-complete t)
-    (setq ac-use-quick-help t)
-    (global-auto-complete-mode)))
+  (setq company-idle-delay 0)
+  (add-hook 'after-init-hook 'global-company-mode))
 
 ;
 ; Snippets
 ;
 (use-package yasnippet
   :ensure
+  :config
+  (global-set-key (kbd "M-/") 'company-yasnippet)
   :idle
   (progn
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
     (yas-global-mode)))
-
 
 ;
 ; Flycheck
