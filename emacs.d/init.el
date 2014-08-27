@@ -83,7 +83,10 @@
 (column-number-mode 1)
 
 ; save and restore previous sessions
-(desktop-save-mode 1)
+(use-package desktop
+  :config
+  (desktop-save-mode 1)
+  (add-to-list 'desktop-modes-not-to-save 'magit-mode))
 
 ; backups
 (setq backup-directory-alist '((".*" . "~/.saves"))
@@ -176,6 +179,7 @@
 
 (use-package magit
   :ensure
+  :bind ("<f12>" . magit-status)
   :commands magit-status)
 
 ;
