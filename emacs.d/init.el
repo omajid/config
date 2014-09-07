@@ -285,6 +285,13 @@
   :idle
   (rainbow-mode))
 
+(use-package highlight-symbol
+  :ensure
+  :config
+  (setq highlight-symbol-idle-delay 0.5)
+  :idle
+  (highlight-symbol-mode))
+
 ;
 ; Custom macros
 ;
