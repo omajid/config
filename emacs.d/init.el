@@ -174,6 +174,14 @@
 
 (use-package projectile
   :ensure
+  :init
+  ; "P[project name]" to indicate a project or empty string
+  (setq projectile-mode-line '(:eval
+                               (let ((mode-line (condition-case nil
+                                                    (format " P[%s]"
+                                                            (file-name-nondirectory (directory-file-name (projectile-project-root))))
+                                                  (error ""))))
+                                 mode-line)))
   :config
   (projectile-global-mode))
 
