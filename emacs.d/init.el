@@ -157,11 +157,6 @@
 ; Buffers
 ;
 
-(use-package popwin
-  :ensure
-  :config
-  (popwin-mode 1))
-
 (use-package uniquify
   :config
   (progn
