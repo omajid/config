@@ -217,7 +217,7 @@
 
 (use-package flycheck
   :ensure
-  :idle (global-flycheck-mode))
+  :init (global-flycheck-mode))
 
 ;
 ; Set up packages/settings for different modes
