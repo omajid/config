@@ -296,3 +296,12 @@
 ; Custom macros
 ;
 
+(defun fpaste-current-buffer ()
+  "Upload the contents of this buffer into fpaste"
+  (interactive)
+  (shell-command-on-region (point-min) (point-max) "fpaste"))
+
+(defun fpaste-current-selection ()
+  "Upload the current selection into fpaste"
+  (interactive)
+  (shell-command-on-region (region-beginning) (region-end) "fpaste"))
