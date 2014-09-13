@@ -86,8 +86,9 @@
 ; save and restore previous sessions
 (use-package desktop
   :config
-  (desktop-save-mode 1)
-  (add-to-list 'desktop-modes-not-to-save 'magit-mode))
+  (add-to-list 'desktop-modes-not-to-save 'magit-mode)
+  :init
+  (desktop-save-mode 1))
 
 ; backups
 (setq backup-directory-alist '((".*" . "~/.saves"))
