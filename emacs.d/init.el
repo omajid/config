@@ -244,6 +244,9 @@
   :ensure
   :mode "\\.js\\'")
 
+(use-package yaml-mode
+  :ensure)
+
 ; emmet
 (use-package emmet-mode
   :ensure
