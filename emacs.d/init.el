@@ -266,6 +266,11 @@
     (add-hook 'sgml-mode-hook 'emmet-mode)
     (add-hook 'css-mode-hook 'emmet-mode)))
 
+(use-package fixme-mode
+  :ensure
+  :init
+  (add-hook 'prog-mode-hook 'fixme-mode))
+
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :init
