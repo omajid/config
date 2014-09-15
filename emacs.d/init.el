@@ -237,12 +237,14 @@
 
 ; org-mode
 (use-package org
-  :ensure)
-(setq org-directory "~/notebook")
-(add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
-(setq org-default-notes-file (concat org-directory "/notes.org"))
-(setq org-log-states-order-reversed nil)
-(setq org-agenda-files (list org-directory))
+  :ensure
+  :config
+  (progn
+    (setq org-directory "~/notebook")
+    (add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
+    (setq org-default-notes-file (concat org-directory "/notes.org"))
+    (setq org-log-states-order-reversed nil)
+    (setq org-agenda-files (list org-directory))))
 
 (use-package markdown-mode
   :ensure)
