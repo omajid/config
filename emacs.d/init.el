@@ -1,12 +1,21 @@
-;
-; Packages
-;
+
+; Navigation in this file
+(defun my/add-categories-to-imenu ()
+  (interactive)
+  (add-to-list 'imenu-generic-expression
+	       (list "Categories" "^;;; \\(.+\\)" 1)))
+(add-hook 'emacs-lisp-mode-hook 'my/add-categories-to-imenu)
+
+;;;
+;;; Packages
+;;;
 
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalde" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
 (if (not (package-installed-p 'use-package))
@@ -20,11 +29,12 @@
 	       (list "Packages Used" "\\s-*(use-package\\s-+\\(\\(\\sw\\|\\s_\\)+\\)" 1)))
 (add-hook 'emacs-lisp-mode-hook 'my/add-use-package-to-imenu)
 
-;
-; Minimal UI
-;
+;;;
+;;; Looks
+;;;
 
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
+(if (fboundp 'horizontal-scroll-bar-mode) (horizontal-scroll-bar-mode 0))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode 0))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode 0))
 (if (fboundp 'tooltip-mode) (tooltip-mode 0))
@@ -32,18 +42,22 @@
  inhibit-splash-screen t
  tooltip-use-echo-area t)
 
-;
-; Color themes
-;
-
 (use-package solarized-theme
   :ensure
   :init
   (load-theme 'solarized-dark t))
 
-;
-; Basic UI
-;
+; battery status
+(use-package fancy-battery
+  :ensure
+  :idle
+  (fancy-battery-mode))
+
+(set-frame-font "Source Code Pro-10.5")
+
+;;;
+;;; Keybindings
+;;;
 
 ; evil - vi compatible keybindings
 (use-package evil
@@ -60,8 +74,6 @@
 ;
 ; Basic Configuration
 ;
-
-(set-frame-font "Source Code Pro-10.5")
 
 (setq-default
  indent-tabs-mode nil ; tabs are evil
@@ -83,33 +95,13 @@
 ; show column numbers too
 (column-number-mode 1)
 
-; save and restore previous sessions
-(use-package desktop
-  :config
-  (add-to-list 'desktop-modes-not-to-save 'magit-mode)
-  :init
-  (desktop-save-mode 1))
-
 ; backups
 (setq backup-directory-alist '((".*" . "~/.saves"))
       backup-by-copying t)
 
-
-(use-package autopair
-  :ensure
-  :diminish autopair
-  :idle
-  (autopair-global-mode))
-
-; battery status
-(use-package fancy-battery
-  :ensure
-  :idle
-  (fancy-battery-mode))
-
-;
-; Navigation
-;
+;;;
+;;; Navigation
+;;;
 
 (use-package ido
   :ensure
@@ -154,19 +146,9 @@
   :init
   (smex-initialize))
 
-;
-; Buffers
-;
-
-(use-package uniquify
-  :config
-  (progn
-    (setq uniquify-strip-comon-prefix t)
-    (setq uniquify-buffer-name-style 'forward)))
-
-;
-; Projects
-;
+;;;
+;;; Projects
+;;;
 
 (use-package projectile
   :ensure
@@ -192,14 +174,52 @@
              (kill-buffer pe-buffer))))
   :bind ("<f11>" . my/open-or-close-project-explorer))
 
+(use-package gitignore-mode :ensure)
+
+(use-package gitconfig-mode :ensure)
+
 (use-package magit
   :ensure
   :bind ("<f12>" . magit-status)
   :commands magit-status)
 
-;
-; Auto-Complete
-;
+(use-package git-gutter
+  :ensure
+  :diminish ""
+  :init
+  (global-git-gutter-mode))
+
+
+(use-package monky
+  :ensure)
+
+;;;
+;;; Buffers
+;;;
+
+; save and restore previous sessions
+(use-package desktop
+  :config
+  (add-to-list 'desktop-modes-not-to-save 'magit-mode)
+  :init
+  (desktop-save-mode 1))
+
+(use-package uniquify
+  :config
+  (progn
+    (setq uniquify-strip-comon-prefix t)
+    (setq uniquify-buffer-name-style 'forward)))
+
+;;;
+;;; Common Modes
+;;;
+
+(use-package flycheck
+  :ensure
+  :init (global-flycheck-mode))
+
+(use-package flycheck-pos-tip
+  :ensure)
 
 (use-package company
   :ensure
@@ -207,31 +227,30 @@
   (setq company-idle-delay 0)
   (add-hook 'after-init-hook 'global-company-mode))
 
-;
-; Snippets
-;
 (use-package yasnippet
   :ensure
   :config
   (global-set-key (kbd "M-/") 'company-yasnippet)
-  :idle
+  :init
   (progn
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
     (yas-global-mode)))
 
-;
-; Flycheck
-;
-
-(use-package flycheck
+(use-package gist
   :ensure
-  :init (global-flycheck-mode))
+  :defer t
+  :config
+  (setq gist-view-gist 1))
 
-;
-; Set up packages/settings for different modes
-;
+(use-package rainbow-mode
+  :ensure
+  :init
+  (rainbow-mode))
 
-; text-mode
+;;;
+;;; Text Editing Modes
+;;;
+
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 
@@ -246,18 +265,21 @@
     (setq org-log-states-order-reversed nil)
     (setq org-agenda-files (list org-directory))))
 
-(use-package markdown-mode
+(use-package org-pandoc
   :ensure)
 
-; js2-mode
-(use-package js2-mode
-  :ensure
-  :mode "\\.js\\'")
+(use-package adoc-mode
+  :ensure)
+
+(use-package markdown-mode
+  :ensure)
 
 (use-package yaml-mode
   :ensure)
 
-; emmet
+(use-package json-mode
+  :ensure)
+
 (use-package emmet-mode
   :ensure
   :commands emmet-mode
@@ -266,17 +288,45 @@
     (add-hook 'sgml-mode-hook 'emmet-mode)
     (add-hook 'css-mode-hook 'emmet-mode)))
 
+(use-package jinja2-mode
+  :ensure)
+
+(use-package rpm-spec-mode
+  :ensure)
+
+(use-package graphiviz-dot-mode
+  :mode "'\\.dot\\'"
+  :config
+  (setq graphviz-dot-view-command "dotty"))
+
+; blasphemy
+(use-package vimrc-mode
+  :ensure)
+
+;;;
+;;; Programming Modes
+;;;
+
 (use-package fixme-mode
   :ensure
   :init
   (add-hook 'prog-mode-hook 'fixme-mode))
 
+(use-package cmake-mode
+  :ensure)
+
+(use-package js2-mode
+  :ensure
+  :mode "\\.js\\'")
+
 (use-package python
-  :mode ("\\.py\\'" . python-mode)
-  :init
-  (progn
-    (add-hook 'python-mode-hook 'auto-complete-mode)
-    (add-hook 'python-mode-hook 'sphinx-doc-mode)))
+  :ensure
+  :mode ("\\.py\\'" . python-mode))
+
+(use-package sphinx-doc
+  :ensure
+  :config
+  (add-hook 'python-mode-hook 'sphinx-doc-mode))
 
 (use-package jedi
   :ensure
@@ -287,21 +337,27 @@
     (setq jedi:complete-on-dot t)))
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
 
-(use-package graphiviz-dot-mode
-  :mode "'\\.dot\\'"
-  :config
-  (setq graphviz-dot-view-command "dotty"))
-
-(use-package gist
+(use-package anaconda-mode
   :ensure
-  :defer t
   :config
-  (setq gist-view-gist 1))
+  (add-hook 'python-mode-hook 'anaconda-mode))
 
-(use-package rainbow-mode
+(use-package java-snippets :ensure)
+
+(use-package lua-mode :ensure)
+
+(use-package autopair
   :ensure
-  :idle
-  (rainbow-mode))
+  :diminish autopair
+  :init
+  (autopair-global-mode))
+
+(use-package pretty-symbols
+  :ensure
+  :init (pretty-symbols-mode))
+
+(use-package restclient
+  :ensure)
 
 ;
 ; Custom macros
