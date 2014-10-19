@@ -313,6 +313,15 @@
   :init
   (add-hook 'prog-mode-hook 'fixme-mode))
 
+(use-package autopair
+  :ensure
+  :diminish autopair
+  :init
+  (autopair-global-mode))
+
+(use-package pretty-symbols
+  :ensure)
+
 (use-package cmake-mode
   :ensure)
 
@@ -346,16 +355,6 @@
 (use-package java-snippets :ensure)
 
 (use-package lua-mode :ensure)
-
-(use-package autopair
-  :ensure
-  :diminish autopair
-  :init
-  (autopair-global-mode))
-
-(use-package pretty-symbols
-  :ensure
-  :init (pretty-symbols-mode))
 
 (use-package restclient
   :ensure)
