@@ -294,7 +294,8 @@
 (use-package rpm-spec-mode
   :ensure)
 
-(use-package graphiviz-dot-mode
+(use-package graphviz-dot-mode
+  :ensure
   :mode "'\\.dot\\'"
   :config
   (setq graphviz-dot-view-command "dotty"))
