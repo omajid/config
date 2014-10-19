@@ -165,14 +165,7 @@
 
 (use-package project-explorer
   :ensure
-  :config
-  (defun my/open-or-close-project-explorer ()
-    (interactive)
-    (let ((pe-buffer (get-buffer " *project-explorer*")))
-         (if (eq pe-buffer nil)
-             (project-explorer-open)
-             (kill-buffer pe-buffer))))
-  :bind ("<f11>" . my/open-or-close-project-explorer))
+  :bind ("<f11>" . project-explorer-open))
 
 (use-package gitignore-mode :ensure)
 
