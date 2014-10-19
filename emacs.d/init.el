@@ -274,10 +274,19 @@
 (use-package markdown-mode
   :ensure)
 
+(use-package markdown-toc
+  :ensure)
+
+(use-package pandoc-mode
+  :ensure)
+
 (use-package yaml-mode
   :ensure)
 
 (use-package json-mode
+  :ensure)
+
+(use-package web-mode
   :ensure)
 
 (use-package emmet-mode
@@ -323,6 +332,9 @@
   :ensure)
 
 (use-package cmake-mode
+  :ensure)
+
+(use-package geiser
   :ensure)
 
 (use-package js2-mode
