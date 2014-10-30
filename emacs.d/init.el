@@ -335,7 +335,9 @@
   :ensure)
 
 (use-package geiser
-  :ensure)
+  :ensure
+  :config
+  (setq geiser-repl-history-filename "~/emacs.d/geiser-history"))
 
 (use-package js2-mode
   :ensure
