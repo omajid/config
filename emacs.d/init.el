@@ -71,6 +71,16 @@
     (ad-activate 'ansi-term)
     (evil-mode 1)))
 
+(use-package guide-key
+  :ensure
+  :init
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
+  (guide-key-mode 1)
+  (defun my/guide-keys-in-org-mode ()
+    (guide-key/add-local-guide-key-sequence "C-c")
+    (guide-key/add-local-guide-key-sequence "C-c C-x"))
+  (add-hook 'org-mode-hook 'my/guide-keys-in-org-mode))
+
 ;
 ; Basic Configuration
 ;
