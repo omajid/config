@@ -177,10 +177,6 @@
   :ensure
   :bind ("<f11>" . project-explorer-open))
 
-(use-package gitignore-mode :ensure)
-
-(use-package gitconfig-mode :ensure)
-
 (use-package magit
   :ensure
   :bind ("<f12>" . magit-status)
@@ -319,6 +315,10 @@
   :mode "'\\.dot\\'"
   :config
   (setq graphviz-dot-view-command "dotty"))
+
+(use-package gitignore-mode :ensure)
+
+(use-package gitconfig-mode :ensure)
 
 ; blasphemy
 (use-package vimrc-mode
