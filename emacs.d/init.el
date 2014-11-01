@@ -305,7 +305,8 @@
   :init
   (progn
     (add-hook 'sgml-mode-hook 'emmet-mode)
-    (add-hook 'css-mode-hook 'emmet-mode)))
+    (add-hook 'css-mode-hook 'emmet-mode)
+    (add-hook 'nxml-mode-hook 'emmet-mode)))
 
 (use-package jinja2-mode
   :ensure)
