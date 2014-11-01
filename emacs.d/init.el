@@ -55,6 +55,9 @@
 
 (set-frame-font "Source Code Pro-10.5")
 
+(use-package diminish
+  :ensure)
+
 ;;;
 ;;; Keybindings
 ;;;
@@ -73,6 +76,7 @@
 
 (use-package guide-key
   :ensure
+  :diminish guide-key-mode
   :init
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
   (guide-key-mode 1)
@@ -222,18 +226,24 @@
 
 (use-package company
   :ensure
+  :diminish company-mode
   :init
   (setq company-idle-delay 0)
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yasnippet
   :ensure
+  :diminish yas-minor-mode
   :config
   (global-set-key (kbd "M-/") 'company-yasnippet)
   :init
   (progn
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
     (yas-global-mode)))
+
+(use-package undo-tree
+  :ensure
+  :diminish undo-tree-mode)
 
 (use-package gist
   :ensure
@@ -248,6 +258,7 @@
 
 (use-package aggressive-indent
   :ensure
+  :diminish aggressive-indent-mode
   :init
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
   (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
@@ -335,7 +346,7 @@
 
 (use-package autopair
   :ensure
-  :diminish autopair
+  :diminish autopair-mode
   :init
   (autopair-global-mode))
 
