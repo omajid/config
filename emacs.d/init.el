@@ -245,6 +245,11 @@
   :ensure
   :diminish undo-tree-mode)
 
+(use-package expand-region
+  :ensure
+  :commands er/expand-region
+  :bind ("C-=" . er/expand-region))
+
 (use-package gist
   :ensure
   :defer t
