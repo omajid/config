@@ -78,7 +78,7 @@
   :ensure
   :diminish guide-key-mode
   :init
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x 5" "C-x 8"))
   (guide-key-mode 1)
   (defun my/guide-keys-in-org-mode ()
     (guide-key/add-local-guide-key-sequence "C-c")
