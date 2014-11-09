@@ -1,0 +1,3 @@
+[submodule "awesome.d/awesome-solarized"]
+	path = awesome.d/awesome-solarized
+	url = https://github.com/yggi49/awesome-solarized.git

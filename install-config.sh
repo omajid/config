@@ -93,4 +93,4 @@ install-config "$CONFIG_DIR"/mutt.d/mailcap ~/.mutt/mailcap
 # awesome
 mkdir -p ~/.config/awesome
 install-config "$CONFIG_DIR"/awesome.d/rc.lua ~/.config/awesome/rc.lua
-install-config "$CONFIG_DIR"/awesome.d/solarized-dark.lua ~/.config/awesome/solarized-dark.lua
+install-config "$CONFIG_DIR"/awesome.d/awesome-solarized ~/.config/awesome/themes/awesome-solarized
