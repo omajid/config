@@ -90,7 +90,13 @@ install-config "$CONFIG_DIR"/mutt.d/muttrc ~/.mutt/muttrc
 install-config "$CONFIG_DIR"/mutt.d/color-solarized-dark ~/.mutt/color-solarized-dark
 install-config "$CONFIG_DIR"/mutt.d/mailcap ~/.mutt/mailcap
 
+# irssi
+mkdir -p ~/.irssi
+install-config "$CONFIG_DIR"/irssi.d/irssi-colors-solarized/solarized-universal.theme ~/.irssi/solarized-universal.theme
+install-config "$CONFIG_DIR"/irssi.d/config ~/.irssi/config
+
 # awesome
 mkdir -p ~/.config/awesome
 install-config "$CONFIG_DIR"/awesome.d/rc.lua ~/.config/awesome/rc.lua
 install-config "$CONFIG_DIR"/awesome.d/awesome-solarized ~/.config/awesome/themes/awesome-solarized
+

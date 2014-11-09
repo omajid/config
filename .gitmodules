@@ -1,3 +1,6 @@
 [submodule "awesome.d/awesome-solarized"]
 	path = awesome.d/awesome-solarized
 	url = https://github.com/yggi49/awesome-solarized.git
+[submodule "irssi.d/irssi-colors-solarized"]
+	path = irssi.d/irssi-colors-solarized
+	url = https://github.com/maxamillion/irssi-colors-solarized.git
