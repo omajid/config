@@ -238,8 +238,11 @@
   (global-set-key (kbd "M-/") 'company-yasnippet)
   :init
   (progn
+    (defun my/disable-yas-in-term ()
+      (yas-minor-mode -1))
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
-    (yas-global-mode)))
+    (yas-global-mode)
+    (add-hook 'term-mode-hook 'my/disable-yas-in-term)))
 
 (use-package undo-tree
   :ensure
