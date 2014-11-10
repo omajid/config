@@ -361,7 +361,7 @@
 (use-package pretty-symbols
   :ensure)
 
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 
 (use-package cmake-mode
   :ensure)
