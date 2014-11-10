@@ -358,6 +358,8 @@
 (use-package pretty-symbols
   :ensure)
 
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+
 (use-package cmake-mode
   :ensure)
 
