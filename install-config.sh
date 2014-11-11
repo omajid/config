@@ -71,7 +71,7 @@ install-config "$CONFIG_DIR"/x-modmap ~/.Xmodmap
 # editors: vim
 mkdir -p ~/.vim
 install-config "$CONFIG_DIR"/vim.d/vimrc ~/.vimrc
-install-config "$CONFIG_DIR"/vim.d/colors/solarized.vim ~/.vim/colors/solarized.vim
+install-config "$CONFIG_DIR"/vim.d/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 
 # editors: emacs
 mkdir -p ~/.emacs.d
