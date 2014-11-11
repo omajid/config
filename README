@@ -1,1 +1,18 @@
 Dotfiles and other configuration
+================================
+
+This repository contains various configuration bits that I use. Pretty
+much everything is configured to use a Solarized Dark color scheme.
+
+This repository uses git submodules. To clone use:
+
+    git clone --recursive https://github.com/omajid/config
+
+Programs that are set up include:
+
+- Emacs (with a ton of plugins, including Evil)
+- Vim (with minimal plugins)
+- Mutt
+- AwesomeWM
+- XTerm
+- Tmux
