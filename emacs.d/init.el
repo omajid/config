@@ -259,6 +259,11 @@
   :config
   (setq gist-view-gist 1))
 
+(use-package fpaste
+  :ensure
+  :config
+  (setq fpaste-user user-login-name))
+
 (use-package rainbow-mode
   :ensure
   :init
