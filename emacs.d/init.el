@@ -4,7 +4,7 @@
   (interactive)
   (add-to-list 'imenu-generic-expression
 	       (list "Categories" "^;;; \\(.+\\)" 1)))
-(add-hook 'emacs-lisp-mode-hook 'my/add-categories-to-imenu)
+(add-hook 'emacs-lisp-mode-hook #'my/add-categories-to-imenu)
 
 ;;;
 ;;; Packages
@@ -27,7 +27,7 @@
   (interactive)
   (add-to-list 'imenu-generic-expression
 	       (list "Packages Used" "\\s-*(use-package\\s-+\\(\\(\\sw\\|\\s_\\)+\\)" 1)))
-(add-hook 'emacs-lisp-mode-hook 'my/add-use-package-to-imenu)
+(add-hook 'emacs-lisp-mode-hook #'my/add-use-package-to-imenu)
 
 ;;;
 ;;; Looks
@@ -83,7 +83,7 @@
   (defun my/guide-keys-in-org-mode ()
     (guide-key/add-local-guide-key-sequence "C-c")
     (guide-key/add-local-guide-key-sequence "C-c C-x"))
-  (add-hook 'org-mode-hook 'my/guide-keys-in-org-mode))
+  (add-hook 'org-mode-hook #'my/guide-keys-in-org-mode))
 
 ;
 ; Basic Configuration
@@ -229,7 +229,7 @@
   :diminish company-mode
   :init
   (setq company-idle-delay 0)
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook #'global-company-mode))
 
 (use-package yasnippet
   :ensure
@@ -242,7 +242,7 @@
       (yas-minor-mode -1))
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
     (yas-global-mode)
-    (add-hook 'term-mode-hook 'my/disable-yas-in-term)))
+    (add-hook 'term-mode-hook #'my/disable-yas-in-term)))
 
 (use-package undo-tree
   :ensure
@@ -281,8 +281,8 @@
 ;;; Text Editing Modes
 ;;;
 
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(add-hook 'text-mode-hook 'turn-on-flyspell)
+(add-hook 'text-mode-hook #'turn-on-auto-fill)
+(add-hook 'text-mode-hook #'turn-on-flyspell)
 
 ; org-mode
 (use-package org
@@ -324,9 +324,9 @@
   :commands emmet-mode
   :init
   (progn
-    (add-hook 'sgml-mode-hook 'emmet-mode)
-    (add-hook 'css-mode-hook 'emmet-mode)
-    (add-hook 'nxml-mode-hook 'emmet-mode)))
+    (add-hook 'sgml-mode-hook #'emmet-mode)
+    (add-hook 'css-mode-hook #'emmet-mode)
+    (add-hook 'nxml-mode-hook #'emmet-mode)))
 
 (use-package jinja2-mode
   :ensure)
@@ -355,7 +355,7 @@
 (use-package fixme-mode
   :ensure
   :init
-  (add-hook 'prog-mode-hook 'fixme-mode))
+  (add-hook 'prog-mode-hook #'fixme-mode))
 
 (use-package autopair
   :ensure
@@ -366,7 +366,7 @@
 (use-package pretty-symbols
   :ensure)
 
-(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
 
 (use-package cmake-mode
   :ensure)
@@ -387,7 +387,7 @@
 (use-package sphinx-doc
   :ensure
   :config
-  (add-hook 'python-mode-hook 'sphinx-doc-mode))
+  (add-hook 'python-mode-hook #'sphinx-doc-mode))
 
 (use-package jedi
   :ensure
@@ -401,7 +401,7 @@
 (use-package anaconda-mode
   :ensure
   :config
-  (add-hook 'python-mode-hook 'anaconda-mode))
+  (add-hook 'python-mode-hook #'anaconda-mode))
 
 (use-package java-snippets :ensure)
 
