@@ -117,14 +117,24 @@
 ;;; Navigation
 ;;;
 
+(use-package recentf
+  :init
+  ;; TODO check if this is necessary in emacs 24.4
+  (setq recentf-save-file
+        (convert-standard-filename
+         (locate-user-emacs-file "recentf" ".recentf"))))
+
 (use-package ido
   :ensure
-  :config
-  (progn
-    (setq ido-everywhere t)
-    (setq ido-enable-flex-matching t))
   :init
-  (ido-mode 1))
+  ;; TODO check if this is necessary in emacs 24.4
+  (progn
+    (setq ido-save-directory-list-file
+          (convert-standard-filename
+           (locate-user-emacs-file "ido.last" ".ido.last")))
+    (setq ido-everywhere t)
+    (setq ido-enable-flex-matching t)
+    (ido-mode 1)))
 
 (use-package ido-vertical-mode
   :ensure
