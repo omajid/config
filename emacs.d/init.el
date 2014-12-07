@@ -263,6 +263,28 @@
   :commands er/expand-region
   :bind ("C-=" . er/expand-region))
 
+(use-package bug-reference
+  :ensure
+  :config
+  (progn
+    (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
+    (add-hook 'text-mode-hook #'bug-reference-mode)
+    (setq bug-reference-bug-regexp
+          "\\<\\(PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\) ?\\([0-9]+\\)\\>")
+    (setq bug-reference-url-format
+          (lambda ()
+            (let ((kind (match-string 1))
+                  (id (match-string 2)))
+              (cond ((or (string= kind "RH") (string= kind "RHBZ"))
+                     (format "https://bugzilla.redhat.com/show_bug.cgi?id=%s" id))
+                    ((string= kind "PR")
+                     (format "http://icedtea.classpath.org/bugzilla/show_bug.cgi?id=%s" id))
+                    ((string-suffix-p "JDK" kind)
+                     (format "https://bugs.openjdk.java.net/browse/JDK-%s" id))
+                    ((string-suffix-p "JEP" kind)
+                     (format "http://openjdk.java.net/jeps/%s" id))
+                    (t (error "Unknown item type"))))))))
+
 (use-package gist
   :ensure
   :defer t
