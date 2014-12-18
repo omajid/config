@@ -113,6 +113,9 @@
 (setq backup-directory-alist '((".*" . "~/.saves"))
       backup-by-copying t)
 
+;; replace selection when typing
+(pending-delete-mode)
+
 ;;;
 ;;; Navigation
 ;;;
@@ -262,6 +265,11 @@
   :ensure
   :commands er/expand-region
   :bind ("C-=" . er/expand-region))
+
+(use-package multiple-cursors
+  :ensure
+  :bind (("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)))
 
 (use-package bug-reference
   :ensure
