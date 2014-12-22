@@ -326,6 +326,9 @@
 (add-hook 'text-mode-hook #'turn-on-auto-fill)
 (add-hook 'text-mode-hook #'turn-on-flyspell)
 
+(use-package writeroom-mode
+  :ensure)
+
 ; org-mode
 (use-package org
   :ensure
