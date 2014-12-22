@@ -190,6 +190,9 @@
   :config
   (projectile-global-mode))
 
+(use-package ack-and-a-half
+  :ensure)
+
 (use-package project-explorer
   :ensure
   :bind ("<f11>" . project-explorer-open))
