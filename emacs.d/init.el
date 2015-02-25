@@ -343,6 +343,11 @@
     (setq org-log-states-order-reversed nil)
     (setq org-agenda-files (list org-directory))))
 
+(use-package org-bullets
+  :ensure
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 (use-package org-pandoc
   :ensure)
 
