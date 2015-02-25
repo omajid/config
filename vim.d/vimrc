@@ -17,6 +17,7 @@ set incsearch
 set ignorecase
 
 filetype plugin on
+autocmd BufNewFile,BufRead *.md set filetype=markdown
 syntax enable
 
 set background=dark
