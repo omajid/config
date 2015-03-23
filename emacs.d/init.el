@@ -50,8 +50,7 @@
 ; battery status
 (use-package fancy-battery
   :ensure
-  :idle
-  (fancy-battery-mode))
+  :config (fancy-battery-mode))
 
 (set-frame-font "Source Code Pro-10.5")
 
@@ -235,10 +234,8 @@
 
 (use-package flycheck
   :ensure
-  :init (global-flycheck-mode))
-
-(use-package flycheck-pos-tip
-  :ensure)
+  :commands global-flycheck-mode
+  :config (global-flycheck-mode))
 
 (use-package company
   :ensure
@@ -251,9 +248,8 @@
   :ensure
   :diminish yas-minor-mode
   :config
-  (global-set-key (kbd "M-/") 'company-yasnippet)
-  :init
   (progn
+    (global-set-key (kbd "M-/") 'company-yasnippet)
     (defun my/disable-yas-in-term ()
       (yas-minor-mode -1))
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
