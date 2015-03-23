@@ -302,6 +302,7 @@
 
 (use-package fpaste
   :ensure
+  :commands fpaste
   :config
   (setq fpaste-user user-login-name))
 
@@ -331,6 +332,7 @@
 ; org-mode
 (use-package org
   :ensure
+  :defer t
   :config
   (progn
     (setq org-directory "~/notebook")
@@ -341,32 +343,37 @@
 
 (use-package org-bullets
   :ensure
+  :defer t
   :init
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-(use-package org-pandoc
-  :ensure)
-
 (use-package adoc-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package markdown-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package markdown-toc
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package pandoc-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package yaml-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package json-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package web-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package emmet-mode
   :ensure
@@ -378,10 +385,12 @@
     (add-hook 'nxml-mode-hook #'emmet-mode)))
 
 (use-package jinja2-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package rpm-spec-mode
-  :ensure)
+  :ensure
+  :defer t)
 
 (use-package graphviz-dot-mode
   :ensure
