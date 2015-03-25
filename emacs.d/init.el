@@ -466,7 +466,10 @@
 (use-package lua-mode :ensure)
 
 (use-package restclient
-  :ensure)
+  :ensure
+  :config
+  (use-package company-restclient
+    :ensure))
 
 ;
 ; Custom macros
