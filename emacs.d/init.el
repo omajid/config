@@ -235,6 +235,11 @@
 (use-package flycheck
   :ensure
   :commands global-flycheck-mode
+  :init
+  (use-package flycheck-package
+    :ensure
+    :config
+    (flycheck-package-setup))
   :config (global-flycheck-mode))
 
 (use-package company
