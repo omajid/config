@@ -407,6 +407,8 @@
 
 (use-package gitconfig-mode :ensure)
 
+(use-package hgignore-mode :ensure)
+
 ; blasphemy
 (use-package vimrc-mode
   :ensure)
