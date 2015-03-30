@@ -470,6 +470,8 @@
 
 (use-package java-snippets :ensure)
 
+(use-package jar-manifest-mode :ensure)
+
 (use-package lua-mode :ensure)
 
 (use-package restclient
