@@ -338,19 +338,18 @@
 (use-package org
   :ensure
   :defer t
-  :config
+  :init
   (progn
     (setq org-directory "~/notebook")
     (add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
     (setq org-default-notes-file (concat org-directory "/notes.org"))
     (setq org-log-states-order-reversed nil)
-    (setq org-agenda-files (list org-directory))))
-
-(use-package org-bullets
-  :ensure
-  :defer t
-  :init
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    (setq org-agenda-files (list org-directory))
+    (use-package org-bullets
+      :ensure
+      :defer t
+      :init
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
 
 (use-package adoc-mode
   :ensure
