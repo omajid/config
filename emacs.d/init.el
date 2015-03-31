@@ -438,7 +438,9 @@
 (use-package geiser
   :ensure
   :config
-  (setq geiser-repl-history-filename "~/emacs.d/geiser-history"))
+  (setq geiser-repl-history-filename
+        (convert-standard-filename
+         (locate-user-emacs-file "geiser-history" ".geiser-history"))))
 
 (use-package js2-mode
   :ensure
