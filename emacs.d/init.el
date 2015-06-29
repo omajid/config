@@ -285,19 +285,19 @@
           "\\<\\(PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\|CVE-?\\) ?\\([0-9-]+\\)\\>")
     (setq bug-reference-url-format
           (lambda ()
-            (let ((kind (match-string 1))
-                  (id (match-string 2)))
+            (let ((kind (match-string-no-properties 1))
+                  (id (match-string-no-properties 2)))
               (cond ((or (string= kind "RH") (string= kind "RHBZ"))
                      (format "https://bugzilla.redhat.com/show_bug.cgi?id=%s" id))
                     ((string= kind "PR")
                      (format "http://icedtea.classpath.org/bugzilla/show_bug.cgi?id=%s" id))
-                    ((string-suffix-p "JDK" kind)
+                    ((string-prefix-p "JDK" kind)
                      (format "https://bugs.openjdk.java.net/browse/JDK-%s" id))
-                    ((string-suffix-p "JEP" kind)
+                    ((string-prefix-p "JEP" kind)
                      (format "http://openjdk.java.net/jeps/%s" id))
-                    ((string-suffix-p "CVE" kind)
+                    ((string-prefix-p "CVE" kind)
                      (format "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=%s" id))
-                    (t (error "Unknown item type"))))))))
+                    (t (error (concat "Unknown item type: " kind)))))))))
 
 (use-package gist
   :ensure
