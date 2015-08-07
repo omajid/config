@@ -1,10 +1,9 @@
 
-; Navigation in this file
-(defun my/add-categories-to-imenu ()
-  (interactive)
-  (add-to-list 'imenu-generic-expression
-	       (list "Categories" "^;;; \\(.+\\)" 1)))
-(add-hook 'emacs-lisp-mode-hook #'my/add-categories-to-imenu)
+;;; Commentary:
+
+;; My user-init-file, with all my configuration
+
+;;; Code:
 
 ;;;
 ;;; Packages
@@ -443,6 +442,13 @@
   :ensure)
 
 (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
+
+;; Navigation in emacs lisp files
+(defun my/add-sections-to-imenu ()
+  (interactive)
+  (add-to-list 'imenu-generic-expression
+	       (list "Sections" "^;;; +\\(.+\\)" 1)))
+(add-hook 'emacs-lisp-mode-hook #'my/add-sections-to-imenu)
 
 (use-package cmake-mode
   :ensure)
