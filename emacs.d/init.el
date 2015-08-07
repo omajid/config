@@ -416,6 +416,11 @@
 ;;; Programming Modes
 ;;;
 
+(use-package semantic
+  :ensure
+  :config
+  (add-hook 'prog-mode-hook #'semantic-mode))
+
 (defun my/maybe-make-executable ()
   (let ((file-name (buffer-file-name)))
     (when (and (save-excursion
