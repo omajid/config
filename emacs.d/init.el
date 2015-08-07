@@ -416,6 +416,8 @@
 ;;; Programming Modes
 ;;;
 
+(add-hook 'prog-mode-hook #'flyspell-prog-mode)
+
 (use-package semantic
   :ensure
   :config
