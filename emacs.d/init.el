@@ -52,7 +52,7 @@
   :ensure
   :config (fancy-battery-mode))
 
-(set-frame-font "Source Code Pro-10.5")
+(set-frame-font "Source Code Pro-10.5" t)
 
 (use-package diminish
   :ensure)
