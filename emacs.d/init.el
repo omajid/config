@@ -274,7 +274,7 @@
     (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
     (add-hook 'text-mode-hook #'bug-reference-mode)
     (setq bug-reference-bug-regexp
-          "\\<\\(PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\|CVE-?\\) ?\\([0-9-]+\\)\\>")
+          "\\<\\(RFC\\|PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\|CVE-?\\) ?\\([0-9-]+\\)\\>")
     (setq bug-reference-url-format
           (lambda ()
             (let ((kind (match-string-no-properties 1))
@@ -289,6 +289,8 @@
                      (format "http://openjdk.java.net/jeps/%s" id))
                     ((string-prefix-p "CVE" kind)
                      (format "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=%s" id))
+                    ((string= "RFC" kind)
+                     (format "http://tools.ietf.org/html/rfc%s" id))
                     (t (error (concat "Unknown item type: " kind)))))))))
 
 (use-package gist
