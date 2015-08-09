@@ -114,6 +114,9 @@
 ;; replace selection when typing
 (pending-delete-mode)
 
+;; paste (aka yank) at point, not where mouse is clicked
+(setq mouse-yank-at-point t)
+
 ;;;
 ;;; Navigation
 ;;;
