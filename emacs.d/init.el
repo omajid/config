@@ -22,11 +22,11 @@
 	   (package-install 'use-package)))
 (require 'use-package)
 
-(defun my/add-use-package-to-imenu ()
+(defun my-add-use-package-to-imenu ()
   (interactive)
   (add-to-list 'imenu-generic-expression
 	       (list "Packages Used" "\\s-*(use-package\\s-+\\(\\(\\sw\\|\\s_\\)+\\)" 1)))
-(add-hook 'emacs-lisp-mode-hook #'my/add-use-package-to-imenu)
+(add-hook 'emacs-lisp-mode-hook #'my-add-use-package-to-imenu)
 
 ;;;
 ;;; Looks
@@ -248,11 +248,11 @@
   :config
   (progn
     (global-set-key (kbd "M-/") 'company-yasnippet)
-    (defun my/disable-yas-in-term ()
+    (defun my-disable-yas-in-term ()
       (yas-minor-mode -1))
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
     (yas-global-mode)
-    (add-hook 'term-mode-hook #'my/disable-yas-in-term)))
+    (add-hook 'term-mode-hook #'my-disable-yas-in-term)))
 
 (use-package undo-tree
   :ensure
@@ -418,7 +418,7 @@
   :config
   (add-hook 'prog-mode-hook #'semantic-mode))
 
-(defun my/maybe-make-executable ()
+(defun my-maybe-make-executable ()
   (let ((file-name (buffer-file-name)))
     (when (and (save-excursion
                  (save-restriction
@@ -427,7 +427,7 @@
                    (looking-at-p "^#!")))
                (not (file-executable-p file-name)))
       (start-process "chmod" nil "chmod" "u+x" file-name))))
-(add-hook 'after-save-hook #'my/maybe-make-executable)
+(add-hook 'after-save-hook #'my-maybe-make-executable)
 
 (use-package fixme-mode
   :ensure
@@ -446,11 +446,11 @@
 (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
 
 ;; Navigation in emacs lisp files
-(defun my/add-sections-to-imenu ()
+(defun my-add-sections-to-imenu ()
   (interactive)
   (add-to-list 'imenu-generic-expression
 	       (list "Sections" "^;;; +\\(.+\\)" 1)))
-(add-hook 'emacs-lisp-mode-hook #'my/add-sections-to-imenu)
+(add-hook 'emacs-lisp-mode-hook #'my-add-sections-to-imenu)
 
 (use-package cmake-mode
   :ensure)
@@ -508,7 +508,7 @@
 ;; the following two functions are adapted from the similarly named
 ;; functions in prelude
 
-(defun my/delete-file-and-buffer ()
+(defun my-delete-file-and-buffer ()
   "Delete the current buffer and it's associated file."
   (interactive)
   (when (yes-or-no-p "Really kill buffer and file? ")
@@ -520,7 +520,7 @@
           (delete-file file-name))
         (message "Deleted file %s" file-name)))))
 
-(defun my/rename-file-and-buffer (new-name)
+(defun my-rename-file-and-buffer (new-name)
   "Rename the current file and buffer to NEW-NAME."
   (interactive "FNew name:")
   (let* ((old-name (buffer-file-name))
@@ -537,7 +537,7 @@
 
 ;; Test: RFC 1231
 
-(defun my/rfc-lookup-text (rfc-num)
+(defun my-rfc-lookup-text (rfc-num)
   "Look up an RFC using tools.ietf.org."
   (interactive (list
                 (read-number "RFC number:" (thing-at-point 'number))))
@@ -563,7 +563,7 @@
                          (view-buffer-other-window buffer)))))
     (url-retrieve url display-rfc)))
 
-(defun my/rfc-lookup-html (rfc-num)
+(defun my-rfc-lookup-html (rfc-num)
   "Look up an RFC using tools.ietf.org."
   (interactive (list
                 (read-number "RFC number:" (thing-at-point 'number))))
