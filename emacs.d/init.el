@@ -46,7 +46,7 @@
   :init
   (load-theme 'solarized-dark t))
 
-; battery status
+;; battery status
 (use-package fancy-battery
   :ensure
   :config (fancy-battery-mode))
@@ -60,7 +60,7 @@
 ;;; Keybindings
 ;;;
 
-; evil - vi compatible keybindings
+;; evil - vi compatible keybindings
 (use-package evil
   :ensure
   :config
@@ -83,9 +83,10 @@
     (guide-key/add-local-guide-key-sequence "C-c C-x"))
   (add-hook 'org-mode-hook #'my/guide-keys-in-org-mode))
 
-;
-; Basic Configuration
-;
+
+;;;
+;;; Basic Configuration
+;;;
 
 (setq-default
  indent-tabs-mode nil ; tabs are evil
@@ -98,16 +99,16 @@
  c-default-style "k&r"
  tab-width 4)
 
-; single space after period ends sentence
+;; single space after period ends sentence
 (setq sentence-end-double-space nil)
 
-; show matching parenthesis
+;; show matching parenthesis
 (show-paren-mode 1)
 
-; show column numbers too
+;; show column numbers too
 (column-number-mode 1)
 
-; backups
+;; backups
 (setq backup-directory-alist '((".*" . "~/.saves"))
       backup-by-copying t)
 
@@ -144,8 +145,6 @@
 
 (use-package flx-ido
   :ensure
-  ; :config
-  ; (setq ido-use-faces nil)
   :init
   (flx-ido-mode 1))
 
@@ -209,7 +208,7 @@
 ;;; Buffers
 ;;;
 
-; save and restore previous sessions
+;; save and restore previous sessions
 (use-package desktop
   :config
   (add-to-list 'desktop-modes-not-to-save 'magit-mode)
@@ -480,7 +479,7 @@
   :ensure
   :init
   (progn
-    ; need to pip install epc and jedi
+    ;; need to pip install epc and jedi
     (add-hook 'python-mode-hook 'jedi:setup)
     (setq jedi:complete-on-dot t)))
 ; TODO: in evil's insert state, map the normal autocomplete to jedi
@@ -502,9 +501,9 @@
   (use-package company-restclient
     :ensure))
 
-;
-; Custom macros
-;
+;;;
+;;; Custom macros
+;;;
 
 ;; the following two functions are adapted from the similarly named
 ;; functions in prelude
