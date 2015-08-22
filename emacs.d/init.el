@@ -535,5 +535,39 @@
             (set-visited-file-name new-name t t)))
       (rename-buffer new-name))))
 
+;; Test: RFC 1231
+
+(defun my/rfc-lookup-text (rfc-num)
+  "Look up an RFC using tools.ietf.org."
+  (interactive (list
+                (read-number "RFC number:" (thing-at-point 'number))))
+  (let ((url (format "https://tools.ietf.org/rfc/rfc%s.txt" rfc-num))
+        (display-rfc (lambda (status)
+                       (let ((body (progn (goto-char (point-min))
+                                          ;; find first newline indicating end of http headers
+                                          (re-search-forward "^$")
+                                          ;; skip empty lines
+                                          (re-search-forward "[^\n]")
+                                          (beginning-of-line)
+                                          (prog1 (buffer-substring (point) (point-max))
+                                            (kill-buffer))))
+                             (buffer (progn
+                                       (when (get-buffer "*rfc*")
+                                         (kill-buffer "*rfc*"))
+                                       (get-buffer-create "*rfc*"))))
+                         (with-current-buffer buffer
+                           (erase-buffer)
+                           (goto-char (point-min))
+                           (insert body)
+                           (goto-char (point-min)))
+                         (view-buffer-other-window buffer)))))
+    (url-retrieve url display-rfc)))
+
+(defun my/rfc-lookup-html (rfc-num)
+  "Look up an RFC using tools.ietf.org."
+  (interactive (list
+                (read-number "RFC number:" (thing-at-point 'number))))
+  (let ((url (format "https://tools.ietf.org/html/rfc%s.txt" rfc-num)))
+    (eww-browse-url url)))
 
 ;;; init.el ends here
