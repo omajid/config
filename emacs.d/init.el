@@ -75,14 +75,10 @@
 (use-package guide-key
   :ensure
   :diminish guide-key-mode
-  :init
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x 5" "C-x 8"))
-  (guide-key-mode 1)
-  (defun my/guide-keys-in-org-mode ()
-    (guide-key/add-local-guide-key-sequence "C-c")
-    (guide-key/add-local-guide-key-sequence "C-c C-x"))
-  (add-hook 'org-mode-hook #'my/guide-keys-in-org-mode))
-
+  :config
+  (setq guide-key/guide-key-sequence '("C-c" "C-x" "M-s"))
+  (setq guide-key/recursive-key-sequence-flag t)
+  (guide-key-mode 1))
 
 ;;;
 ;;; Basic Configuration
