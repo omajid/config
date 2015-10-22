@@ -46,11 +46,6 @@
   :init
   (load-theme 'solarized-dark t))
 
-;; battery status
-(use-package fancy-battery
-  :ensure
-  :config (fancy-battery-mode))
-
 (set-frame-font "Source Code Pro-10.5" t)
 
 (use-package diminish
@@ -203,10 +198,6 @@
   :diminish ""
   :init
   (global-git-gutter-mode))
-
-
-(use-package monky
-  :ensure)
 
 (use-package hydra
   :ensure
@@ -386,7 +377,6 @@
   ;; files with '.patch.' in the middle of their name are patch files too
   (add-to-list 'auto-mode-alist
                '("\\.patch\\..*\\'" . diff-mode)))
-
 
 (use-package dockerfile-mode
   :ensure)
