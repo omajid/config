@@ -114,6 +114,10 @@
 ;; paste (aka yank) at point, not where mouse is clicked
 (setq mouse-yank-at-point t)
 
+;; I can't understand why editing a version-controlled file (through a
+;; symlink) might be dangerous. Maybe I need to use RCS.
+(setq vc-follow-symlinks t)
+
 ;;;
 ;;; Navigation
 ;;;
