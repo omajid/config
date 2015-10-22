@@ -320,7 +320,7 @@
   (add-hook 'css-mode-hook #'aggressive-indent-mode))
 
 ;;;
-;;; Text Editing Modes
+;;; Text/Markup Editing Modes
 ;;;
 
 (add-hook 'text-mode-hook #'turn-on-auto-fill)
@@ -349,6 +349,9 @@
 (use-package adoc-mode
   :ensure
   :defer t)
+
+(use-package dockerfile-mode
+  :ensure)
 
 (use-package markdown-mode
   :ensure
