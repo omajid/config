@@ -508,6 +508,8 @@
 ;; the following two functions are adapted from the similarly named
 ;; functions in prelude
 
+(defalias 'my-kill-file-and-buffer 'my-delete-file-and-buffer)
+
 (defun my-delete-file-and-buffer ()
   "Delete the current buffer and it's associated file."
   (interactive)
