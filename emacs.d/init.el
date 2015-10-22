@@ -360,7 +360,6 @@
 (use-package writeroom-mode
   :ensure)
 
-; org-mode
 (use-package org
   :ensure
   :defer t
@@ -454,7 +453,6 @@
 
 (use-package hgignore-mode :ensure)
 
-; blasphemy
 (use-package vimrc-mode
   :ensure)
 
@@ -533,7 +531,7 @@
     ;; need to pip install epc and jedi
     (add-hook 'python-mode-hook 'jedi:setup)
     (setq jedi:complete-on-dot t)))
-; TODO: in evil's insert state, map the normal autocomplete to jedi
+;; TODO: in evil's insert state, map the normal autocomplete to jedi
 
 (use-package anaconda-mode
   :ensure
