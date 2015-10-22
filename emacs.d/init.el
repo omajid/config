@@ -374,6 +374,15 @@
   :ensure
   :defer t)
 
+(use-package sgml-mode
+  :ensure
+  :defer t
+  :config
+  (advice-add 'sgml-delete-tag
+              :after
+              (lambda (arg)
+                (indent-region (point-min) (point-max)))))
+
 (use-package emmet-mode
   :ensure
   :commands emmet-mode
