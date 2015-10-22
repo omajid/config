@@ -149,7 +149,9 @@
   (flx-ido-mode 1))
 
 (use-package imenu
-  :ensure)
+  :ensure
+  :config
+  (setq imenu-max-item-length "Unlimited"))
 
 (use-package idomenu
   :ensure
