@@ -350,6 +350,14 @@
   :ensure
   :defer t)
 
+(use-package diff-mode
+  :ensure
+  :config
+  ;; files with '.patch.' in the middle of their name are patch files too
+  (add-to-list 'auto-mode-alist
+               '("\\.patch\\..*\\'" . diff-mode)))
+
+
 (use-package dockerfile-mode
   :ensure)
 
