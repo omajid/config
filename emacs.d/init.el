@@ -191,12 +191,11 @@
   :ensure)
 
 (use-package project-explorer
-  :ensure
-  :bind ("<f11>" . project-explorer-open))
+  :ensure)
 
 (use-package magit
   :ensure
-  :bind ("<f12>" . magit-status)
+  ;; :bind ("<f12>" . magit-status)
   :commands magit-status)
 
 (use-package git-gutter
@@ -208,6 +207,33 @@
 
 (use-package monky
   :ensure)
+
+(use-package hydra
+  :ensure
+  :config
+  (defhydra hydra-main (:color blue)
+    "Main"
+    ("b" hydra-file-bugs/body "bugs")
+    ("d" dashboard "dashboard")
+    ("i" (find-file user-init-file) "init file")
+    ("o" hydra-org/body "org")
+    ("p" hydra-projects/body "projects"))
+  (defhydra hydra-file-bugs (:color blue)
+    "Bugs"
+    ("e" report-emacs-bug "emacs")
+    ("i" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=IcedTea") "icedtea")
+    ("r" (browse-url "https://bugzilla.redhat.com/enter_bug.cgi") "redhat")
+    ("t" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=Thermostat") "thermostat"))
+  (defhydra hydra-org (:color blue)
+    "Org"
+    ("c" org-capture "capture")
+    ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
+    ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
+  (defhydra hydra-projects (:color blue)
+    ("e" project-explorer-open "project explorer")
+    ("g" magit-status "magit")
+    ("p" projectile-switch-project "switch projects"))
+  :bind ("<f12>" . hydra-main/body))
 
 ;;;
 ;;; Buffers
