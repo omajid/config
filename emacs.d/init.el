@@ -113,6 +113,12 @@
 ;; symlink) might be dangerous. Maybe I need to use RCS.
 (setq vc-follow-symlinks t)
 
+;; start the emacs server
+(use-package server
+  :ensure
+  :init
+  (add-hook 'after-init-hook 'server-start))
+
 ;;;
 ;;; Navigation
 ;;;
