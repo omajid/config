@@ -608,6 +608,22 @@
             (set-visited-file-name new-name t t)))
       (rename-buffer new-name))))
 
+(defun twiddle-case (beg end)
+  (interactive "r")
+  (defun twiddle-case-call-on-region (beg end)
+    (let ((string (buffer-substring-no-properties beg end))
+          (deactivate-mark))
+      (funcall (cond
+                ((string-equal string (upcase string)) #'downcase-region)
+                ((string-equal string (downcase string)) #'capitalize-region)
+                (t #'upcase-region))
+               beg end)))
+  (if (use-region-p)
+      (twiddle-case-call-on-region beg end)
+    (twiddle-case-call-on-region (point) (1+ (point)))))
+
+;; (define-key evil-normal-state-map "~" #'twiddle-case)
+
 ;; Test: RFC 1231
 
 (defun my-rfc-lookup-text (rfc-num)
