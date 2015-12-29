@@ -325,6 +325,11 @@
                      (format "http://tools.ietf.org/html/rfc%s" id))
                     (t (error (concat "Unknown item type: " kind)))))))))
 
+(use-package define-word
+  :ensure
+  :defer t
+  :bind ("C-c d" . define-word))
+
 (use-package gist
   :ensure
   :defer t
