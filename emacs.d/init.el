@@ -224,6 +224,7 @@
     ("t" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=Thermostat") "thermostat"))
   (defhydra hydra-org (:color blue)
     "Org"
+    ("a" org-agenda "agenda")
     ("c" org-capture "capture")
     ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
     ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
@@ -366,8 +367,26 @@
     (setq org-directory "~/notebook")
     (add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
     (setq org-default-notes-file (concat org-directory "/notes.org"))
-    (setq org-log-states-order-reversed nil)
     (setq org-agenda-files (list org-directory))
+    (setq org-agenda-span 'fortnight)
+    ;; don't show tasks as scheduled if they are already shown as deadline
+    (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+    ;; show log mode by default
+    (setq org-agenda-show-log t)
+    ;; show agenda in the current window and don't modify my existing window setup
+    (setq org-agenda-window-setup 'current-window)
+    ;; don't show tasks that are scheduled or have deadlines in the
+    ;; normal todo list
+    (setq org-agenda-todo-ignore-deadlines (quote all))
+    (setq org-agenda-todo-ignore-scheduled (quote all))
+    ;;sort tasks in order of when they are due and then by priority
+    (setq org-agenda-sorting-strategy
+          '((agenda deadline-up priority-down)
+            (todo priority-down category-keep)
+            (tags priority-down category-keep)
+            (search category-keep)))
+    (setq org-deadline-warning-days 14)
+    (setq org-log-states-order-reversed nil)
     (use-package org-bullets
       :ensure
       :defer t
