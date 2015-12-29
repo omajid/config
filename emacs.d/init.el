@@ -230,6 +230,7 @@
     ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
   (defhydra hydra-projects (:color blue)
     ("e" project-explorer-open "project explorer")
+    ("c" magit-clone "clone git project")
     ("g" magit-status "magit")
     ("p" projectile-switch-project "switch projects"))
   :bind ("<f12>" . hydra-main/body))
