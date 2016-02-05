@@ -325,7 +325,11 @@
 (use-package define-word
   :ensure
   :defer t
-  :bind ("C-c d" . define-word))
+  :bind ("C-c d" . my-define-word)
+  :config
+  (defun my-define-word (word)
+    (interactive (list (read-string "Word: " (thing-at-point 'word t))))
+    (define-word word)))
 
 (use-package gist
   :ensure
