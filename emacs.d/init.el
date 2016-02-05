@@ -68,13 +68,11 @@
     (ad-activate 'ansi-term)
     (evil-mode 1)))
 
-(use-package guide-key
+(use-package which-key
   :ensure
-  :diminish guide-key-mode
+  :diminish which-key-mode
   :config
-  (setq guide-key/guide-key-sequence '("C-c" "C-x" "M-s"))
-  (setq guide-key/recursive-key-sequence-flag t)
-  (guide-key-mode 1))
+  (which-key-mode 1))
 
 ;;;
 ;;; Basic Configuration
