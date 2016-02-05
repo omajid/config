@@ -88,7 +88,6 @@
  truncate-lines t ; line wrapping? wtf?
  comment-empty-lines t ; comment empty lines too
  abbrev-file-name "~/.emacs.d/abbref_defs" ; save abbreviations here
- c-default-style "k&r"
  tab-width 4)
 
 ;; single space after period ends sentence
@@ -525,6 +524,12 @@
 
 (use-package cmake-mode
   :ensure)
+
+(use-package cc-mode
+  :ensure
+  :defer
+  :config
+  (add-to-list 'c-default-style '(other . "k&r")))
 
 (use-package geiser
   :ensure
