@@ -367,6 +367,8 @@
   :defer t
   :init
   (progn
+    ;; fontify code in code blocks
+    (setq org-src-fontify-natively t)
     (setq org-directory "~/notebook")
     (add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
     (setq org-default-notes-file (concat org-directory "/notes.org"))
