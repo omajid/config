@@ -23,6 +23,7 @@
   (package-install 'use-package))
 
 (require 'use-package)
+(setq use-package-always-ensure t)
 
 (defun my-add-use-package-to-imenu ()
   (interactive)
@@ -44,14 +45,12 @@
  tooltip-use-echo-area t)
 
 (use-package solarized-theme
-  :ensure
   :init
   (load-theme 'solarized-dark t))
 
 (set-frame-font "Source Code Pro-10.5" t)
 
-(use-package diminish
-  :ensure)
+(use-package diminish)
 
 ;;;
 ;;; Keybindings
@@ -59,7 +58,6 @@
 
 ;; evil - vi compatible keybindings
 (use-package evil
-  :ensure
   :config
   (progn
     (evil-set-initial-state 'project-explorer-mode 'emacs)
@@ -70,7 +68,6 @@
     (evil-mode 1)))
 
 (use-package which-key
-  :ensure
   :diminish which-key-mode
   :config
   (which-key-mode 1))
@@ -114,7 +111,6 @@
 
 ;; start the emacs server
 (use-package server
-  :ensure
   :init
   (add-hook 'after-init-hook 'server-start))
 
@@ -122,11 +118,9 @@
 ;;; Navigation
 ;;;
 
-(use-package recentf
-  :ensure)
+(use-package recentf)
 
 (use-package ido
-  :ensure
   :init
   (progn
     (setq ido-everywhere t)
@@ -134,32 +128,26 @@
     (ido-mode 1)))
 
 (use-package ido-vertical-mode
-  :ensure
   :init
   (ido-vertical-mode))
 
 (use-package ido-ubiquitous
-  :ensure
   :init
   (ido-ubiquitous-mode))
 
 (use-package flx-ido
-  :ensure
   :init
   (flx-ido-mode 1))
 
 (use-package imenu
-  :ensure
   :config
   (setq imenu-max-item-length "Unlimited"))
 
 (use-package idomenu
-  :ensure
   :bind
   ("C-c i" . idomenu))
 
 (use-package smex
-  :ensure
   :config
   (setq smex-key-advice-ignore-menu-bar t)
   :bind
@@ -172,7 +160,6 @@
 ;;;
 
 (use-package projectile
-  :ensure
   :init
   ;; "P[project name]" to indicate a project or empty string
   (setq projectile-mode-line
@@ -187,25 +174,20 @@
   :config
   (projectile-global-mode))
 
-(use-package ack-and-a-half
-  :ensure)
+(use-package ack-and-a-half)
 
-(use-package project-explorer
-  :ensure)
+(use-package project-explorer)
 
 (use-package magit
-  :ensure
   ;; :bind ("<f12>" . magit-status)
   :commands magit-status)
 
 (use-package git-gutter
-  :ensure
   :diminish ""
   :init
   (global-git-gutter-mode))
 
 (use-package hydra
-  :ensure
   :config
   (defhydra hydra-main (:color blue)
     "Main"
@@ -255,24 +237,20 @@
 ;;;
 
 (use-package flycheck
-  :ensure
   :commands global-flycheck-mode
   :init
   (use-package flycheck-package
-    :ensure
     :config
     (flycheck-package-setup))
   :config (global-flycheck-mode))
 
 (use-package company
-  :ensure
   :diminish company-mode
   :init
   (setq company-idle-delay 0)
   (add-hook 'after-init-hook #'global-company-mode))
 
 (use-package yasnippet
-  :ensure
   :diminish yas-minor-mode
   :config
   (progn
@@ -284,21 +262,17 @@
     (add-hook 'term-mode-hook #'my-disable-yas-in-term)))
 
 (use-package undo-tree
-  :ensure
   :diminish undo-tree-mode)
 
 (use-package expand-region
-  :ensure
   :commands er/expand-region
   :bind ("C-=" . er/expand-region))
 
 (use-package multiple-cursors
-  :ensure
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)))
 
 (use-package bug-reference
-  :ensure
   :config
   (progn
     (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
@@ -324,7 +298,6 @@
                     (t (error (concat "Unknown item type: " kind)))))))))
 
 (use-package define-word
-  :ensure
   :defer t
   :bind ("C-c d" . my-define-word)
   :config
@@ -333,24 +306,20 @@
     (define-word word)))
 
 (use-package gist
-  :ensure
   :defer t
   :config
   (setq gist-view-gist 1))
 
 (use-package fpaste
-  :ensure
   :commands fpaste
   :config
   (setq fpaste-user user-login-name))
 
 (use-package rainbow-mode
-  :ensure
   :init
   (rainbow-mode))
 
 (use-package aggressive-indent
-  :ensure
   :diminish aggressive-indent-mode
   :init
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
@@ -364,11 +333,9 @@
 (add-hook 'text-mode-hook #'turn-on-auto-fill)
 (add-hook 'text-mode-hook #'turn-on-flyspell)
 
-(use-package writeroom-mode
-  :ensure)
+(use-package writeroom-mode)
 
 (use-package org
-  :ensure
   :defer t
   :init
   (progn
@@ -398,51 +365,40 @@
     (setq org-deadline-warning-days 14)
     (setq org-log-states-order-reversed nil)
     (use-package org-bullets
-      :ensure
       :defer t
       :init
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
 
 (use-package adoc-mode
-  :ensure
   :defer t)
 
 (use-package diff-mode
-  :ensure
   :config
   ;; files with '.patch.' in the middle of their name are patch files too
   (add-to-list 'auto-mode-alist
                '("\\.patch\\..*\\'" . diff-mode)))
 
-(use-package dockerfile-mode
-  :ensure)
+(use-package dockerfile-mode)
 
 (use-package markdown-mode
-  :ensure
   :defer t)
 
 (use-package markdown-toc
-  :ensure
   :defer t)
 
 (use-package pandoc-mode
-  :ensure
   :defer t)
 
 (use-package yaml-mode
-  :ensure
   :defer t)
 
 (use-package json-mode
-  :ensure
   :defer t)
 
 (use-package web-mode
-  :ensure
   :defer t)
 
 (use-package sgml-mode
-  :ensure
   :defer t
   :config
   (advice-add 'sgml-delete-tag
@@ -451,7 +407,6 @@
                 (indent-region (point-min) (point-max)))))
 
 (use-package emmet-mode
-  :ensure
   :commands emmet-mode
   :init
   (progn
@@ -460,27 +415,23 @@
     (add-hook 'nxml-mode-hook #'emmet-mode)))
 
 (use-package jinja2-mode
-  :ensure
   :defer t)
 
 (use-package rpm-spec-mode
-  :ensure
   :defer t)
 
 (use-package graphviz-dot-mode
-  :ensure
   :mode "'\\.dot\\'"
   :config
   (setq graphviz-dot-view-command "dotty"))
 
-(use-package gitignore-mode :ensure)
+(use-package gitignore-mode)
 
-(use-package gitconfig-mode :ensure)
+(use-package gitconfig-mode)
 
-(use-package hgignore-mode :ensure)
+(use-package hgignore-mode)
 
-(use-package vimrc-mode
-  :ensure)
+(use-package vimrc-mode)
 
 ;;;
 ;;; Programming Modes
@@ -489,7 +440,6 @@
 (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
 (use-package semantic
-  :ensure
   :config
   (add-hook 'prog-mode-hook #'semantic-mode))
 
@@ -505,18 +455,15 @@
 (add-hook 'after-save-hook #'my-maybe-make-executable)
 
 (use-package fixme-mode
-  :ensure
   :init
   (add-hook 'prog-mode-hook #'fixme-mode))
 
 (use-package autopair
-  :ensure
   :diminish autopair-mode
   :init
   (autopair-global-mode))
 
-(use-package pretty-symbols
-  :ensure)
+(use-package pretty-symbols)
 
 (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
 
@@ -527,37 +474,30 @@
 	       (list "Sections" "^;;; +\\(.+\\)" 1)))
 (add-hook 'emacs-lisp-mode-hook #'my-add-sections-to-imenu)
 
-(use-package cmake-mode
-  :ensure)
+(use-package cmake-mode)
 
 (use-package cc-mode
-  :ensure
   :defer
   :config
   (add-to-list 'c-default-style '(other . "k&r")))
 
 (use-package geiser
-  :ensure
   :config
   (setq geiser-repl-history-filename
         (convert-standard-filename
          (locate-user-emacs-file "geiser-history" ".geiser-history"))))
 
 (use-package js2-mode
-  :ensure
   :mode "\\.js\\'")
 
 (use-package python
-  :ensure
   :mode ("\\.py\\'" . python-mode))
 
 (use-package sphinx-doc
-  :ensure
   :config
   (add-hook 'python-mode-hook #'sphinx-doc-mode))
 
 (use-package jedi
-  :ensure
   :init
   (progn
     ;; need to pip install epc and jedi
@@ -566,21 +506,18 @@
 ;; TODO: in evil's insert state, map the normal autocomplete to jedi
 
 (use-package anaconda-mode
-  :ensure
   :config
   (add-hook 'python-mode-hook #'anaconda-mode))
 
-(use-package java-snippets :ensure)
+(use-package java-snippets)
 
-(use-package jar-manifest-mode :ensure)
+(use-package jar-manifest-mode)
 
-(use-package lua-mode :ensure)
+(use-package lua-mode )
 
 (use-package restclient
-  :ensure
   :config
-  (use-package company-restclient
-    :ensure))
+  (use-package company-restclient))
 
 ;;;
 ;;; Custom macros
