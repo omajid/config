@@ -9,18 +9,19 @@
 ;;; Packages
 ;;;
 
-(require 'package)
-(setq package-archives '())
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("marmalde" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(setq package-enable-at-startup nil)
 (package-initialize)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")
+        ("melpa-stable" . "http://stable.melpa.org/packages/")
+        ("marmalde" . "http://marmalade-repo.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
 
-(if (not (package-installed-p 'use-package))
-    (progn (package-refresh-contents)
-	   (package-install 'use-package)))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
 (require 'use-package)
 
 (defun my-add-use-package-to-imenu ()
