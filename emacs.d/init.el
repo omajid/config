@@ -207,6 +207,7 @@
     ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
     ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
   (defhydra hydra-projects (:color blue)
+    "Projects"
     ("e" project-explorer-open "project explorer")
     ("c" magit-clone "clone git project")
     ("g" magit-status "magit")
