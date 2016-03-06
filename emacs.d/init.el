@@ -227,9 +227,10 @@
   (desktop-save-mode 1))
 
 (use-package uniquify
+  :ensure nil
   :config
   (progn
-    (setq uniquify-strip-comon-prefix t)
+    (setq uniquify-strip-common-prefix t)
     (setq uniquify-buffer-name-style 'forward)))
 
 ;;;
