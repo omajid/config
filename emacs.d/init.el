@@ -111,8 +111,8 @@
 
 ;; start the emacs server
 (use-package server
-  :init
-  (add-hook 'after-init-hook 'server-start))
+  :config
+  (add-hook 'after-init-hook #'server-start))
 
 ;;;
 ;;; Navigation
@@ -121,22 +121,22 @@
 (use-package recentf)
 
 (use-package ido
-  :init
+  :config
   (progn
     (setq ido-everywhere t)
     (setq ido-enable-flex-matching t)
     (ido-mode 1)))
 
 (use-package ido-vertical-mode
-  :init
+  :config
   (ido-vertical-mode))
 
 (use-package ido-ubiquitous
-  :init
+  :config
   (ido-ubiquitous-mode))
 
 (use-package flx-ido
-  :init
+  :config
   (flx-ido-mode 1))
 
 (use-package imenu
@@ -148,11 +148,10 @@
   ("C-c i" . idomenu))
 
 (use-package smex
-  :config
-  (setq smex-key-advice-ignore-menu-bar t)
   :bind
   ("M-x" . smex)
-  :init
+  :config
+  (setq smex-key-advice-ignore-menu-bar t)
   (smex-initialize))
 
 ;;;
@@ -160,7 +159,7 @@
 ;;;
 
 (use-package projectile
-  :init
+  :config
   ;; "P[project name]" to indicate a project or empty string
   (setq projectile-mode-line
         '(:eval
@@ -171,7 +170,6 @@
                               (directory-file-name (projectile-project-root))))
                    (error ""))))
             mode-line)))
-  :config
   (projectile-global-mode))
 
 (use-package ack-and-a-half)
@@ -184,7 +182,7 @@
 
 (use-package git-gutter
   :diminish ""
-  :init
+  :config
   (global-git-gutter-mode))
 
 (use-package hydra
@@ -223,7 +221,6 @@
 (use-package desktop
   :config
   (add-to-list 'desktop-modes-not-to-save 'magit-mode)
-  :init
   (desktop-save-mode 1))
 
 (use-package uniquify
@@ -239,17 +236,17 @@
 
 (use-package flycheck
   :commands global-flycheck-mode
-  :init
+  :config
+  (global-flycheck-mode)
   (use-package flycheck-package
     :config
-    (flycheck-package-setup))
-  :config (global-flycheck-mode))
+    (flycheck-package-setup)))
 
 (use-package company
   :diminish company-mode
-  :init
-  (setq company-idle-delay 0)
-  (add-hook 'after-init-hook #'global-company-mode))
+  :config
+  (add-hook 'after-init-hook #'global-company-mode)
+  (setq company-idle-delay 0))
 
 (use-package yasnippet
   :diminish yas-minor-mode
@@ -317,12 +314,12 @@
   (setq fpaste-user user-login-name))
 
 (use-package rainbow-mode
-  :init
+  :config
   (rainbow-mode))
 
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
-  :init
+  :config
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
   (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
   (add-hook 'css-mode-hook #'aggressive-indent-mode))
@@ -338,7 +335,7 @@
 
 (use-package org
   :defer t
-  :init
+  :config
   (progn
     ;; fontify code in code blocks
     (setq org-src-fontify-natively t)
@@ -367,7 +364,7 @@
     (setq org-log-states-order-reversed nil)
     (use-package org-bullets
       :defer t
-      :init
+      :config
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
 
 (use-package adoc-mode
@@ -409,7 +406,7 @@
 
 (use-package emmet-mode
   :commands emmet-mode
-  :init
+  :config
   (progn
     (add-hook 'sgml-mode-hook #'emmet-mode)
     (add-hook 'css-mode-hook #'emmet-mode)
@@ -456,12 +453,12 @@
 (add-hook 'after-save-hook #'my-maybe-make-executable)
 
 (use-package fixme-mode
-  :init
+  :config
   (add-hook 'prog-mode-hook #'fixme-mode))
 
 (use-package autopair
   :diminish autopair-mode
-  :init
+  :config
   (autopair-global-mode))
 
 (use-package pretty-symbols)
@@ -499,7 +496,7 @@
   (add-hook 'python-mode-hook #'sphinx-doc-mode))
 
 (use-package jedi
-  :init
+  :config
   (progn
     ;; need to pip install epc and jedi
     (add-hook 'python-mode-hook 'jedi:setup)
