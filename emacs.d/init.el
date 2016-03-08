@@ -244,7 +244,7 @@
   :diminish company-mode
   :config
   (add-hook 'after-init-hook #'global-company-mode)
-  (setq company-idle-delay 0))
+  (setq company-idle-delay 0.5))
 
 (use-package yasnippet
   :diminish yas-minor-mode
