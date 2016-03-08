@@ -61,10 +61,7 @@
   :config
   (progn
     (evil-set-initial-state 'project-explorer-mode 'emacs)
-    (defadvice ansi-term (after turn-off-evil-in-ansi-term ())
-      "Disable whatever the fuck evil mode does in ansi-term"
-      (turn-off-evil-mode))
-    (ad-activate 'ansi-term)
+    (evil-set-initial-state 'term-mode 'emacs)
     (evil-mode 1)))
 
 (use-package which-key
