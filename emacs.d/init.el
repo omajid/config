@@ -199,7 +199,7 @@
     ("t" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=Thermostat") "thermostat"))
   (defhydra hydra-org (:color blue)
     "Org"
-    ("a" org-agenda "agenda")
+    ("a" (org-agenda nil "n") "agenda")
     ("c" org-capture "capture")
     ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
     ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
