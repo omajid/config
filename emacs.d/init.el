@@ -222,6 +222,7 @@
   (desktop-save-mode 1))
 
 (use-package uniquify
+  ;; ensure t breaks uniquify, for some reason
   :ensure nil
   :config
   (progn
