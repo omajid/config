@@ -180,7 +180,8 @@
 
 (use-package ack-and-a-half)
 
-(use-package project-explorer)
+(use-package project-explorer
+  :commands project-explorer-open)
 
 (use-package magit
   ;; :bind ("<f12>" . magit-status)
@@ -373,8 +374,7 @@
       :config
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
 
-(use-package adoc-mode
-  :defer t)
+(use-package adoc-mode :defer t)
 
 (use-package diff-mode
   :config
@@ -382,25 +382,19 @@
   (add-to-list 'auto-mode-alist
                '("\\.patch\\..*\\'" . diff-mode)))
 
-(use-package dockerfile-mode)
+(use-package dockerfile-mode :defer t)
 
-(use-package markdown-mode
-  :defer t)
+(use-package markdown-mode :defer t)
 
-(use-package markdown-toc
-  :defer t)
+(use-package markdown-toc :defer t)
 
-(use-package pandoc-mode
-  :defer t)
+(use-package pandoc-mode :defer t)
 
-(use-package yaml-mode
-  :defer t)
+(use-package yaml-mode :defer t)
 
-(use-package json-mode
-  :defer t)
+(use-package json-mode :defer t)
 
-(use-package web-mode
-  :defer t)
+(use-package web-mode :defer t)
 
 (use-package sgml-mode
   :defer t
@@ -418,24 +412,22 @@
     (add-hook 'css-mode-hook #'emmet-mode)
     (add-hook 'nxml-mode-hook #'emmet-mode)))
 
-(use-package jinja2-mode
-  :defer t)
+(use-package jinja2-mode :defer t)
 
-(use-package rpm-spec-mode
-  :defer t)
+(use-package rpm-spec-mode :defer t)
 
 (use-package graphviz-dot-mode
   :mode "'\\.dot\\'"
   :config
   (setq graphviz-dot-view-command "dotty"))
 
-(use-package gitignore-mode)
+(use-package gitignore-mode :defer t)
 
-(use-package gitconfig-mode)
+(use-package gitconfig-mode :defer t)
 
-(use-package hgignore-mode)
+(use-package hgignore-mode :defer t)
 
-(use-package vimrc-mode)
+(use-package vimrc-mode :defer t)
 
 ;;;
 ;;; Programming Modes
@@ -483,10 +475,10 @@
 	       (list "Sections" "^;;; +\\(.+\\)" 1)))
 (add-hook 'emacs-lisp-mode-hook #'my-add-sections-to-imenu)
 
-(use-package cmake-mode)
+(use-package cmake-mode :defer t)
 
 (use-package cc-mode
-  :defer
+  :defer t
   :config
   (add-to-list 'c-default-style '(other . "k&r")))
 
@@ -525,6 +517,7 @@
 (use-package lua-mode )
 
 (use-package restclient
+  :commands restclient-mode
   :config
   (use-package company-restclient))
 
