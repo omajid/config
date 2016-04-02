@@ -44,9 +44,14 @@
  inhibit-splash-screen t
  tooltip-use-echo-area t)
 
-(use-package solarized-theme
-  :init
-  (load-theme 'solarized-dark t))
+;; Some nice themes that I like
+(use-package leuven-theme :defer t)
+(use-package material-theme :defer t)
+(use-package monokai-theme :defer t)
+(use-package solarized-theme :defer t)
+(use-package zenburn-theme :defer t)
+
+(load-theme 'monokai t)
 
 (set-frame-font "Source Code Pro-10.5" t)
 
