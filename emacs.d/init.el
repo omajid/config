@@ -455,6 +455,11 @@
   :config
   (add-hook 'prog-mode-hook #'fixme-mode))
 
+(use-package ws-butler
+  :commands ws-butler-mode
+  :config
+  (add-hook 'prog-mode-hook #'ws-butler-mode))
+
 (use-package autopair
   :diminish autopair-mode
   :config
