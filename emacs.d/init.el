@@ -333,7 +333,6 @@
 (use-package writeroom-mode)
 
 (use-package org
-  :defer t
   :config
   (progn
     ;; fontify code in code blocks
@@ -362,7 +361,6 @@
     (setq org-deadline-warning-days 14)
     (setq org-log-states-order-reversed nil)
     (use-package org-bullets
-      :defer t
       :config
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
 
