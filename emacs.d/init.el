@@ -225,12 +225,6 @@
 ;;; Buffers
 ;;;
 
-;; save and restore previous sessions
-(use-package desktop
-  :config
-  (add-to-list 'desktop-modes-not-to-save 'magit-mode)
-  (desktop-save-mode 1))
-
 (use-package uniquify
   ;; ensure t breaks uniquify, for some reason
   :ensure nil
