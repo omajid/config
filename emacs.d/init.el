@@ -433,16 +433,7 @@
   :config
   (add-hook 'prog-mode-hook #'semantic-mode))
 
-(defun my-maybe-make-executable ()
-  (let ((file-name (buffer-file-name)))
-    (when (and (save-excursion
-                 (save-restriction
-                   (widen)
-                   (goto-char (point-min))
-                   (looking-at-p "^#!")))
-               (not (file-executable-p file-name)))
-      (start-process "chmod" nil "chmod" "u+x" file-name))))
-(add-hook 'after-save-hook #'my-maybe-make-executable)
+(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
 (use-package fixme-mode
   :config
