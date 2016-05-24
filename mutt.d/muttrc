@@ -99,6 +99,7 @@ bind index x sync-mailbox
 
 # MIME ####################################################################
 unset implicit_autoview
+alternative_order text/plain text/html
 auto_view text/html
 #auto_view text/html  application/x-pgp-message
 set mailcap_path="~/.mailcap"
