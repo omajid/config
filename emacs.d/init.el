@@ -210,7 +210,8 @@
     ("d" dashboard "dashboard")
     ("i" (find-file user-init-file) "init file")
     ("o" hydra-org/body "org")
-    ("p" hydra-projects/body "projects"))
+    ("p" hydra-projects/body "projects")
+    ("t" (ansi-term "/bin/bash") "terminal"))
   (defhydra hydra-file-bugs (:color blue)
     "Bugs"
     ("e" report-emacs-bug "emacs")
