@@ -7,7 +7,7 @@ Xft.hintstyle:  hintfull
 
 
 XTerm*faceName: Source Code Pro
-XTerm*faceSize: 11
+XTerm*faceSize: 10
 XTerm*locale: true
 XTerm*renderFont: true
 XTerm*scrollBar: false
