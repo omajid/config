@@ -348,13 +348,32 @@
 (use-package writeroom-mode)
 
 (use-package org
+  :demand
   :config
   (progn
     ;; fontify code in code blocks
     (setq org-src-fontify-natively t)
     (setq org-directory "~/notebook")
     (add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
-    (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+    ;; bullets
+
+    (use-package org-bullets
+      :config
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+    ;; capture
+    (setq org-default-notes-file (concat org-directory "/daily-log.org"))
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
+             "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n  %i\n  %a"
+             :created t)))
+
+    ;; refile
+    (setq org-refile-use-outline-path t)
+
+    ;; agenda
+
     (setq org-agenda-files (list org-directory))
     (setq org-agenda-span 'fortnight)
     ;; don't show tasks as scheduled if they are already shown as deadline
@@ -374,10 +393,7 @@
             (tags priority-down category-keep)
             (search category-keep)))
     (setq org-deadline-warning-days 14)
-    (setq org-log-states-order-reversed nil)
-    (use-package org-bullets
-      :config
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
+    (setq org-log-states-order-reversed nil)))
 
 (use-package adoc-mode :defer t)
 
