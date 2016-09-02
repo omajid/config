@@ -188,6 +188,8 @@
 
 (use-package ack-and-a-half)
 
+(use-package ag)
+
 (use-package project-explorer
   :commands project-explorer-open)
 
