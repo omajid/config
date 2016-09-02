@@ -45,6 +45,8 @@
  tooltip-use-echo-area t)
 
 ;; Some nice themes that I like
+(use-package dracula-theme :defer t)
+(use-package flatui-theme :defer t)
 (use-package leuven-theme :defer t)
 (use-package material-theme :defer t)
 (use-package monokai-theme :defer t)
@@ -53,7 +55,7 @@
 
 (load-theme 'monokai t)
 
-(set-frame-font "Source Code Pro-10.5" t)
+(set-frame-font "Source Code Pro-10.0" t)
 
 (use-package diminish)
 
