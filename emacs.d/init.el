@@ -86,6 +86,10 @@
 ;;; Basic Configuration
 ;;;
 
+;; Put custom definitions in another file and don't load it
+(setq custom-file (locate-user-emacs-file "custom.el"))
+;; (load custom-file)
+
 (setq-default
  indent-tabs-mode nil ; tabs are evil
  c-basic-offset 4)
