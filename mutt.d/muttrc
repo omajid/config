@@ -123,6 +123,7 @@ bind index <right> display-message
 bind index <left> change-folder
 bind index H display-toggle-weed
 bind index R group-reply
+macro index A '<save-message>=INBOX/archive<enter>'
 
 # Pager
 bind pager / search
