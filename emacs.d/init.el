@@ -60,10 +60,9 @@
 (use-package diminish)
 
 ;; use icons instead of text in modeline
-;; disabled because causes performance issues when typing
-;; (use-package mode-icons
-;;   :config
-;;   (mode-icons-mode))
+(use-package mode-icons
+  :config
+  (mode-icons-mode))
 
 ;;;
 ;;; Keybindings
