@@ -203,33 +203,33 @@
 
 (use-package hydra
   :config
-  (defhydra hydra-main (:color blue)
+  (defhydra my-hydra-main (:color blue)
     "Main"
-    ("b" hydra-file-bugs/body "bugs")
+    ("b" my-hydra-file-bugs/body "bugs")
     ("d" dashboard "dashboard")
     ("i" (find-file user-init-file) "init file")
-    ("o" hydra-org/body "org")
-    ("p" hydra-projects/body "projects")
+    ("o" my-hydra-org/body "org")
+    ("p" my-hydra-projects/body "projects")
     ("t" (ansi-term "/bin/bash") "terminal"))
-  (defhydra hydra-file-bugs (:color blue)
+  (defhydra my-hydra-file-bugs (:color blue)
     "Bugs"
     ("e" report-emacs-bug "emacs")
     ("i" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=IcedTea") "icedtea")
     ("r" (browse-url "https://bugzilla.redhat.com/enter_bug.cgi") "redhat")
     ("t" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=Thermostat") "thermostat"))
-  (defhydra hydra-org (:color blue)
+  (defhydra my-hydra-org (:color blue)
     "Org"
     ("a" (org-agenda nil "n") "agenda")
     ("c" org-capture "capture")
     ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
     ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
-  (defhydra hydra-projects (:color blue)
+  (defhydra my-hydra-projects (:color blue)
     "Projects"
     ("e" project-explorer-open "project explorer")
     ("c" magit-clone "clone git project")
     ("g" magit-status "magit")
     ("p" projectile-switch-project "switch projects"))
-  :bind ("<f12>" . hydra-main/body))
+  :bind ("<f12>" . my-hydra-main/body))
 
 ;;;
 ;;; Buffers
