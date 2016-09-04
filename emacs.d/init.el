@@ -22,14 +22,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(require 'use-package)
 (setq use-package-always-ensure t)
-
-(defun my-add-use-package-to-imenu ()
-  (interactive)
-  (add-to-list 'imenu-generic-expression
-	       (list "Packages Used" "\\s-*(use-package\\s-+\\(\\(\\sw\\|\\s_\\)+\\)" 1)))
-(add-hook 'emacs-lisp-mode-hook #'my-add-use-package-to-imenu)
+(setq use-package-enable-imenu-support t)
+(require 'use-package)
 
 ;;;
 ;;; Looks
