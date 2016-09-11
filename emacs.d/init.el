@@ -129,38 +129,68 @@
 (use-package recentf)
 
 (use-package ido
+  :disabled
   :config
   (progn
+    (use-package ido-vertical-mode
+      :config
+      (ido-vertical-mode))
+
+    (use-package ido-ubiquitous
+      :config
+      (ido-ubiquitous-mode))
+
+    (use-package flx-ido
+      :config
+      (flx-ido-mode 1))
+
+    (use-package imenu
+      :config
+      (setq imenu-max-item-length "Unlimited"))
+
+    (use-package idomenu
+      :bind
+      ("C-c i" . idomenu))
+
+    (use-package smex
+      :bind
+      ("M-x" . smex)
+      :config
+      (setq smex-key-advice-ignore-menu-bar t)
+      (smex-initialize))
+
     (setq ido-everywhere t)
     (setq ido-enable-flex-matching t)
     (ido-mode 1)))
 
-(use-package ido-vertical-mode
+(use-package ivy
+  :demand
+  :init
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-re-builders-alist
+        '((swiper . ivy--regex)
+          (t . ivy--regex-fuzzy)))
+  (setq ivy-initial-inputs-alist nil)
+  (setq magit-completing-read-function 'ivy-completing-read)
+  (setq projectile-completion-system 'ivy)
   :config
-  (ido-vertical-mode))
+  (ivy-mode 1)
 
-(use-package ido-ubiquitous
-  :config
-  (ido-ubiquitous-mode))
+  (use-package flx)
+  (use-package ivy-hydra)
+  (use-package swiper
+    :bind
+    ("C-s" . swiper))
+  (use-package counsel
+    :demand
+    :bind
+    ("M-x" . counsel-M-x)
+    ("C-c i" . counsel-imenu)
+    :config
+    (counsel-mode 1)))
 
-(use-package flx-ido
-  :config
-  (flx-ido-mode 1))
 
-(use-package imenu
-  :config
-  (setq imenu-max-item-length "Unlimited"))
-
-(use-package idomenu
-  :bind
-  ("C-c i" . idomenu))
-
-(use-package smex
-  :bind
-  ("M-x" . smex)
-  :config
-  (setq smex-key-advice-ignore-menu-bar t)
-  (smex-initialize))
 
 ;;;
 ;;; Projects
