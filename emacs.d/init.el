@@ -165,9 +165,10 @@
 
 (use-package ivy
   :demand
+  :diminish ""
   :init
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-count-format "")
   (setq ivy-re-builders-alist
         '((swiper . ivy--regex)
           (t . ivy--regex-fuzzy)))
@@ -176,6 +177,9 @@
   (setq projectile-completion-system 'ivy)
   :config
   (ivy-mode 1)
+  ;; ido-style keybindings
+  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
 
   (use-package flx)
   (use-package ivy-hydra)
@@ -184,13 +188,12 @@
     ("C-s" . swiper))
   (use-package counsel
     :demand
+    :diminish ""
     :bind
     ("M-x" . counsel-M-x)
     ("C-c i" . counsel-imenu)
     :config
     (counsel-mode 1)))
-
-
 
 ;;;
 ;;; Projects
