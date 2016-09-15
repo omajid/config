@@ -106,7 +106,8 @@
 
 ;; backups
 (setq backup-directory-alist '((".*" . "~/.saves"))
-      backup-by-copying t)
+      backup-by-copying t
+      delete-old-versions t)
 
 ;; replace selection when typing
 (pending-delete-mode)
