@@ -437,6 +437,8 @@
 
 (use-package markdown-toc :defer t)
 
+(use-package muttrc-mode :defer t)
+
 (use-package pandoc-mode :defer t)
 
 (use-package yaml-mode :defer t)
