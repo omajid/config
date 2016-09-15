@@ -10,18 +10,19 @@
 ;;;
 
 (setq package-enable-at-startup nil)
-(package-initialize)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
         ("melpa-stable" . "http://stable.melpa.org/packages/")
         ("marmalde" . "http://marmalade-repo.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
+(package-initialize)
 
+;; Use use-package to install packages declaratively and keep
+;; configuration with the package name
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-
 (setq use-package-always-ensure t)
 (setq use-package-enable-imenu-support t)
 (require 'use-package)
