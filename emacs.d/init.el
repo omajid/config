@@ -130,6 +130,13 @@
 
 (use-package recentf)
 
+(use-package smex
+  :bind
+  ("M-x" . smex)
+  :config
+  (setq smex-key-advice-ignore-menu-bar t)
+  (smex-initialize))
+
 (use-package ido
   :disabled
   :config
@@ -153,13 +160,6 @@
     (use-package idomenu
       :bind
       ("C-c i" . idomenu))
-
-    (use-package smex
-      :bind
-      ("M-x" . smex)
-      :config
-      (setq smex-key-advice-ignore-menu-bar t)
-      (smex-initialize))
 
     (setq ido-everywhere t)
     (setq ido-enable-flex-matching t)
