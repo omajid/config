@@ -651,4 +651,28 @@
   (let ((url (format "https://tools.ietf.org/html/rfc%s.txt" rfc-num)))
     (eww-browse-url url)))
 
+
+;;;
+;;; Playground
+;;;
+
+;; set initial message from lambda.txt
+(let* ((file (locate-user-emacs-file "lambda"))
+       (default-directory (file-name-directory file)))
+  (unless (file-exists-p file)
+    (url-copy-file "http://www.gotlisp.com/lambda/lambda.txt" file)
+    (shell-command (concat "strfile " file)))
+  (setq initial-scratch-message
+        (format
+         ";; %s\n\n"
+         (replace-regexp-in-string
+          "\n" "\n;; " ; comment each line
+          (replace-regexp-in-string
+           "\n$" ""    ; remove trailing linebreak
+           (shell-command-to-string (concat "fortune lambda")))))))
+
+
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(require 'my-gnus-config)
+
 ;;; init.el ends here
