@@ -128,7 +128,9 @@
 ;;; Navigation
 ;;;
 
-(use-package recentf)
+(use-package recentf
+  :config
+  (setq recentf-max-saved-items 100))
 
 (use-package smex
   :bind
