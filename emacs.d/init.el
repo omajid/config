@@ -11,10 +11,10 @@
 
 (setq package-enable-at-startup nil)
 (setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")
-        ("melpa-stable" . "http://stable.melpa.org/packages/")
-        ("marmalde" . "http://marmalade-repo.org/packages/")
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("marmalde" . "https://marmalade-repo.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 
