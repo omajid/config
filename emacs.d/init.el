@@ -511,14 +511,26 @@
 
 (use-package pretty-symbols)
 
-(add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
-
-;; Navigation in emacs lisp files
-(defun my-add-sections-to-imenu ()
-  (interactive)
-  (add-to-list 'imenu-generic-expression
-	       (list "Sections" "^;;; +\\(.+\\)" 1)))
-(add-hook 'emacs-lisp-mode-hook #'my-add-sections-to-imenu)
+(use-package elisp-mode
+  :ensure nil
+  :demand
+  :bind (:map emacs-lisp-mode-map
+              ("C-c e b" . eval-eval-buffer)
+              ("C-c e d" . eval-defun)
+              ("C-c e f" . emacs-lisp-byte-compile-and-load)
+              ("C-c e r" . eval-region)
+              ("C-c f f" . find-function)
+              ("C-c f l" . find-library)
+              ("C-c f v" . find-variable))
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
+  ;; Navigation in emacs lisp files
+  (defun my-add-sections-to-imenu ()
+    ""
+    (interactive)
+    (add-to-list 'imenu-generic-expression
+                 (list "Sections" "^;;; +\\(.+\\)" 1)))
+  (add-hook 'emacs-lisp-mode-hook #'my-add-sections-to-imenu))
 
 (use-package cmake-mode :defer t)
 
