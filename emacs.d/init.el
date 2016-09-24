@@ -281,12 +281,11 @@
 ;;;
 
 (use-package flycheck
-  :commands global-flycheck-mode
-  :config
-  (global-flycheck-mode)
+  :init
+  (add-hook 'after-init-hook #'global-flycheck-mode)
   (use-package flycheck-package
-    :config
-    (flycheck-package-setup)))
+    :init
+    (add-hook 'after-init-hook #'flycheck-package-setup)))
 
 (use-package company
   :diminish company-mode
