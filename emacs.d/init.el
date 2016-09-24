@@ -170,6 +170,10 @@
 (use-package ivy
   :demand
   :diminish ""
+  ;; ido-style keybindings
+  :bind (:map ivy-minibuffer-map
+              ("C-j" . ivy-immediate-done)
+              ("RET" . ivy-alt-done))
   :init
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "")
@@ -181,9 +185,6 @@
   (setq projectile-completion-system 'ivy)
   :config
   (ivy-mode 1)
-  ;; ido-style keybindings
-  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
 
   (use-package flx)
   (use-package ivy-hydra)
@@ -295,9 +296,9 @@
 
 (use-package yasnippet
   :diminish yas-minor-mode
+  :bind ("M-/" . company-yasnippet)
   :config
   (progn
-    (global-set-key (kbd "M-/") 'company-yasnippet)
     (defun my-disable-yas-in-term ()
       (yas-minor-mode -1))
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
