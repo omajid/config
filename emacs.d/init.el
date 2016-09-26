@@ -571,6 +571,12 @@
 
 (use-package java-snippets)
 
+(use-package jtreg
+  :load-path "~/devel/emacs-jtreg/"
+  :ensure nil
+  :defer t
+  :config
+  (setq jtreg-dir "~/local/jtreg/lib/"))
 (use-package jar-manifest-mode)
 
 (use-package lua-mode )
