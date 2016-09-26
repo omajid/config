@@ -301,7 +301,7 @@
     (defun my-disable-yas-in-term ()
       (yas-minor-mode -1))
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
-    (yas-global-mode)
+    (add-hook 'after-init-hook #'yas-global-mode)
     (add-hook 'term-mode-hook #'my-disable-yas-in-term)))
 
 (use-package undo-tree
@@ -579,7 +579,7 @@
   (use-package company-restclient))
 
 ;;;
-;;; Custom macros
+;;; Utility functions
 ;;;
 
 ;; the following two functions are adapted from the similarly named
@@ -614,26 +614,15 @@
             (set-visited-file-name new-name t t)))
       (rename-buffer new-name))))
 
-(defun twiddle-case (beg end)
-  (interactive "r")
-  (defun twiddle-case-call-on-region (beg end)
-    (let ((string (buffer-substring-no-properties beg end))
-          (deactivate-mark))
-      (funcall (cond
-                ((string-equal string (upcase string)) #'downcase-region)
-                ((string-equal string (downcase string)) #'capitalize-region)
-                (t #'upcase-region))
-               beg end)))
-  (if (use-region-p)
-      (twiddle-case-call-on-region beg end)
-    (twiddle-case-call-on-region (point) (1+ (point)))))
 
-;; (define-key evil-normal-state-map "~" #'twiddle-case)
+;;;
+;;; Too small to be packages
+;;;
 
 ;; Test: RFC 1231
 
 (defun my-rfc-lookup-text (rfc-num)
-  "Look up an RFC using tools.ietf.org."
+  "Look up an RFC-NUM using tools.ietf.org."
   (interactive (list
                 (read-number "RFC number:" (thing-at-point 'number))))
   (let ((url (format "https://tools.ietf.org/rfc/rfc%s.txt" rfc-num))
@@ -659,7 +648,7 @@
     (url-retrieve url display-rfc)))
 
 (defun my-rfc-lookup-html (rfc-num)
-  "Look up an RFC using tools.ietf.org."
+  "Look up RFC-NUM using tools.ietf.org."
   (interactive (list
                 (read-number "RFC number:" (thing-at-point 'number))))
   (let ((url (format "https://tools.ietf.org/html/rfc%s.txt" rfc-num)))
