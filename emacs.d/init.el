@@ -265,6 +265,7 @@
     ("a" (org-agenda nil "n") "agenda")
     ("c" org-capture "capture")
     ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
+    ("k" (find-file (concat org-directory "/checklist-professional.org")) "checklist")
     ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
   (defhydra my-hydra-projects (:color blue)
     "Projects"
