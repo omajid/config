@@ -238,6 +238,14 @@
 
 (use-package hydra
   :config
+  (defun my-switch-or-create-ansi-term ()
+    "Switch to ansi-term buffer if one exists; otherwise make one."
+    (interactive)
+    (if (and (boundp 'term-ansi-buffer-name)
+             term-ansi-buffer-name
+             (term-check-proc term-ansi-buffer-name))
+        (switch-to-buffer term-ansi-buffer-name)
+      (ansi-term "/bin/bash")))
   (defhydra my-hydra-main (:color blue)
     "Main"
     ("b" my-hydra-file-bugs/body "bugs")
@@ -245,7 +253,7 @@
     ("i" (find-file user-init-file) "init file")
     ("o" my-hydra-org/body "org")
     ("p" my-hydra-projects/body "projects")
-    ("t" (ansi-term "/bin/bash") "terminal"))
+    ("t" my-switch-or-create-ansi-term "terminal"))
   (defhydra my-hydra-file-bugs (:color blue)
     "Bugs"
     ("e" report-emacs-bug "emacs")
