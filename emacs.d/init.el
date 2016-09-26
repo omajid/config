@@ -517,7 +517,7 @@
   :ensure nil
   :demand
   :bind (:map emacs-lisp-mode-map
-              ("C-c e b" . eval-eval-buffer)
+              ("C-c e b" . eval-buffer)
               ("C-c e d" . eval-defun)
               ("C-c e f" . emacs-lisp-byte-compile-and-load)
               ("C-c e r" . eval-region)
