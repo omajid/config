@@ -70,6 +70,8 @@
   (progn
     (evil-set-initial-state 'project-explorer-mode 'emacs)
     (evil-set-initial-state 'term-mode 'emacs)
+    ;; make * and # behave like vim and include _ (and -) in search
+    (setq-default evil-symbol-word-search t)
     (evil-mode 1)))
 
 (use-package which-key
