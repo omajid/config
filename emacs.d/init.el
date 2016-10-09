@@ -351,6 +351,8 @@
                      (format "http://tools.ietf.org/html/rfc%s" id))
                     (t (error (concat "Unknown item type: " kind)))))))))
 
+(use-package crux)
+
 (use-package define-word
   :defer t
   :bind ("C-c d" . my-define-word)
@@ -598,39 +600,6 @@
 ;;;
 ;;; Utility functions
 ;;;
-
-;; the following two functions are adapted from the similarly named
-;; functions in prelude
-
-(defalias 'my-kill-file-and-buffer 'my-delete-file-and-buffer)
-
-(defun my-delete-file-and-buffer ()
-  "Delete the current buffer and it's associated file."
-  (interactive)
-  (when (yes-or-no-p "Really kill buffer and file? ")
-    (let ((file-name (buffer-file-name)))
-      (when file-name
-        (kill-buffer)
-        (if (vc-backend file-name)
-            (vc-delete-file)
-          (delete-file file-name))
-        (message "Deleted file %s" file-name)))))
-
-(defun my-rename-file-and-buffer (new-name)
-  "Rename the current file and buffer to NEW-NAME."
-  (interactive "FNew name:")
-  (let* ((old-name (buffer-file-name))
-         (file-exists (and old-name (file-exists-p old-name))))
-    (if file-exists
-        (if (vc-backend old-name)
-            ;; vc-rename-file takes care of renaming the buffer
-            (vc-rename-file old-name new-name)
-          (progn
-            (rename-file old-name new-name old-name)
-            ;; set-visited-file-name renames the buffer too
-            (set-visited-file-name new-name t t)))
-      (rename-buffer new-name))))
-
 
 ;;;
 ;;; Too small to be packages
