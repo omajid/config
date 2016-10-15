@@ -100,3 +100,5 @@ mkdir -p ~/.config/awesome
 install-config "$CONFIG_DIR"/awesome.d/rc.lua ~/.config/awesome/rc.lua
 install-config "$CONFIG_DIR"/awesome.d/awesome-solarized ~/.config/awesome/themes/awesome-solarized
 
+# firefox
+install-config "$CONFIG_DIR"/vimperatorrc ~/.vimperatorrc
