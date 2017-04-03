@@ -523,10 +523,10 @@
   :config
   (add-hook 'prog-mode-hook #'ws-butler-mode))
 
-(use-package autopair
-  :diminish autopair-mode
+(use-package elec-pair
+  :ensure
   :config
-  (autopair-global-mode))
+  (electric-pair-mode 1))
 
 (use-package pretty-symbols)
 
