@@ -568,6 +568,8 @@
   :config
   (add-to-list 'c-default-style '(other . "k&r")))
 
+(use-package csharp-mode :defer t)
+
 (use-package geiser
   :config
   (setq geiser-repl-history-filename
