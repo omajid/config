@@ -1,0 +1,4 @@
+#name: Personal Copyright
+#expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+Copyright ${1:year} Omair Majid <omair.majid@gmail.com>

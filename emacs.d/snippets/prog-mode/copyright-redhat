@@ -1,0 +1,4 @@
+#name: Red Hat Copyright
+#expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+Copyright ${1:year} Red Hat, Inc.
