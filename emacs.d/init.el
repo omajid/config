@@ -665,7 +665,8 @@
 (let* ((file (locate-user-emacs-file "lambda"))
        (default-directory (file-name-directory file)))
   (unless (file-exists-p file)
-    (url-copy-file "http://www.gotlisp.com/lambda/lambda.txt" file)
+    (url-copy-file "http://www.gotlisp.com/lambda/lambda.txt" file))
+  (unless (file-exists-p (concat file ".dat"))
     (shell-command (concat "strfile " file)))
   (setq initial-scratch-message
         (format
@@ -674,7 +675,7 @@
           "\n" "\n;; " ; comment each line
           (replace-regexp-in-string
            "\n$" ""    ; remove trailing linebreak
-           (shell-command-to-string (concat "fortune lambda")))))))
+           (shell-command-to-string "fortune lambda"))))))
 
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
