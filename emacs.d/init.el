@@ -170,7 +170,7 @@
 
 (use-package ivy
   :demand
-  :diminish ""
+  :diminish ivy-mode
   ;; ido-style keybindings
   :bind (:map ivy-minibuffer-map
               ("C-j" . ivy-immediate-done)
@@ -184,7 +184,6 @@
   (setq ivy-initial-inputs-alist nil)
   (setq magit-completing-read-function 'ivy-completing-read)
   (setq projectile-completion-system 'ivy)
-  :config
   (ivy-mode 1)
 
   (use-package flx)
@@ -194,11 +193,11 @@
     ("C-s" . swiper))
   (use-package counsel
     :demand
-    :diminish ""
+    :diminish counsel-mode
     :bind
     ("M-x" . counsel-M-x)
     ("C-c i" . counsel-imenu)
-    :config
+    :init
     (counsel-mode 1)))
 
 ;;;
@@ -591,9 +590,9 @@
 (use-package jtreg
   :load-path "~/devel/emacs-jtreg/"
   :ensure nil
-  :defer t
   :config
   (setq jtreg-dir "~/local/jtreg/lib/"))
+
 (use-package jar-manifest-mode)
 
 (use-package lua-mode )
