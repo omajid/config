@@ -382,6 +382,11 @@
   :config
   (setq fpaste-user user-login-name))
 
+(use-package rh-paste
+  :load-path "~/devel/emacs-rh-paste/"
+  :ensure nil
+  :commands rh-paste)
+
 (use-package rainbow-mode
   :config
   (rainbow-mode))
