@@ -94,7 +94,6 @@
 (setq
  truncate-lines t ; line wrapping? wtf?
  comment-empty-lines t ; comment empty lines too
- abbrev-file-name "~/.emacs.d/abbref_defs" ; save abbreviations here
  tab-width 4)
 
 ;; single space after period ends sentence
@@ -303,6 +302,13 @@
   :config
   (add-hook 'after-init-hook #'global-company-mode)
   (setq company-idle-delay 0.5))
+
+(use-package abbrev
+  :ensure nil
+  :diminish ""
+  :init
+  (setq abbrev-file-name "~/.emacs.d/abbref_defs") ; save abbreviations here
+  (setq-default abbrev-mode t))
 
 (use-package yasnippet
   :diminish yas-minor-mode
