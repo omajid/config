@@ -568,7 +568,27 @@
   :config
   (add-to-list 'c-default-style '(other . "k&r")))
 
-(use-package csharp-mode :defer t)
+(use-package omnisharp
+  :defer t
+  :config
+  (setq omnisharp-server-executable-path
+        (expand-file-name "~/local/omnisharp-1.25.0/run"))
+  (add-to-list 'company-backends 'company-omnisharp))
+
+(defun my-csharp-mode-setup ()
+  (setq indent-tabs-mode nil)
+  (setq c-syntactic-indentation t)
+  (c-set-style "ellemtel")
+  (setq c-basic-offset 4)
+  (setq truncate-lines t)
+  (setq tab-width 4)
+  (setq evil-shift-width 4)
+  (local-set-key (kbd "C-c C-c") 'recompile))
+
+(use-package csharp-mode :defer t
+  :init
+  (add-hook 'csharp-mode-hook #'omnisharp-mode)
+  (add-hook 'csharp-mode-hook #'my-csharp-mode-setup))
 
 (use-package geiser
   :config
