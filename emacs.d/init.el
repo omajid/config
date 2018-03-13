@@ -191,6 +191,21 @@
   (setq magit-completing-read-function 'ivy-completing-read)
   (setq projectile-completion-system 'ivy)
   (ivy-mode 1)
+  (defun my-ivy-action-insert (x)
+    (insert
+     (if (stringp x)
+         x
+       (car x))))
+
+  (defun my-ivy-action-kill-new (x)
+    (kill-new
+     (if (stringp x)
+         x
+       (car x))))
+  (ivy-set-actions
+   t
+   '(("i" my-ivy-action-insert "insert")
+     ("c" my-ivy-action-kill-new "copy")))
 
   (use-package flx)
   (use-package ivy-hydra)
