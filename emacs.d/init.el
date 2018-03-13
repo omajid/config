@@ -478,7 +478,10 @@
 
 (use-package json-mode :defer t)
 
-(use-package web-mode :defer t)
+(use-package web-mode :defer t
+  :init
+  (add-to-list 'auto-mode-alist
+               '("\\.cshtml\\'" . web-mode)))
 
 (use-package sgml-mode
   :defer t
@@ -493,6 +496,7 @@
   :config
   (progn
     (add-hook 'sgml-mode-hook #'emmet-mode)
+    (add-hook 'web-mode-hook #'emmet-mode)
     (add-hook 'css-mode-hook #'emmet-mode)
     (add-hook 'nxml-mode-hook #'emmet-mode)))
 
