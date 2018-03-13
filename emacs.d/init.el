@@ -456,7 +456,10 @@
     (setq org-deadline-warning-days 14)
     (setq org-log-states-order-reversed nil)))
 
-(use-package adoc-mode :defer t)
+(use-package adoc-mode :defer t
+  :init
+  (add-to-list 'auto-mode-alist
+               '("\\.adoc\\'" . adoc-mode)))
 
 (use-package diff-mode
   :config
