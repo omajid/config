@@ -383,6 +383,12 @@
   :config
   (setq gist-view-gist 1))
 
+(use-package hideshow
+  :ensure nil ;; builtin
+  :config
+  (add-hook 'json-mode-hook #'hs-minor-mode)
+  (define-key evil-normal-state-map (kbd "TAB") #'hs-toggle-hiding))
+
 (use-package fpaste
   :commands fpaste
   :config
