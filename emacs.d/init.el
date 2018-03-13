@@ -327,6 +327,11 @@
     (add-hook 'after-init-hook #'yas-global-mode)
     (add-hook 'term-mode-hook #'my-disable-yas-in-term)))
 
+(use-package editorconfig
+  :diminish ""
+  :config
+  (editorconfig-mode 1))
+
 (use-package undo-tree
   :diminish undo-tree-mode)
 
