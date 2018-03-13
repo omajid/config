@@ -320,6 +320,7 @@
   :bind ("M-/" . company-yasnippet)
   :config
   (progn
+    (use-package yasnippet-snippets)
     (defun my-disable-yas-in-term ()
       (yas-minor-mode -1))
     (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
