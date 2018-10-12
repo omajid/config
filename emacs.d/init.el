@@ -583,6 +583,7 @@
               ("C-c e d" . eval-defun)
               ("C-c e f" . emacs-lisp-byte-compile-and-load)
               ("C-c e r" . eval-region)
+              ("C-c e t" . my-run-all-ert-tests)
               ("C-c f f" . find-function)
               ("C-c f l" . find-library)
               ("C-c f v" . find-variable))
@@ -594,7 +595,14 @@
     (interactive)
     (add-to-list 'imenu-generic-expression
                  (list "Sections" "^;;; +\\(.+\\)" 1)))
-  (add-hook 'emacs-lisp-mode-hook #'my-add-sections-to-imenu))
+  (add-hook 'emacs-lisp-mode-hook #'my-add-sections-to-imenu)
+  (defun my-run-all-ert-tests ()
+    "Run all ert tests for current buffer, then focus back to it."
+    (interactive)
+    (let ((original-buffer (current-buffer)))
+      (eval-buffer)
+      (ert t)
+      (select-window (get-buffer-window original-buffer)))))
 
 (use-package cmake-mode :defer t)
 
