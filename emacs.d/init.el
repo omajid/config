@@ -140,8 +140,6 @@
   (setq recentf-max-saved-items 100))
 
 (use-package smex
-  :bind
-  ("M-x" . smex)
   :config
   (setq smex-key-advice-ignore-menu-bar t)
   (smex-initialize))
