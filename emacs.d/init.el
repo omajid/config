@@ -18,9 +18,7 @@
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("marmalde" . "https://marmalade-repo.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")))
+        ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (package-initialize)
 
 ;; Use use-package to install packages declaratively and keep
