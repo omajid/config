@@ -26,6 +26,7 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(setq use-package-always-defer t)
 (setq use-package-always-ensure t)
 (setq use-package-enable-imenu-support t)
 (require 'use-package)
@@ -43,18 +44,19 @@
  inhibit-splash-screen t
  tooltip-use-echo-area t)
 
-;; Some nice themes that I like
 (setq org-directory (expand-file-name "~/notebook"))
 (setq my-default-notes-file (concat org-directory "/daily-log.org"))
 (setq initial-buffer-choice my-default-notes-file)
 
-(use-package dracula-theme :defer t)
-(use-package flatui-theme :defer t)
-(use-package leuven-theme :defer t)
-(use-package material-theme :defer t)
-(use-package monokai-theme :defer t)
-(use-package solarized-theme :defer t)
-(use-package zenburn-theme :defer t)
+;; Some nice themes that I like
+(use-package dracula-theme)
+(use-package flatui-theme)
+(use-package leuven-theme)
+(use-package material-theme)
+(use-package monokai-theme)
+(use-package solarized-theme)
+(use-package zenburn-theme)
+(use-package challenger-deep-theme)
 
 (load-theme 'dracula t)
 
@@ -79,6 +81,7 @@
 
 ;; evil - vi compatible keybindings
 (use-package evil
+  :demand
   :init
   (setq evil-want-integration t
         evil-want-keybinding nil)
@@ -102,6 +105,7 @@
 
 (use-package which-key
   :diminish which-key-mode
+  :demand
   :config
   (which-key-mode 1))
 
@@ -148,8 +152,10 @@
 
 ;; start the emacs server
 (use-package server
-  :config
+  :init
   (add-hook 'after-init-hook #'server-start))
+
+(setq help-window-select 'always)
 
 ;;;
 ;;; Navigation
@@ -272,6 +278,7 @@
 
 (use-package git-gutter
   :diminish ""
+  :demand
   :config
   (global-git-gutter-mode))
 
@@ -345,6 +352,7 @@
     (add-hook 'after-init-hook #'flycheck-package-setup)))
 
 (use-package company
+  :demand
   :diminish company-mode
   :config
   (add-hook 'after-init-hook #'global-company-mode)
@@ -360,14 +368,15 @@
 (use-package yasnippet
   :diminish yas-minor-mode
   :bind ("M-/" . company-yasnippet)
-  :config
+  :init
   (progn
     (use-package yasnippet-snippets)
     (defun my-disable-yas-in-term ()
       (yas-minor-mode -1))
-    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
     (add-hook 'after-init-hook #'yas-global-mode)
-    (add-hook 'term-mode-hook #'my-disable-yas-in-term)))
+    (add-hook 'term-mode-hook #'my-disable-yas-in-term))
+  :config
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/"))
 
 (use-package editorconfig
   :diminish ""
@@ -439,7 +448,7 @@
 
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
-  :config
+  :init
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
   (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
   (add-hook 'css-mode-hook #'aggressive-indent-mode))
@@ -500,38 +509,34 @@
     (setq org-deadline-warning-days 14)
     (setq org-log-states-order-reversed nil)))
 
-(use-package adoc-mode :defer t
+(use-package adoc-mode
   :init
   (add-to-list 'auto-mode-alist
                '("\\.adoc\\'" . adoc-mode)))
 
 (use-package diff-mode
-  :config
   ;; files with '.patch.' in the middle of their name are patch files too
   (add-to-list 'auto-mode-alist
                '("\\.patch\\..*\\'" . diff-mode)))
 
-(use-package dockerfile-mode :defer t)
+(use-package dockerfile-mode)
 
-(use-package markdown-mode :defer t)
+(use-package markdown-mode)
 
-(use-package markdown-toc :defer t)
+(use-package markdown-toc)
 
-(use-package muttrc-mode :defer t)
+(use-package pandoc-mode)
 
-(use-package pandoc-mode :defer t)
+(use-package yaml-mode)
 
-(use-package yaml-mode :defer t)
+(use-package json-mode)
 
-(use-package json-mode :defer t)
-
-(use-package web-mode :defer t
+(use-package web-mode
   :init
   (add-to-list 'auto-mode-alist
                '("\\.cshtml\\'" . web-mode)))
 
 (use-package sgml-mode
-  :defer t
   :config
   (advice-add 'sgml-delete-tag
               :after
@@ -547,9 +552,9 @@
     (add-hook 'css-mode-hook #'emmet-mode)
     (add-hook 'nxml-mode-hook #'emmet-mode)))
 
-(use-package jinja2-mode :defer t)
+(use-package jinja2-mode)
 
-(use-package rpm-spec-mode :defer t)
+(use-package rpm-spec-mode)
 
 (use-package graphviz-dot-mode
   :mode "'\\.dot\\'"
@@ -581,11 +586,10 @@
 
 (use-package ws-butler
   :commands ws-butler-mode
-  :config
+  :init
   (add-hook 'prog-mode-hook #'ws-butler-mode))
 
 (use-package elec-pair
-  :ensure
   :config
   (electric-pair-mode 1))
 
@@ -620,7 +624,7 @@
       (ert t)
       (select-window (get-buffer-window original-buffer)))))
 
-(use-package cmake-mode :defer t)
+(use-package cmake-mode)
 
 (use-package cc-mode
   :defer t
@@ -628,7 +632,7 @@
   (add-to-list 'c-default-style '(other . "k&r")))
 
 (use-package omnisharp
-  :defer t
+  :demand
   :config
   (setq omnisharp-server-executable-path
         (expand-file-name "~/local/omnisharp-1.25.0/run"))
@@ -687,7 +691,7 @@
 
 (use-package jar-manifest-mode)
 
-(use-package lua-mode )
+(use-package lua-mode)
 
 (use-package restclient
   :commands restclient-mode
