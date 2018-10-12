@@ -54,9 +54,9 @@
 (use-package solarized-theme :defer t)
 (use-package zenburn-theme :defer t)
 
-(load-theme 'monokai t)
+(load-theme 'dracula t)
 
-(set-frame-font "Source Code Pro-10.0" t)
+(set-frame-font "Source Code Pro-8.0" t)
 
 (use-package diminish)
 
