@@ -231,6 +231,8 @@
 ;;;
 
 (use-package projectile
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :config
   ;; "P[project name]" to indicate a project or empty string
   (setq projectile-mode-line
@@ -242,7 +244,7 @@
                               (directory-file-name (projectile-project-root))))
                    (error ""))))
             mode-line)))
-  (projectile-global-mode))
+  (projectile-mode 1))
 
 (use-package ack-and-a-half)
 
