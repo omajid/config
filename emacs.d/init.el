@@ -79,6 +79,10 @@
 
 ;; evil - vi compatible keybindings
 (use-package evil
+  :init
+  (setq evil-want-integration t
+        evil-want-keybinding nil)
+  (add-hook 'git-commit-mode-hook #'evil-insert-state)
   :config
   (progn
     (evil-set-initial-state 'project-explorer-mode 'emacs)
@@ -86,6 +90,15 @@
     ;; make * and # behave like vim and include _ (and -) in search
     (setq-default evil-symbol-word-search t)
     (evil-mode 1)))
+
+(use-package evil-collection
+  :demand
+  :after evil
+  :custom
+  (evil-collection-setup-minibuffer t)
+  (evil-collection-company-use-tng nil)
+  :config
+  (evil-collection-init))
 
 (use-package which-key
   :diminish which-key-mode
