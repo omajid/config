@@ -311,6 +311,13 @@
 ;;; Common Modes
 ;;;
 
+(use-package flyspell
+  :ensure nil
+  :diminish flyspell-mode
+  :init
+  (add-hook 'text-mode-hook #'turn-on-flyspell)
+  (add-hook 'prog-mode-hook #'flyspell-prog-mode))
+
 (use-package flycheck
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -431,7 +438,6 @@
 ;;;
 
 (add-hook 'text-mode-hook #'turn-on-auto-fill)
-(add-hook 'text-mode-hook #'turn-on-flyspell)
 
 (use-package writeroom-mode)
 
@@ -551,7 +557,6 @@
 ;;; Programming Modes
 ;;;
 
-(add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
 (use-package semantic
   :config
