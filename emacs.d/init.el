@@ -44,6 +44,10 @@
  tooltip-use-echo-area t)
 
 ;; Some nice themes that I like
+(setq org-directory (expand-file-name "~/notebook"))
+(setq my-default-notes-file (concat org-directory "/daily-log.org"))
+(setq initial-buffer-choice my-default-notes-file)
+
 (use-package dracula-theme :defer t)
 (use-package flatui-theme :defer t)
 (use-package leuven-theme :defer t)
@@ -286,7 +290,7 @@
     ("c" org-capture "capture")
     ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
     ("k" (find-file (concat org-directory "/checklist-professional.org")) "checklist")
-    ("l" (find-file (concat org-directory "/daily-log.org")) "daily log"))
+    ("l" (find-file my-default-notes-file) "daily log"))
   (defhydra my-hydra-projects (:color blue)
     "Projects"
     ("e" project-explorer-open "project explorer")
@@ -457,7 +461,7 @@
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
     ;; capture
-    (setq org-default-notes-file (concat org-directory "/daily-log.org"))
+    (setq org-default-notes-file my-default-notes-file)
     (setq org-capture-templates
           '(("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
              "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n  %i\n  %a"
@@ -730,23 +734,6 @@
 ;;;
 ;;; Playground
 ;;;
-
-;; set initial message from lambda.txt
-(let* ((file (locate-user-emacs-file "lambda"))
-       (default-directory (file-name-directory file)))
-  (unless (file-exists-p file)
-    (url-copy-file "http://www.gotlisp.com/lambda/lambda.txt" file))
-  (unless (file-exists-p (concat file ".dat"))
-    (shell-command (concat "strfile " file)))
-  (setq initial-scratch-message
-        (format
-         ";; %s\n\n"
-         (replace-regexp-in-string
-          "\n" "\n;; " ; comment each line
-          (replace-regexp-in-string
-           "\n$" ""    ; remove trailing linebreak
-           (shell-command-to-string "fortune lambda"))))))
-
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-gnus-config)
