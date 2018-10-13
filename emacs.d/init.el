@@ -273,7 +273,6 @@
   :commands project-explorer-open)
 
 (use-package magit
-  ;; :bind ("<f12>" . magit-status)
   :commands magit-status)
 
 (use-package git-gutter
