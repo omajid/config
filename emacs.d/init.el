@@ -462,13 +462,12 @@
 (use-package writeroom-mode)
 
 (use-package org
-  :demand
+  :init
+  (add-to-list 'auto-mode-alist `(,(concat org-directory "/.*'") . org-mode))
   :config
   (progn
     ;; fontify code in code blocks
     (setq org-src-fontify-natively t)
-    (setq org-directory "~/notebook")
-    (add-to-list 'auto-mode-alist (cons (concat org-directory "/.*") 'org-mode))
 
     ;; bullets
 
@@ -511,17 +510,17 @@
 
 (use-package adoc-mode
   :init
-  (add-to-list 'auto-mode-alist
-               '("\\.adoc\\'" . adoc-mode)))
+  :mode "\\.adoc\\'")
 
 (use-package diff-mode
   ;; files with '.patch.' in the middle of their name are patch files too
-  (add-to-list 'auto-mode-alist
-               '("\\.patch\\..*\\'" . diff-mode)))
+  :mode "\\.patch\\..*\\'")
 
 (use-package dockerfile-mode)
 
-(use-package markdown-mode)
+(use-package markdown-mode
+  :mode ("\\.md\\'"
+         ("\\README.md\\'" . gfm-mode)))
 
 (use-package markdown-toc)
 
@@ -532,9 +531,7 @@
 (use-package json-mode)
 
 (use-package web-mode
-  :init
-  (add-to-list 'auto-mode-alist
-               '("\\.cshtml\\'" . web-mode)))
+  :mode "\\.cshtml\\'")
 
 (use-package sgml-mode
   :config
