@@ -655,6 +655,8 @@
         (convert-standard-filename
          (locate-user-emacs-file "geiser-history" ".geiser-history"))))
 
+(use-package groovy-mode)
+
 (use-package js2-mode
   :mode "\\.js\\'")
 
