@@ -294,7 +294,6 @@
   (defhydra my-hydra-main (:color blue)
     "Main"
     ("b" my-hydra-file-bugs/body "bugs")
-    ("d" dashboard "dashboard")
     ("i" (find-file user-init-file) "init file")
     ("o" my-hydra-org/body "org")
     ("p" my-hydra-projects/body "projects")
