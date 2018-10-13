@@ -755,6 +755,13 @@
                    "emacs-mutt-mail"
                    "gnome-terminal" "--" "mutt" "-i" file "-s" subject recipient)))
 
+(defun my-virt-find-file (virt-name)
+  "Run `find-file' in a virtual machine with name VIRT-NAME."
+  (interactive "sVirtual Machine Name: ")
+  (let* ((ip-addr (string-trim (shell-command-to-string (concat "virt-addr " (shell-quote-argument virt-name)))))
+         (default-directory (concat "/ssh:" ip-addr ":/")))
+    (call-interactively #'find-file)))
+
 ;;;
 ;;; Playground
 ;;;
