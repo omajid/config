@@ -332,7 +332,6 @@
   :ensure nil
   :config
   (progn
-    (setq uniquify-strip-common-prefix t)
     (setq uniquify-buffer-name-style 'forward)))
 
 ;;;
