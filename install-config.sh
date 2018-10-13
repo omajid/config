@@ -5,6 +5,8 @@
 # expected locations
 #
 
+set -euo pipefail
+
 # the directory that contains all setup files
 CONFIG_DIR="$HOME/config"
 OVERWRITE_EXISTING_FILES="YES"
@@ -24,10 +26,11 @@ function install-config()
     local SOURCE="$1"
     local TARGET="$2"
     if [ ! -e "$SOURCE" ] ; then
-        echo "$SOURCE" does not exist
-        exit 1
+        echo "warning: $SOURCE" does not exist
+        return
     fi
-    local TARGET_DIR=$(dirname "$TARGET")
+    local TARGET_DIR
+    TARGET_DIR=$(dirname "$TARGET")
     if [ ! -d "$TARGET_DIR" ] ; then
         mkdir -p "$TARGET_DIR"
     fi
@@ -44,7 +47,7 @@ function install-config()
         rm -f "$TARGET"
     fi
     if [ -e "$TARGET" ] ; then
-        echo "error deleting $TARGET"
+        echo "error: unable to delete $TARGET"
         exit 1
     fi
     echo symlinking "$TARGET" to "$SOURCE"
@@ -57,7 +60,7 @@ if [ "$OVERWRITE_EXISTING_FILES" == "YES" ] ; then
 fi
 
 if [ ! -d "$CONFIG_DIR" ] ; then
-    echo "CONFIG_DIR ("$CONFIG_DIR") not found"
+    echo "CONFIG_DIR (\"$CONFIG_DIR\") not found"
 fi
 
 # basics
@@ -102,3 +105,6 @@ install-config "$CONFIG_DIR"/awesome.d/awesome-solarized ~/.config/awesome/theme
 
 # firefox
 install-config "$CONFIG_DIR"/vimperatorrc ~/.vimperatorrc
+
+# dictionary
+install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_US
