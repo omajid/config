@@ -739,6 +739,18 @@
   (let ((url (format "https://tools.ietf.org/html/rfc%s.txt" rfc-num)))
     (eww-browse-url url)))
 
+(defun my-mutt-mail-region (point mark)
+  "Generate a mail from the text between POINT and MARK and send it out."
+  (interactive "r")
+  (unless (region-active-p)
+    (user-error "Select a region to generate mail from"))
+  (let ((file (make-temp-file "emacs-mutt-mail"))
+        (subject (format-time-string "Status %F"))
+        (recipient "dotnet-team@redhat.com"))
+    (write-region point mark file)
+    (start-process "emacs-mutt-mail"
+                   "emacs-mutt-mail"
+                   "gnome-terminal" "--" "mutt" "-i" file "-s" subject recipient)))
 
 ;;;
 ;;; Playground
