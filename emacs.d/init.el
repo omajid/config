@@ -473,9 +473,10 @@
     ;; bullets
 
     (use-package org-bullets
+      :init
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
       :config
-      (setq org-bullets-bullet-list '("#" "##" "###" "####"))
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+      (setq org-bullets-bullet-list '("#" "##" "###" "####")))
 
     ;; capture
     (setq org-default-notes-file my-default-notes-file)
