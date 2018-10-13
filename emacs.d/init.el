@@ -131,6 +131,10 @@
 
 ;; show matching parenthesis
 (show-paren-mode 1)
+;; by default, there’s a small delay before showing a matching parenthesis
+(setq show-paren-delay 0)
+;; highlight parenthesis when cursor is on either side of one
+(setq show-paren-when-point-inside-paren t)
 
 ;; show column numbers too
 (column-number-mode 1)
