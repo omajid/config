@@ -105,9 +105,9 @@
 
 (use-package which-key
   :diminish which-key-mode
-  :demand
-  :config
-  (which-key-mode 1))
+  :commands which-key-mode
+  :init
+  (add-hook 'after-init-hook #'which-key-mode))
 
 ;;;
 ;;; Basic Configuration
