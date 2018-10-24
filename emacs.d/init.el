@@ -269,8 +269,6 @@
             mode-line)))
   (projectile-mode 1))
 
-(use-package ack-and-a-half)
-
 (use-package ag)
 
 (use-package project-explorer
