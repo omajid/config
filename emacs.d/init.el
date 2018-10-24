@@ -513,7 +513,9 @@
 
 (use-package adoc-mode
   :init
-  :mode "\\.adoc\\'")
+  :mode "\\.adoc\\'"
+  :config
+  (add-hook 'adoc-mode-hook #'turn-off-auto-fill))
 
 (use-package diff-mode
   ;; files with '.patch.' in the middle of their name are patch files too
