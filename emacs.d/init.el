@@ -580,10 +580,6 @@
 
 (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
-(use-package fixme-mode
-  :config
-  (add-hook 'prog-mode-hook #'fixme-mode))
-
 (use-package ws-butler
   :commands ws-butler-mode
   :init
