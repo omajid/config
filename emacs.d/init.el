@@ -49,6 +49,8 @@
 (setq initial-buffer-choice my-default-notes-file)
 
 ;; Some nice themes that I like
+(use-package challenger-deep-theme)
+(use-package doom-themes)
 (use-package dracula-theme)
 (use-package flatui-theme)
 (use-package leuven-theme)
@@ -56,7 +58,6 @@
 (use-package monokai-theme)
 (use-package solarized-theme)
 (use-package zenburn-theme)
-(use-package challenger-deep-theme)
 
 (load-theme 'dracula t)
 
