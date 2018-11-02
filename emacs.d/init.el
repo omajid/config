@@ -457,7 +457,11 @@
 ;;; Text/Markup Editing Modes
 ;;;
 
-(add-hook 'text-mode-hook #'turn-on-auto-fill)
+(use-package simple
+  :ensure nil ;; auto-fill is built-in
+  :diminish auto-fill-function
+  :init
+  (add-hook 'text-mode-hook #'turn-on-auto-fill))
 
 (use-package writeroom-mode)
 
