@@ -409,8 +409,9 @@
   (progn
     (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
     (add-hook 'text-mode-hook #'bug-reference-mode)
+    (add-hook 'rpm-spec-mode-hook #'bug-reference-mode)
     (setq bug-reference-bug-regexp
-          "\\<\\(RFC\\|PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\|CVE-?\\) ?\\([0-9-]+\\)\\>")
+          "\\<\\(RFC\\|PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\|CVE-?\\)\\(?:#\\| \\)?\\([0-9-]+\\)\\>")
     (setq bug-reference-url-format
           (lambda ()
             (let ((kind (match-string-no-properties 1))
