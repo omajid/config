@@ -65,16 +65,9 @@
 
 (use-package diminish)
 
-(use-package spaceline
-  :demand
-  :config
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme))
-
-;; use icons instead of text in modeline
-(use-package mode-icons
-  :config
-  (mode-icons-mode))
+(use-package doom-modeline
+  :init
+  (doom-modeline-init))
 
 ;;;
 ;;; Keybindings
