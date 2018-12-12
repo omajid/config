@@ -336,6 +336,11 @@
   :config
   (eyebrowse-mode 1))
 
+(use-package ace-window
+  :config
+  (set-face-attribute 'aw-leading-char-face nil :height 3.0)
+  :bind ("C-x o" . ace-window))
+
 (use-package uniquify
   ;; ensure t breaks uniquify, for some reason
   :ensure nil
