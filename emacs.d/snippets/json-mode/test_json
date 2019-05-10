@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: test.json
+# key: test_json
+# --
+{
+    "name": "`(file-name-nondirectory (directory-file-name (file-name-directory (buffer-file-name))))`",
+    "enabled": true,
+    "version": "$1",
+    "versionSpecific": ${2:$$(yas-choose-value '("true" "false"))},
+    "type": "${3:$$(yas-choose-value '("xunit" "bash"))}",
+    "cleanup": true,
+    "platformBlacklist":[
+        $0
+    ]
+}

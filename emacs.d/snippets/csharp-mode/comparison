@@ -1,0 +1,32 @@
+# -*- mode: snippet -*-
+# name: Comparison support for data types with total ordering
+# key: comparison
+# --
+
+private static int CompareTo(${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`} x, $1 y)
+{
+    $0
+}
+
+public int CompareTo($1 x) { return CompareTo(this, x); }
+
+public bool Equals($1 x) { return CompareTo(this, x) == 0; }
+
+public static bool operator <($1 x, $1 y) { return CompareTo(x, y) < 0; }
+
+public static bool operator >($1 x, $1 y) { return CompareTo(x, y) > 0; }
+
+public static bool operator <=($1 x, $1 y) { return CompareTo(x, y) <= 0; }
+
+public static bool operator >=($1 x, $1 y) { return CompareTo(x, y) >= 0; }
+
+public static bool operator ==($1 x, $1 y) { return CompareTo(x, y) == 0; }
+
+public static bool operator !=($1 x, $1 y) { return CompareTo(x, y) != 0; }
+
+public override bool Equals(object obj) { return (obj is $1) && (CompareTo(this, ($1)obj) == 0); }
+
+public override int GetHashCode()
+{
+    $1 x = this;
+}

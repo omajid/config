@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: changelog
+# key: changelog
+# --
+
+* `(format-time-string "%a %b %d %Y")` `(string-trim (shell-command-to-string "git config --global user.name"))` <`(string-trim (shell-command-to-string "git config --global user.email"))`> - `(substring-no-properties (rpm-find-spec-version))`
+- $0
+- Resolves: RHBZ#$3
