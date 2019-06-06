@@ -471,6 +471,14 @@
   (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
   (add-hook 'css-mode-hook #'aggressive-indent-mode))
 
+(use-package ws-butler
+  :commands ws-butler-mode
+  :init
+  (add-hook 'prog-mode-hook #'ws-butler-mode)
+  (add-hook 'rpm-spec-mode-hook #'ws-butler-mode)
+  (add-hook 'text-mode-hook #'ws-butler-mode))
+
+
 ;;;
 ;;; Text/Markup Editing Modes
 ;;;
@@ -602,11 +610,6 @@
   (add-hook 'prog-mode-hook #'semantic-mode))
 
 (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
-
-(use-package ws-butler
-  :commands ws-butler-mode
-  :init
-  (add-hook 'prog-mode-hook #'ws-butler-mode))
 
 (use-package elec-pair
   :config
