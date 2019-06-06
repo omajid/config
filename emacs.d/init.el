@@ -47,7 +47,7 @@
 
 (setq org-directory (expand-file-name "~/notebook"))
 (setq my-default-notes-file (concat org-directory "/daily-log.org"))
-(setq initial-buffer-choice my-default-notes-file)
+;; (setq initial-buffer-choice my-default-notes-file)
 
 ;; Some nice themes that I like
 (use-package challenger-deep-theme)
