@@ -69,6 +69,18 @@
   :init
   (doom-modeline-init))
 
+(use-package all-the-icons
+  :demand
+  :init
+  (use-package all-the-icons-ivy
+    :demand
+    :after (all-the-icons ivy)
+    :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+    :config
+    (add-to-list 'all-the-icons-ivy-file-commands 'counsel-dired-jump)
+    (add-to-list 'all-the-icons-ivy-file-commands 'counsel-find-library)
+    (all-the-icons-ivy-setup)))
+
 ;;;
 ;;; Keybindings
 ;;;
