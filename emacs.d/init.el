@@ -740,6 +740,15 @@
 ;;; Too small to be packages
 ;;;
 
+(use-package typescript-mode
+  :init
+  (use-package tide
+    :init
+    (defun my-setup-tide-mode ()
+      (tide-setup)
+      (tide-hl-identifier-mode 1))
+    (add-hook 'typescript-mode-hook #'my-setup-tide-mode)))
+
 ;; Test: RFC 1231
 
 (defun my-rfc-lookup-text (rfc-num)
