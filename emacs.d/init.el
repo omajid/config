@@ -657,10 +657,15 @@
   :demand
   :config
   (setq omnisharp-server-executable-path
-        (expand-file-name "~/local/omnisharp-1.25.0/run"))
+        (expand-file-name "~/local/omnisharp-1.32.9/run"))
   (add-to-list 'company-backends 'company-omnisharp))
 
+(use-package csproj-mode
+  :init
+  (add-hook 'csproj-mode-hook #'omnisharp-mode))
+
 (defun my-csharp-mode-setup ()
+  "Configure csharp-mode."
   (setq indent-tabs-mode nil)
   (setq c-syntactic-indentation t)
   (c-set-style "ellemtel")
@@ -668,9 +673,11 @@
   (setq truncate-lines t)
   (setq tab-width 4)
   (setq evil-shift-width 4)
-  (local-set-key (kbd "C-c C-c") 'recompile))
+  (local-set-key (kbd "C-c C-c") 'recompile)
+  (evil-local-set-key 'normal (kbd "C-S-o") #'omnisharp-fix-usings)
+  (evil-local-set-key 'insert (kbd "C-S-o") #'omnisharp-fix-usings))
 
-(use-package csharp-mode :defer t
+(use-package csharp-mode
   :init
   (add-hook 'csharp-mode-hook #'omnisharp-mode)
   (add-hook 'csharp-mode-hook #'my-csharp-mode-setup))
