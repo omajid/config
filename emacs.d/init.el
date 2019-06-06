@@ -735,14 +735,6 @@
     :init
     (add-to-list 'company-backends #'company-restclient)))
 
-;;;
-;;; Utility functions
-;;;
-
-;;;
-;;; Too small to be packages
-;;;
-
 (use-package typescript-mode
   :init
   (use-package tide
@@ -751,6 +743,14 @@
       (tide-setup)
       (tide-hl-identifier-mode 1))
     (add-hook 'typescript-mode-hook #'my-setup-tide-mode)))
+
+;;;
+;;; Utility functions
+;;;
+
+;;;
+;;; Too small to be packages
+;;;
 
 ;; Test: RFC 1231
 
