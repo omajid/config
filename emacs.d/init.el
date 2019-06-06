@@ -730,7 +730,10 @@
 (use-package restclient
   :commands restclient-mode
   :config
-  (use-package company-restclient))
+  (use-package company-restclient
+    :demand
+    :init
+    (add-to-list 'company-backends #'company-restclient)))
 
 ;;;
 ;;; Utility functions
