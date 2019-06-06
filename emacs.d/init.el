@@ -167,6 +167,8 @@
 
 (setq help-window-select 'always)
 
+(setq compilation-scroll-output t)
+
 ;;;
 ;;; Navigation
 ;;;
