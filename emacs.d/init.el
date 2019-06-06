@@ -5,10 +5,10 @@
 
 ;;; Code:
 
-(setq my-gc-cons-threshold gc-cons-threshold)
+(defvar my-init-gc-cons-threshold gc-cons-threshold)
 (setq gc-cons-threshold 100000000)
 (add-hook 'after-init-hook
-          (lambda () (setq gc-cons-threshold my-gc-cons-threshold)))
+          (lambda () (setq gc-cons-threshold my-init-gc-cons-threshold)))
 
 ;;;
 ;;; Packages
