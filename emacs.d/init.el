@@ -494,13 +494,30 @@
 
 (use-package writeroom-mode)
 
+(use-package writegood-mode
+  :init
+  (add-hook 'text-mode-hook #'writegood-mode))
+
 (use-package org
   :init
   (add-to-list 'auto-mode-alist `(,(concat org-directory "/.*'") . org-mode))
   :config
   (progn
-    ;; fontify code in code blocks
-    (setq org-src-fontify-natively t)
+    (setq org-catch-invisible-edits 'error
+          org-cycle-separator-lines 0
+          org-src-fontify-natively t            ; fontify code in code blocks
+          org-src-window-setup 'current-window  ; edit code in current window
+          org-src-preserve-indentation t)       ; dont indent code when editing and exporting
+
+    (require 'ox-beamer)
+
+    ;; ox-reveal is too old and now incompatible with newer org mode
+    ;; (use-package ox-reveal
+    ;;   :demand)
+
+    (use-package org-indent
+      :ensure nil ;; part of org-mode
+      :diminish org-indent-mode)
 
     ;; bullets
 
@@ -511,9 +528,13 @@
       (setq org-bullets-bullet-list '("#" "##" "###" "####")))
 
     ;; capture
+    (defun my-heading-of-new-tasks ()
+      "The heading for next reporting day (Tuesday)."
+      (concat "Week ending " (string-trim (shell-command-to-string "date -d 'next Tuesday' +%Y-%m-%d"))))
     (setq org-default-notes-file my-default-notes-file)
+    (add-hook 'org-capture-mode-hook 'evil-insert-state)
     (setq org-capture-templates
-          '(("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
+          `(("t" "Todo" entry (file+olp org-default-notes-file ,(my-heading-of-new-tasks) "Tasks")
              "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n  %i\n  %a"
              :created t)))
 
@@ -521,19 +542,21 @@
     (setq org-refile-use-outline-path t)
 
     ;; agenda
+    (require 'org-agenda)
 
+    ;; this is the default agenda configuration for viewing the agenda
     (setq org-agenda-files (list org-directory))
     (setq org-agenda-span 'fortnight)
     ;; don't show tasks as scheduled if they are already shown as deadline
     (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
     ;; show log mode by default
-    (setq org-agenda-show-log t)
+    ;; (setq org-agenda-start-with-log-mode t)
     ;; show agenda in the current window and don't modify my existing window setup
     (setq org-agenda-window-setup 'current-window)
     ;; don't show tasks that are scheduled or have deadlines in the
     ;; normal todo list
-    (setq org-agenda-todo-ignore-deadlines (quote all))
-    (setq org-agenda-todo-ignore-scheduled (quote all))
+    (setq org-agenda-todo-ignore-deadlines 'all)
+    (setq org-agenda-todo-ignore-scheduled 'all)
     ;;sort tasks in order of when they are due and then by priority
     (setq org-agenda-sorting-strategy
           '((agenda deadline-up priority-down)
@@ -541,7 +564,20 @@
             (tags priority-down category-keep)
             (search category-keep)))
     (setq org-deadline-warning-days 14)
-    (setq org-log-states-order-reversed nil)))
+    (setq org-log-states-order-reversed nil)
+
+    ;; specialized agenda for reporting
+
+    ;; (add-to-list 'org-agenda-custom-commands
+    ;;              '("W" "Weekly review"
+    ;;                agenda ""
+    ;;                ((org-agenda-span 8)
+    ;;                 (org-agenda-start-day "-8d")
+    ;;                 (org-agenda-start-on-weekday 2)
+    ;;                 (org-agenda-start-with-log-mode t)
+    ;;                 (org-agenda-skip-function
+    ;;                  '(org-agenda-skip-entry-if 'nottodo 'done)))))
+    ))
 
 (use-package adoc-mode
   :init
