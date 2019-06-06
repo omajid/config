@@ -331,16 +331,6 @@
 ;;; Buffers
 ;;;
 
-;; save and restore previous sessions
-(use-package desktop
-  :demand
-  :config
-  (add-to-list 'desktop-modes-not-to-save 'magit-mode)
-  (add-to-list 'desktop-modes-not-to-save 'magit-diff)
-  (add-to-list 'desktop-modes-not-to-save 'magit-log)
-  (add-to-list 'desktop-modes-not-to-save 'magit-stash)
-  (desktop-save-mode 1))
-
 (use-package eyebrowse
   :demand
   :init
