@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Checklist: New Router Installation
+# key: checklist_new_router
+# --
+- [ ] Install OpenWRT
+- [ ] Set up luci to work via https only
+- [ ] Restrict router luci access to lan only
+- [ ] Create new Wifi Password. Record it
+- [ ] Create new root Password. Record it.
+- [ ] Install adblcok: ~opkg instlal adblock luci-app-adblock curl~

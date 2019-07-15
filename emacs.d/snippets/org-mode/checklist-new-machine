@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: Checklist: New machine setup
+# key: checklist_new_machine
+# --
+- [ ] Full Disk Encryption (not optional for laptops)
+- [ ] Install Fedora
+- [ ] Copy over configuration
+- [ ] Copy over data
+- [ ] Set up ssh
+- [ ] Set up gpg
+- [ ] Set up VPN
+- [ ] Set up kerberos
+- [ ] Set up nfs
+- [ ] Set up mutt
+- [ ] Set up emacs

@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: Checklist: Patch review
+# key: checklist_patch_review
+# --
+- [ ] License
+- [ ] Overall Approach
+- [ ] Compatibility impact
+- [ ] Principle of least surprise
+- [ ] What can go wrong?
+- [ ] Readability (with comments for tricky aspects)
+- [ ] Parallelism/Thread Safety
+- [ ] Algorithms and boundry cases
+- [ ] Performance
+- [ ] Error Handling
+- [ ] Resource Handling
+- [ ] Unit/Integration Tests
+- [ ] Documentation

@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: meeting_notes
+# key: meeting_notes
+# --
+** $1 <`(format-time-string "%Y-%m-%d %a")`>
+
+- Log:
+
+- Video:
+
+- Document:
+
+- Participants:
+
+- Notes:
