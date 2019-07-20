@@ -416,18 +416,22 @@
          ("C-<" . mc/mark-previous-like-this)))
 
 (use-package bug-reference
+  :demand
   :config
   (progn
     (add-hook 'prog-mode-hook #'bug-reference-prog-mode)
     (add-hook 'text-mode-hook #'bug-reference-mode)
     (add-hook 'rpm-spec-mode-hook #'bug-reference-mode)
     (setq bug-reference-bug-regexp
-          "\\<\\(RFC\\|PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\|CVE-?\\)\\(?:#\\| \\)?\\([0-9-]+\\)\\>")
+          "\\<\\(RFC\\|PR\\|JDK-\\|JEP-?\\|RH\\(?:BZ\\)\\|CVE-?\\|RHSA-?\\|RHBA-?\\|RHEA-?\\)\\(?:#\\| \\)?\\([0-9]+\\(?::?[-0-9]+\\)?\\)[[:space:]]")
     (setq bug-reference-url-format
           (lambda ()
-            (let ((kind (match-string-no-properties 1))
+            (let ((kind (upcase (match-string-no-properties 1)))
                   (id (match-string-no-properties 2)))
-              (cond ((or (string= kind "RH") (string= kind "RHBZ"))
+              (cond ((or (string-prefix-p "RHSA" kind) (string-prefix-p "RHBA" kind) (string-prefix-p "RHEA" kind))
+                     (let ((kind (string-trim-right kind "-")))
+                       (format "https://access.redhat.com/errata/%s-%s" kind id)))
+                    ((or (string= kind "RH") (string= kind "RHBZ"))
                      (format "https://bugzilla.redhat.com/show_bug.cgi?id=%s" id))
                     ((string= kind "PR")
                      (format "http://icedtea.classpath.org/bugzilla/show_bug.cgi?id=%s" id))
@@ -437,9 +441,9 @@
                      (format "http://openjdk.java.net/jeps/%s" id))
                     ((string-prefix-p "CVE" kind)
                      (format "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=%s" id))
-                    ((string= "RFC" kind)
+                    ((or (string= "RFC" kind) (string= "rfc" kind))
                      (format "http://tools.ietf.org/html/rfc%s" id))
-                    (t (error (concat "Unknown item type: " kind)))))))))
+                    (t (error (concat "Unknown item type: " kind id)))))))))
 
 (use-package crux)
 
