@@ -381,9 +381,9 @@
 
 (use-package abbrev
   :ensure nil
+  :demand
   :diminish ""
   :init
-  (setq abbrev-file-name "~/.emacs.d/abbref_defs") ; save abbreviations here
   (setq-default abbrev-mode t))
 
 (use-package yasnippet
