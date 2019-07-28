@@ -108,3 +108,6 @@ install-config "$CONFIG_DIR"/vimperatorrc ~/.vimperatorrc
 
 # dictionary
 install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_US
+# gdb
+install-config "$CONFIG_DIR"/gdbinit ~/.gdbinit
+
