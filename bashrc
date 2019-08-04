@@ -59,7 +59,7 @@ fi
 
 # User specific aliases and functions
 
-ulimit -c 100000000
+ulimit -c unlimited
 
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
