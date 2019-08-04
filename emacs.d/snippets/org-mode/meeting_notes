@@ -4,12 +4,16 @@
 # --
 ** $1 <`(format-time-string "%Y-%m-%d %a")`>
 
-- Log:
+#+BEGIN_SRC markdown
 
-- Video:
+# Log:
 
-- Document:
+# Video:
 
-- Participants:
+# Document:
 
-- Notes:
+# Participants:
+
+# Notes:
+
+#+END_SRC
