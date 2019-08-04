@@ -11,9 +11,13 @@
         - adobe-source-code-pro-fonts
         - autoconf
         - automake
+        - bash
+        - bash-completion
+        - blueberry
         - cmake
+        - clang
         - curl
-        - eclipse
+        - dnf-plugins-core
         - emacs
         - fedora-packager
         - firefox
@@ -24,20 +28,30 @@
         - gnome-terminal
         - irssi
         - isync
-        - java-1.8.0-openjdk-devel
-        - java-1.8.0-openjdk-src
+        - jq
         - krb5-workstation
+        - libicu-devel
+        - libunwind-devel
         - libvirt-client # virsh
+        - lldb-devel
+        - llvm
+        - lttng-ust-devel
         - make
         - mercurial
         - mutt
         - offlineimap
         - openssh-clients
-        - python2
+        - pandoc
+        - podman
+        - proselint
         - python3
         - the_silver_searcher # ag
+        - tar
+        - texlive-latex-bin-bin # /usr/bin/pdflatex
         - tmux
+        - valgrind
         - vim-enhanced
         - virt-manager
         - wget
         - xterm
+        - zip
