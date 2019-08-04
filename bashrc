@@ -29,19 +29,7 @@ export EDITOR=vim
 #
 #############################
 
-OLD_PS1="$PS1"
-normal="0m"
-escape="\033["
-grey="30m"
-bold_grey="1;30m"
-blue="34m"
-bold_blue="1;34m"
-green="32m"
-bold_green="1;32m"
-red="31m"
-bold_red="1;31m"
-#PS1="\[$escape$bold_grey[$escape$normal$escape$green\u$escape$normal@\h $escape$red\W$escape$bold_grey]$escape$normal\\$ "
-PS1='\[\e[1;32m\][\u@\h \W]\$\[\e[0m\] '
+PS1='\[\e[33m\][\u@\h \W]\[\e[37m\]\$\[\e[0m\] '
 
 ##############################
 #
