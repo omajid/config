@@ -38,6 +38,7 @@ PS1='\[\e[33m\][\u@\h \W]\[\e[37m\]\$\[\e[0m\] '
 ##############################
 
 alias grin='grep -rin'
+alias e='emacsclient -n'
 
 function mkcd {
     mkdir -p "$1"
