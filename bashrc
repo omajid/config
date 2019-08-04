@@ -12,7 +12,8 @@ fi
 ##############################
 
 export HISTCONTROL=ignoredups:erasedups
-export HISTSIZE=500000
+export HISTSIZE=
+export HISTFILESIZE=
 shopt -s histappend
 export EDITOR=vim
 
