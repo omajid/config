@@ -179,6 +179,7 @@
   (setq recentf-max-saved-items 100))
 
 (use-package smex
+  :demand
   :config
   (setq smex-key-advice-ignore-menu-bar t)
   (smex-initialize))
@@ -454,8 +455,10 @@
 
 (use-package hideshow
   :ensure nil ;; builtin
+  :demand
   :config
   (add-hook 'json-mode-hook #'hs-minor-mode)
+  (add-hook 'prog-mode-hook #'hs-minor-mode)
   (define-key evil-normal-state-map (kbd "TAB") #'hs-toggle-hiding))
 
 (use-package fpaste
