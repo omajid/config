@@ -106,8 +106,9 @@ install-config "$CONFIG_DIR"/awesome.d/awesome-solarized ~/.config/awesome/theme
 # firefox
 install-config "$CONFIG_DIR"/vimperatorrc ~/.vimperatorrc
 
-# dictionary
-install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_US
 # gdb
 install-config "$CONFIG_DIR"/gdbinit ~/.gdbinit
 
+# dictionary
+install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_US
+install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_CA
