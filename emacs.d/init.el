@@ -343,7 +343,7 @@
 
 (use-package ace-window
   :config
-  (set-face-attribute 'aw-leading-char-face nil :height 3.0)
+  (set-face-attribute 'aw-leading-char-face nil :height 4.0)
   :bind ("C-x o" . ace-window))
 
 (use-package uniquify
