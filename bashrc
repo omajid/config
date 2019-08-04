@@ -56,11 +56,7 @@ fi
 #
 ##############################
 
-
 # User specific aliases and functions
-
-export JAVAWS_DEBUG_ARGS="-J-Xdebug -J-Xnoagent -J-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y -Xnofork"
-export JAVA_DEBUG_ARGS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y"
 
 ulimit -c 100000000
 
