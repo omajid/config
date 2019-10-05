@@ -16,7 +16,7 @@
 
 (setq package-enable-at-startup nil)
 (setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")
+      '(("gnu" . "http://elpa.gnu.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
         ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
@@ -31,6 +31,8 @@
 (setq use-package-always-ensure t)
 (setq use-package-enable-imenu-support t)
 (require 'use-package)
+
+(use-package gnu-elpa-keyring-update)
 
 ;;;
 ;;; Looks
