@@ -414,10 +414,6 @@
   :commands er/expand-region
   :bind ("C-=" . er/expand-region))
 
-(use-package multiple-cursors
-  :bind (("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)))
-
 (use-package bug-reference
   :demand
   :config
@@ -449,11 +445,6 @@
                     (t (error (concat "Unknown item type: " kind id)))))))))
 
 (use-package crux)
-
-(use-package gist
-  :defer t
-  :config
-  (setq gist-view-gist 1))
 
 (use-package hideshow
   :ensure nil ;; builtin
@@ -518,12 +509,6 @@
           org-src-fontify-natively t            ; fontify code in code blocks
           org-src-window-setup 'current-window  ; edit code in current window
           org-src-preserve-indentation t)       ; dont indent code when editing and exporting
-
-    (require 'ox-beamer)
-
-    ;; ox-reveal is too old and now incompatible with newer org mode
-    ;; (use-package ox-reveal
-    ;;   :demand)
 
     (use-package org-indent
       :ensure nil ;; part of org-mode
@@ -666,8 +651,6 @@
   :config
   (electric-pair-mode 1))
 
-(use-package pretty-symbols)
-
 (use-package elisp-mode
   :ensure nil
   :demand
@@ -732,12 +715,6 @@
   :init
   (add-hook 'csharp-mode-hook #'omnisharp-mode)
   (add-hook 'csharp-mode-hook #'my-csharp-mode-setup))
-
-(use-package geiser
-  :config
-  (setq geiser-repl-history-filename
-        (convert-standard-filename
-         (locate-user-emacs-file "geiser-history" ".geiser-history"))))
 
 (use-package groovy-mode)
 
