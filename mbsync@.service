@@ -1,0 +1,10 @@
+[Unit]
+Description=Mailbox syncrhonization service for user %I
+After=network.target netwokr-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mbsync -a
+User=%i
+StandardOutput=syslog
+StandardError=syslog
