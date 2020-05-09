@@ -366,7 +366,12 @@
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (use-package flycheck-package
     :init
-    (add-hook 'after-init-hook #'flycheck-package-setup)))
+    (add-hook 'after-init-hook #'flycheck-package-setup))
+  (use-package flycheck-mypy)
+  :config
+  (setq flycheck-python-flake8-executable "python3"
+        flycheck-python-pycompile-executable "python3"
+        flycheck-python-pylint-executable "python3"))
 
 (use-package company
   :demand
