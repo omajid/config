@@ -2,7 +2,7 @@
 # set my own information
 set realname="Omair Majid"
 set sig_dashes=no
-set signature="~/.mutt/signature"
+set signature="~/config/email-signature"
 
 set ssl_ca_certificates_file = "/etc/pki/tls/certs/ca-bundle.crt"
 
