@@ -65,6 +65,7 @@
 (load-theme 'dracula t)
 
 (set-frame-font "Source Code Pro-8.0" t)
+(set-face-attribute 'fixed-pitch-serif nil :family "Source Code Pro")
 
 (use-package diminish)
 
