@@ -307,17 +307,11 @@
       (ansi-term "/bin/bash")))
   (defhydra my-hydra-main (:color blue)
     "Main"
-    ("b" my-hydra-file-bugs/body "bugs")
+    ("b" my-file-bug "bugs")
     ("i" (find-file user-init-file) "init file")
     ("o" my-hydra-org/body "org")
     ("p" my-hydra-projects/body "projects")
     ("t" my-switch-or-create-ansi-term "terminal"))
-  (defhydra my-hydra-file-bugs (:color blue)
-    "Bugs"
-    ("e" report-emacs-bug "emacs")
-    ("i" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=IcedTea") "icedtea")
-    ("r" (browse-url "https://bugzilla.redhat.com/enter_bug.cgi") "redhat")
-    ("t" (browse-url "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=Thermostat") "thermostat"))
   (defhydra my-hydra-org (:color blue)
     "Org"
     ("a" (org-agenda nil "n") "agenda")
@@ -835,6 +829,27 @@
 ;;;
 ;;; Playground
 ;;;
+
+(defvar my-bug-alist
+  '(("IcedTea" . "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=IcedTea")
+    (".NET Core on Fedora" . "https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=dotnet3.1")
+    (".NET Core on RHEL 7" . "https://bugzilla.redhat.com/enter_bug.cgi?product=dotNET")
+    (".NET Core on RHEL 8" . "https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%208&component=dotnet3.1")
+    (".NET Core CoreCLR" . "https://github.com/dotnet/coreclr/issues/new/choose")
+    (".NET Core CoreFx" . "https://github.com/dotnet/corefx/issues/new/choose")
+    (".NET Core Runtime" . "https://github.com/dotnet/runtime/issues/new/choose")
+    (".NET Core SDK" . "https://github.com/dotnet/sdk/issues/new/choose")
+    (".NET Core source-build" . "https://github.com/dotnet/source-build/issues/new/choose")
+    ("Thermostat" .  "http://icedtea.classpath.org/bugzilla/enter_bug.cgi?product=Thermostat")))
+
+(defun my-file-bug ()
+  "Pick a project and report a bug against it.
+
+Uses `my-bug-alist' to select the bug."
+  (interactive)
+  (let* ((choice (completing-read "Bug against: " my-bug-alist))
+         (url (cdr (assoc choice my-bug-alist))))
+    (browse-url url)))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'my-gnus-config)
