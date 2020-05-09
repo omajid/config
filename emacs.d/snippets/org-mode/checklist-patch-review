@@ -7,10 +7,13 @@
 - [ ] Compatibility impact
 - [ ] Principle of least surprise
 - [ ] What can go wrong?
+  - [ ] Any accidental culture specific code
+    - C#: ~StartsWith~, ~EndsWith~
 - [ ] Readability (with comments for tricky aspects)
 - [ ] Parallelism/Thread Safety
 - [ ] Algorithms and boundry cases
 - [ ] Performance
+  - [ ] Is this code performance sensitive?
 - [ ] Error Handling
 - [ ] Resource Handling
 - [ ] Unit/Integration Tests
