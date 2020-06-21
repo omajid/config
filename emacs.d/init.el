@@ -138,6 +138,9 @@
 ;; single space after period ends sentence
 (setq sentence-end-double-space nil)
 
+(setq
+ user-mail-address "omajid@redhat.com")
+
 ;; show matching parenthesis
 (show-paren-mode 1)
 ;; by default, there’s a small delay before showing a matching parenthesis
@@ -235,6 +238,7 @@
   (setq ivy-initial-inputs-alist nil)
   (setq magit-completing-read-function 'ivy-completing-read)
   (setq projectile-completion-system 'ivy)
+  (setq mu4e-completing-read-function 'ivy-completing-read)
   (ivy-mode 1)
   (defun my-ivy-action-insert (x)
     (insert
@@ -313,6 +317,7 @@
   (defhydra my-hydra-main (:color blue)
     "Main"
     ("b" my-file-bug "bugs")
+    ("e" mu4e "email")
     ("i" (find-file user-init-file) "init file")
     ("o" my-hydra-org/body "org")
     ("p" my-hydra-projects/body "projects")
@@ -476,6 +481,102 @@
   (add-hook 'rpm-spec-mode-hook #'ws-butler-mode)
   (add-hook 'text-mode-hook #'ws-butler-mode))
 
+;;;
+;;; Mail
+;;;
+
+(defvar my-status-mail-recipient nil
+  "Email address used for sending status mails.")
+
+(defun my-get-file-contents (filename)
+  "Get the contents of the file with FILENAME as one string."
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (buffer-substring (point-min) (point-max))))
+
+(use-package mu4e
+  :ensure nil
+  :demand
+  :init
+  (use-package org-mu4e
+    :ensure nil
+    :demand)
+  (defun my-filter-contact-address (contact)
+    "Don't complete email address to noreply@ or no-reply@"
+    (if (string-match-p "noreply\\|no-reply\\|mojo-notify" contact)
+        nil
+      contact))
+  (setq
+   mail-user-agent 'mu4e-user-agent
+   message-send-mail-function #'smtpmail-send-it
+   mu4e-change-filenames-when-moving t
+   mu4e-compose-signature (my-get-file-contents (expand-file-name "~/config/email-signature"))
+   mu4e-contact-process-function #'my-filter-contact-address
+   mu4e-drafts-folder "/[Gmail]/Drafts"
+   mu4e-headers-include-related nil ; by default, it shows entire thread, even if the rest of the messages are in a different folder
+   mu4e-index-update-in-background t
+   mu4e-refile-folder "/[Gmail]/All Mail"
+   mu4e-sent-folder "/[Gmail]/Sent Mail"
+   mu4e-trash-folder "/[Gmail]/Trash"
+   mu4e-update-interval (* 60 15)
+   mu4e-view-show-addresses t
+   mu4e-view-show-images t
+   shr-color-visible-luminance-min 80) ; make html messages more legible on dark color schemes
+  :config
+  (set-face-attribute 'mu4e-header-highlight-face nil
+                      :underline nil)
+
+  (defun my-mu4e-get-mail-header (msg header-name)
+    (let ((path (mu4e-message-field msg :path)))
+      (my-mu4e-get-mail-header-path header-name path)))
+
+  ;; from https://etienne.depar.is/emacs.d/mu4e.html
+  (defun my-mu4e-get-mail-header-path (header-name path)
+    (message "%s" path)
+    (replace-regexp-in-string
+     "[ \t\n]*$"
+     ""
+     (shell-command-to-string
+      (concat "/usr/bin/sed -En '/^" header-name ":/I{:loop t;h;n;/^( |\\t)/{H;x;s/\\n//;t loop};x;p}' '" path "' | sed -n 's/^" header-name ": \\(.*\\)$/\\1/Ip'"))))
+
+  (defun my-mu4e-unsubscribe-list (msg)
+    ""
+    (let* ((list-unsubscribe (my-mu4e-get-mail-header msg "list-unsubscribe"))
+           (mailto-start (string-match "<mailto:" list-unsubscribe)))
+      (if mailto-start
+          (let* ((mailto-end (string-match ">" list-unsubscribe (+ 1 mailto-start)))
+                 (mailto-address (substring list-unsubscribe (+ mailto-start 1) mailto-end)))
+            (url-mailto (url-generic-parse-url mailto-address))
+            (goto-char (point-min))
+            (re-search-forward "--\n")
+            (delete-region (point) (point-max)))
+        (let* ((url-start (or (string-match "<" list-unsubscribe) 0))
+               (url-end (or (string-match ">" list-unsubscribe url-start) (length list-unsubscribe)))
+               (unsubscribe-url (substring list-unsubscribe url-start url-end)))
+          (message "%s" unsubscribe-url)
+          (browse-url unsubscribe-url)))))
+
+  (add-to-list 'mu4e-view-actions
+               '("xunsubscribe from mailing list" . my-mu4e-unsubscribe-list) t)
+
+  (defun my-status-mail-from-org-block ()
+    "Create a status report mail with a src block as the body."
+    (interactive)
+    (unless (org-in-block-p '("src"))
+      (user-error "Not in a block"))
+    (save-mark-and-excursion
+      (org-babel-mark-block)
+      (let ((subject (format-time-string "Status %F"))
+            (recipient my-status-mail-recipient)
+            (text (buffer-substring-no-properties (region-beginning) (region-end))))
+        (url-mailto (url-generic-parse-url (concat "mailto:" recipient "?subject=" subject)))
+        (goto-char (point-min))
+        (search-forward "\n\n")
+        (insert text)))))
+
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(require 'my-redhat-mail-config)
+
 
 ;;;
 ;;; Text/Markup Editing Modes
@@ -633,11 +734,6 @@
 ;;;
 ;;; Programming Modes
 ;;;
-
-
-(use-package semantic
-  :config
-  (add-hook 'prog-mode-hook #'semantic-mode))
 
 (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
@@ -805,19 +901,6 @@
                 (read-number "RFC number:" (thing-at-point 'number))))
   (let ((url (format "https://tools.ietf.org/html/rfc%s.txt" rfc-num)))
     (eww-browse-url url)))
-
-(defun my-mutt-mail-region (point mark)
-  "Generate a mail from the text between POINT and MARK and send it out."
-  (interactive "r")
-  (unless (region-active-p)
-    (user-error "Select a region to generate mail from"))
-  (let ((file (make-temp-file "emacs-mutt-mail"))
-        (subject (format-time-string "Status %F"))
-        (recipient "dotnet-team@redhat.com"))
-    (write-region point mark file)
-    (start-process "emacs-mutt-mail"
-                   "emacs-mutt-mail"
-                   "gnome-terminal" "--" "mutt" "-i" file "-s" subject recipient)))
 
 (defun my-virt-find-file (virt-name)
   "Run `find-file' in a virtual machine with name VIRT-NAME."
