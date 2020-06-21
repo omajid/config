@@ -184,7 +184,6 @@
 (use-package smex
   :demand
   :config
-  (setq smex-key-advice-ignore-menu-bar t)
   (smex-initialize))
 
 (use-package ido
