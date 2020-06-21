@@ -735,6 +735,11 @@
 ;;; Programming Modes
 ;;;
 
+(defun my-show-trailing-whitespace ()
+  "Show trailing white-space."
+  (setq show-trailing-whitespace 't))
+(add-hook 'prog-mode-hook #'my-show-trailing-whitespace)
+
 (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
 (use-package elec-pair
