@@ -2,6 +2,6 @@
 # name: changelog
 # key: changelog
 # --
-* `(format-time-string "%a %b %d %Y")` `(string-trim (shell-command-to-string "git config --global user.name"))` <`(string-trim (shell-command-to-string "git config --global user.email"))`> - `(my-changelog-version-release)`
+* `(format-time-string "%a %b %d %Y")` `(string-trim (shell-command-to-string "git config user.name"))` <`(string-trim (shell-command-to-string "git config user.email"))`> - `(my-changelog-version-release)`
 - $0
 - Resolves: RHBZ#$1
