@@ -149,10 +149,16 @@
 ;; show column numbers too
 (column-number-mode 1)
 
-;; backups
-(setq backup-directory-alist '((".*" . "~/.saves"))
+;; put all backups in one location instead of polluting all over the file system
+(setq backup-directory-alist '((".*" . "~/.saves/"))
       backup-by-copying t
       delete-old-versions t)
+;; same thing with put autosave files
+(setq auto-save-file-name-transforms
+      '((".*"  "~/.saves/" t)))
+;; lock files must be placed in the current directory; I would rather not use them
+(setq create-lockfiles nil)
+
 
 ;; replace selection when typing
 (pending-delete-mode)
