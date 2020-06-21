@@ -93,14 +93,13 @@
 (use-package evil
   :demand
   :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil)
+  (setq evil-want-keybinding nil) ; needed by evil-collection
   (add-hook 'git-commit-mode-hook #'evil-insert-state)
   :config
   (progn
     (evil-set-initial-state 'project-explorer-mode 'emacs)
     (evil-set-initial-state 'term-mode 'emacs)
-    ;; make * and # behave like vim and include _ (and -) in search
+    ;; make * and # behave like vim: include _ and - in search
     (setq-default evil-symbol-word-search t)
     (evil-mode 1)))
 
