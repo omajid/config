@@ -453,16 +453,6 @@
   (add-hook 'prog-mode-hook #'hs-minor-mode)
   (define-key evil-normal-state-map (kbd "TAB") #'hs-toggle-hiding))
 
-(use-package fpaste
-  :commands fpaste
-  :config
-  (setq fpaste-user user-login-name))
-
-(use-package rh-paste
-  :load-path "~/devel/emacs-rh-paste/"
-  :ensure nil
-  :commands rh-paste)
-
 (use-package rainbow-mode
   :config
   (rainbow-mode))
