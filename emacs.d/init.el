@@ -161,7 +161,6 @@
 ;; lock files must be placed in the current directory; I would rather not use them
 (setq create-lockfiles nil)
 
-
 ;; replace selection when typing
 (pending-delete-mode)
 
@@ -588,7 +587,16 @@
   :init
   (add-hook 'text-mode-hook #'turn-on-auto-fill))
 
-(use-package writeroom-mode)
+(use-package writeroom-mode
+  :init
+  ;; git-gutter-mode messes with writeroom-mode's text-centering
+  ;; https://github.com/joostkremers/writeroom-mode/issues/40
+  (defun my-disable-git-gutter-mode ()
+    "Disable git-gutter-mode."
+    (when (fboundp 'git-gutter-mode)
+      (git-gutter-mode 0)))
+  :config
+  (add-hook 'writeroom-mode-hook #'my-disable-git-gutter-mode))
 
 (use-package writegood-mode
   :init
@@ -939,7 +947,35 @@ Uses `my-bug-alist' to select the bug."
          (url (cdr (assoc choice my-bug-alist))))
     (browse-url url)))
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'my-gnus-config)
+(defun my-blog-new-post (title)
+  "Create a new blog post with TITLE."
+  (interactive "sTitle:")
+  (let* ((blog-root-dir (expand-file-name "~/devel/omajid.github.io/"))
+         (default-directory blog-root-dir)
+         (blog-post-dir (concat blog-root-dir "content/posts/"))
+         (blog-post-filename (concat (format-time-string "%Y-%m-%d-") (string-join (split-string (downcase title)) "-") ".md"))
+         (blog-post-file (concat blog-post-dir blog-post-filename))
+         (hugo-program "hugo")
+         (hugo-args (list "new" (concat "posts/" blog-post-filename))))
+    (apply #'process-file hugo-program nil nil nil hugo-args)
+    (find-file blog-post-file)
+    ;; git-gutter-mode messes with writeroom-mode's text-centering
+    ;; https://github.com/joostkremers/writeroom-mode/issues/40
+    (when (fboundp 'writeroom-mode)
+      (writeroom-mode 1))))
+
+(defun my-blog-last-post ()
+  "Get to the last blog post."
+  (interactive)
+  (let* ((blog-post-dir (expand-file-name "~/devel/omajid.github.io/content/posts/"))
+         (blog-files (directory-files blog-post-dir))
+         ;; blog-files is sorted and my posts are named as YYYY-MM-DD
+         ;; so the last item in the list is the latest post
+         (last-blog-post (nth (- (safe-length blog-files ) 1) blog-files))
+         (last-blog-post-file (concat blog-post-dir last-blog-post)))
+    (find-file last-blog-post-file)
+    (when (fboundp 'writeroom-mode)
+      (writeroom-mode 1))))
+
 
 ;;; init.el ends here
