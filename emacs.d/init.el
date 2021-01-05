@@ -538,6 +538,23 @@
      (shell-command-to-string
       (concat "/usr/bin/sed -En '/^" header-name ":/I{:loop t;h;n;/^( |\\t)/{H;x;s/\\n//;t loop};x;p}' '" path "' | sed -n 's/^" header-name ": \\(.*\\)$/\\1/Ip'"))))
 
+  (defun my-mu4e-view-async-download (&optional multi)
+    "Offer to (download) urls(s) async. If MULTI (prefix-argument) is nil,
+download a single one, otherwise, offer to fetch a range of
+URLs. The urls are fetched to `mu4e-attachment-dir'."
+    (interactive "P")
+    (mu4e~view-handle-urls "URL to download" multi
+                           (lambda (url)
+                             (let ((filename (file-name-nondirectory (car (url-path-and-query (url-generic-parse-url url)))))
+                                   (default-directory (mu4e~get-attachment-dir url)))
+                               (when (file-exists-p filename)
+                                 (signal 'file-already-exists (list "File already exists" filename)))
+                               (start-process "mu4e-download" "*download*" "curl" url "-o" filename)))))
+  (add-to-list 'mu4e-view-actions
+               '("Download async" . my-mu4e-view-curl-download) t)
+  (eval-after-load 'evil
+    (evil-define-key 'normal mu4e-view-mode-map "gd" 'my-mu4e-view-async-download))
+
   (defun my-mu4e-unsubscribe-list (msg)
     ""
     (let* ((list-unsubscribe (my-mu4e-get-mail-header msg "list-unsubscribe"))
