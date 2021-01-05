@@ -93,7 +93,8 @@
 (use-package evil
   :demand
   :init
-  (setq evil-want-keybinding nil) ; needed by evil-collection
+  (setq evil-want-keybinding nil ; needed by evil-collection
+        evil-undo-system 'undo-fu)
   (add-hook 'git-commit-mode-hook #'evil-insert-state)
   :config
   (progn
