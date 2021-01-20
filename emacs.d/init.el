@@ -67,12 +67,6 @@
 (set-frame-font "Source Code Pro-8.0" t)
 (set-face-attribute 'fixed-pitch-serif nil :family "Source Code Pro")
 
-(use-package diminish)
-
-(use-package doom-modeline
-  :init
-  (doom-modeline-mode 1))
-
 (use-package all-the-icons
   :demand
   :init
@@ -84,6 +78,12 @@
     (add-to-list 'all-the-icons-ivy-file-commands 'counsel-dired-jump)
     (add-to-list 'all-the-icons-ivy-file-commands 'counsel-find-library)
     (all-the-icons-ivy-setup)))
+
+(use-package diminish)
+
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1))
 
 ;;;
 ;;; Keybindings
