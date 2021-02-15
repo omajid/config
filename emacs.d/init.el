@@ -5,6 +5,15 @@
 
 ;;; Code:
 
+(defun my-display-startup-time ()
+  "Show startup time for emacs."
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
+(add-hook 'emacs-startup-hook #'my-display-startup-time)
+
 (defvar my-init-gc-cons-threshold gc-cons-threshold)
 (setq gc-cons-threshold 100000000)
 (add-hook 'after-init-hook
@@ -30,6 +39,8 @@
 (setq use-package-always-defer t)
 (setq use-package-always-ensure t)
 (setq use-package-enable-imenu-support t)
+(setq use-package-verbose t)
+
 (require 'use-package)
 
 (use-package gnu-elpa-keyring-update)
