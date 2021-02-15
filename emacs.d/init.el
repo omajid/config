@@ -57,10 +57,6 @@
 (setq
  inhibit-splash-screen t)
 
-(setq org-directory (expand-file-name "~/notebook"))
-(setq my-default-notes-file (concat org-directory "/daily-log.org"))
-;; (setq initial-buffer-choice my-default-notes-file)
-
 ;; Some nice themes that I like
 (use-package challenger-deep-theme)
 (use-package doom-themes)
@@ -629,101 +625,12 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
 ;;; Text/Markup Editing Modes
 ;;;
 
-(use-package simple
-  :ensure nil ;; auto-fill is built-in
-  :diminish auto-fill-function
+(use-package org-mind-map
+  :after org
   :init
-  (add-hook 'text-mode-hook #'turn-on-auto-fill))
-
-(use-package writeroom-mode
-  :init
-  ;; git-gutter-mode messes with writeroom-mode's text-centering
-  ;; https://github.com/joostkremers/writeroom-mode/issues/40
-  (defun my-disable-git-gutter-mode ()
-    "Disable git-gutter-mode."
-    (when (fboundp 'git-gutter-mode)
-      (git-gutter-mode 0)))
+  (require 'ox-org)
   :config
-  (add-hook 'writeroom-mode-hook #'my-disable-git-gutter-mode))
-
-(use-package writegood-mode
-  :init
-  (add-hook 'text-mode-hook #'writegood-mode))
-
-(use-package org
-  :init
-  (add-to-list 'auto-mode-alist `(,(concat org-directory "/.*'") . org-mode))
-  :config
-  (progn
-    (setq org-catch-invisible-edits 'error
-          org-cycle-separator-lines 0
-          org-src-fontify-natively t            ; fontify code in code blocks
-          org-src-window-setup 'current-window  ; edit code in current window
-          org-src-preserve-indentation t)       ; dont indent code when editing and exporting
-
-    (use-package org-indent
-      :ensure nil ;; part of org-mode
-      :diminish org-indent-mode)
-
-    ;; bullets
-
-    (use-package org-bullets
-      :init
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-      :config
-      (setq org-bullets-bullet-list '("#" "##" "###" "####")))
-
-    ;; capture
-    (defun my-heading-of-new-tasks ()
-      "The heading for next reporting day (Tuesday)."
-      (concat "Week ending " (string-trim (shell-command-to-string "date -d 'next Tuesday' +%Y-%m-%d"))))
-    (setq org-default-notes-file my-default-notes-file)
-    (add-hook 'org-capture-mode-hook 'evil-insert-state)
-    (setq org-capture-templates
-          `(("t" "Todo" entry (file+olp org-default-notes-file ,(my-heading-of-new-tasks) "Tasks")
-             "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n  %i\n  %a"
-             :created t)))
-
-    ;; refile
-    (setq org-refile-use-outline-path t)
-
-    ;; agenda
-    (require 'org-agenda)
-
-    ;; this is the default agenda configuration for viewing the agenda
-    (setq org-agenda-files (list org-directory))
-    (setq org-agenda-span 'fortnight)
-    ;; don't show tasks as scheduled if they are already shown as deadline
-    (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
-    ;; show log mode by default
-    ;; (setq org-agenda-start-with-log-mode t)
-    ;; show agenda in the current window and don't modify my existing window setup
-    (setq org-agenda-window-setup 'current-window)
-    ;; don't show tasks that are scheduled or have deadlines in the
-    ;; normal todo list
-    (setq org-agenda-todo-ignore-deadlines 'all)
-    (setq org-agenda-todo-ignore-scheduled 'all)
-    ;;sort tasks in order of when they are due and then by priority
-    (setq org-agenda-sorting-strategy
-          '((agenda deadline-up priority-down)
-            (todo priority-down category-keep)
-            (tags priority-down category-keep)
-            (search category-keep)))
-    (setq org-deadline-warning-days 14)
-    (setq org-log-states-order-reversed nil)
-
-    ;; specialized agenda for reporting
-
-    ;; (add-to-list 'org-agenda-custom-commands
-    ;;              '("W" "Weekly review"
-    ;;                agenda ""
-    ;;                ((org-agenda-span 8)
-    ;;                 (org-agenda-start-day "-8d")
-    ;;                 (org-agenda-start-on-weekday 2)
-    ;;                 (org-agenda-start-with-log-mode t)
-    ;;                 (org-agenda-skip-function
-    ;;                  '(org-agenda-skip-entry-if 'nottodo 'done)))))
-    ))
+  (setq org-mind-map-engine "dot"))       ; Default. Directed Graph
 
 (use-package adoc-mode
   :init
@@ -737,30 +644,6 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
 
 (use-package dockerfile-mode)
 
-(use-package markdown-mode
-  :mode ("\\.md\\'"
-         ("\\README.md\\'" . gfm-mode)))
-
-(use-package markdown-toc)
-
-(use-package pandoc-mode)
-
-(use-package yaml-mode)
-
-(use-package json-mode
-  :config
-  (setq js-indent-level 2))
-
-(use-package web-mode
-  :mode "\\.cshtml\\'")
-
-(use-package sgml-mode
-  :config
-  (advice-add 'sgml-delete-tag
-              :after
-              (lambda (arg)
-                (indent-region (point-min) (point-max)))))
-
 (use-package emmet-mode
   :commands emmet-mode
   :config
@@ -769,10 +652,6 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
     (add-hook 'web-mode-hook #'emmet-mode)
     (add-hook 'css-mode-hook #'emmet-mode)
     (add-hook 'nxml-mode-hook #'emmet-mode)))
-
-(use-package jinja2-mode)
-
-(use-package rpm-spec-mode)
 
 (use-package graphviz-dot-mode
   :mode "'\\.dot\\'"
@@ -783,9 +662,147 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
 
 (use-package gitconfig-mode :defer t)
 
-(use-package hgignore-mode :defer t)
+(use-package json-mode
+  :config
+  (setq js-indent-level 2))
+
+(use-package markdown-mode
+  :mode ("\\.md\\'"
+         ("\\README.md\\'" . gfm-mode)))
+
+(use-package markdown-toc)
+
+(use-package org
+  :config
+
+  ;; Basics
+  (setq org-directory (expand-file-name "~/notebook"))
+  (defvar my-default-notes-file (concat org-directory "/daily-log.org"))
+
+  (setq org-catch-invisible-edits 'error
+        org-cycle-separator-lines 0
+        org-src-fontify-natively t            ; fontify code in code blocks
+        org-src-window-setup 'current-window  ; edit code in current window
+        org-src-preserve-indentation t)       ; dont indent code when editing and exporting
+
+  (setq org-startup-folded t)
+
+  ;; Editing
+  ;; (setq org-hide-leading-stars t)
+
+  ;; TODO-related items
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "DOING(g)" "WAIT(w@/!)" "|" "DONE(d!)" "DELEGATED(l@)" "CANCELLED(c@)")))
+
+  ;; Tags
+
+  ;; Logging
+  (setq org-log-done 'time)
+  (setq org-log-states-order-reversed nil)
+
+  ;; Capture and Refile
+
+  (defun my-heading-of-new-tasks ()
+    "The heading for next reporting day (Tuesday)."
+    (concat "Week ending " (string-trim (shell-command-to-string "date -d 'next Tuesday' +%Y-%m-%d"))))
+  (setq org-default-notes-file my-default-notes-file)
+  (add-hook 'org-capture-mode-hook #'evil-insert-state)
+  (setq org-capture-templates
+        `(("t" "Todo" entry (file+olp org-default-notes-file ,(my-heading-of-new-tasks) "Tasks")
+           "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n  %i\n  %a"
+           :created t)))
+
+  (setq org-refile-use-outline-path t)
+
+  ;; Agenda
+  (require 'org-agenda)
+  ;; (setq org-agenda-inhibit-startup t)
+  (setq org-agenda-dim-blocked-tasks nil)
+  (add-hook 'org-agenda-mode-hook #'hl-line-mode)
+
+  (setq org-agenda-files (list org-directory))
+  (setq org-agenda-span 'fortnight)
+
+  ;; show log mode by default
+  ;; (setq org-agenda-start-with-log-mode t)
+
+  (setq org-agenda-window-setup 'current-window)
+
+  ;; don't show tasks that are scheduled or have deadlines in the
+  ;; normal todo list
+  (setq org-agenda-todo-ignore-deadlines 'all)
+  (setq org-agenda-todo-ignore-scheduled 'all)
+
+  ;;sort tasks in order of when they are due and then by priority
+  (setq org-agenda-sorting-strategy
+        '((agenda deadline-up priority-down)
+          (todo priority-down category-keep)
+          (tags priority-down category-keep)
+          (search category-keep)))
+  (setq org-deadline-warning-days 14)
+
+  ;; specialized agenda for reporting
+
+  ;; (add-to-list 'org-agenda-custom-commands
+  ;;              '("W" "Weekly review"
+  ;;                agenda ""
+  ;;                ((org-agenda-span 8)
+  ;;                 (org-agenda-start-day "-8d")
+  ;;                 (org-agenda-start-on-weekday 2)
+  ;;                 (org-agenda-start-with-log-mode t)
+  ;;                 (org-agenda-skip-function
+  ;;                  '(org-agenda-skip-entry-if 'nottodo 'done)))))
+
+  (use-package htmlize)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((shell . t)
+     (emacs-lisp . t)))
+
+  ;; Export and Publishing
+
+  )
+
+(use-package pandoc-mode)
+
+(use-package rpm-spec-mode)
+
+(use-package simple
+  :ensure nil ;; auto-fill is built-in
+  :diminish auto-fill-function
+  :init
+  (add-hook 'text-mode-hook #'turn-on-auto-fill))
+
+
+(use-package sgml-mode
+  :config
+  (advice-add 'sgml-delete-tag
+              :after
+              (lambda (arg)
+                (indent-region (point-min) (point-max)))))
 
 (use-package vimrc-mode :defer t)
+
+(use-package web-mode
+  :mode "\\.cshtml\\'")
+
+(use-package writegood-mode
+  :init
+  (add-hook 'text-mode-hook #'writegood-mode))
+
+(use-package writeroom-mode
+  :init
+  ;; git-gutter-mode messes with writeroom-mode's text-centering
+  ;; https://github.com/joostkremers/writeroom-mode/issues/40
+  (defun my-disable-git-gutter-mode ()
+    "Disable git-gutter-mode."
+    (when (fboundp 'git-gutter-mode)
+      (git-gutter-mode 0)))
+  :config
+  (add-hook 'writeroom-mode-hook #'my-disable-git-gutter-mode))
+
+(use-package yaml-mode)
 
 ;;;
 ;;; Programming Modes
@@ -798,13 +815,8 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
 
 (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
-(use-package elec-pair
-  :config
-  (electric-pair-mode 1))
-
 (use-package elisp-mode
   :ensure nil
-  :demand
   :bind (:map emacs-lisp-mode-map
               ("C-c e b" . eval-buffer)
               ("C-c e d" . eval-defun)
@@ -831,24 +843,6 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
       (ert t)
       (select-window (get-buffer-window original-buffer)))))
 
-(use-package cmake-mode)
-
-(use-package cc-mode
-  :defer t
-  :config
-  (add-to-list 'c-default-style '(other . "k&r")))
-
-(use-package omnisharp
-  :demand
-  :config
-  (setq omnisharp-server-executable-path
-        (expand-file-name "~/local/omnisharp-1.32.9/run"))
-  (add-to-list 'company-backends 'company-omnisharp))
-
-(use-package csproj-mode
-  :init
-  (add-hook 'csproj-mode-hook #'omnisharp-mode))
-
 (defun my-csharp-mode-setup ()
   "Configure csharp-mode."
   (setq indent-tabs-mode nil)
@@ -864,44 +858,50 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
 
 (use-package csharp-mode
   :init
-  (add-hook 'csharp-mode-hook #'omnisharp-mode)
+  ;; (add-hook 'csharp-mode-hook #'omnisharp-mode)
   (add-hook 'csharp-mode-hook #'my-csharp-mode-setup))
 
+(use-package csproj-mode
+  :init
+  (add-hook 'csproj-mode-hook #'omnisharp-mode))
+
+(use-package go-mode
+  :init
+  (defun my-go-mode-configure ()
+    "Configure buffer for writing in golang."
+    (setq indent-tabs-mode t
+          tab-width 4))
+  (add-hook 'go-mode-hook #'my-go-mode-configure)
+  :config
+  (setq godef-command "~/go/bin/godef"))
+
 (use-package groovy-mode)
+
+(use-package java-snippets)
+
+(use-package jar-manifest-mode)
 
 (use-package js2-mode
   :mode "\\.js\\'")
 
-(use-package python
-  :mode ("\\.py\\'" . python-mode))
-
-(use-package sphinx-doc
+(use-package lsp-mode
+  :hook
+  ((go-mode . lsp-deferred)
+   (lsp-mode . lsp-enable-which-key-integration))
+  :commands
+  (lsp lsp-deferred)
   :config
-  (add-hook 'python-mode-hook #'sphinx-doc-mode))
+  (setq lsp-modeline-diagnostic-scope :project))
 
-(use-package jedi
-  :config
-  (progn
-    ;; need to pip install epc and jedi
-    (add-hook 'python-mode-hook 'jedi:setup)
-    (setq jedi:complete-on-dot t)))
-;; TODO: in evil's insert state, map the normal autocomplete to jedi
-
-(use-package anaconda-mode
-  :config
-  (add-hook 'python-mode-hook #'anaconda-mode))
-
-(use-package java-snippets)
-
-(use-package jtreg
-  :load-path "~/devel/emacs-jtreg/"
-  :ensure nil
-  :config
-  (setq jtreg-dir "~/local/jtreg/lib/"))
-
-(use-package jar-manifest-mode)
+(use-package lsp-ui
+  :commands lsp-ui-mode)
 
 (use-package lua-mode)
+
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :init
+  (use-package pipenv))
 
 (use-package restclient
   :commands restclient-mode
