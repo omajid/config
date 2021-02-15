@@ -1017,4 +1017,13 @@ Uses `my-bug-alist' to select the bug."
          (last-blog-post-file (concat blog-post-dir last-blog-post)))
     (find-file last-blog-post-file)))
 
+(defun my-human-time-string-to-timestamp (human-time)
+  "Find out the actual time (Lisp timestamp) from HUMAN-TIME.
+
+human-time can be text like 'next month' or 'tomorrow'."
+  (date-to-time (with-temp-buffer
+                  (call-process "env" nil t nil "LC_ALL=C" "LANGUAGE=" "date" "-Rd" human-time)
+                  (or (bobp) (delete-backward-char 1))
+                  (buffer-string))))
+
 ;;; init.el ends here
