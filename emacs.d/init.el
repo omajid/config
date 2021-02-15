@@ -299,7 +299,24 @@
                               (directory-file-name (projectile-project-root))))
                    (error ""))))
             mode-line)))
-  (projectile-mode 1))
+  (projectile-mode 1)
+
+  (defun my-end-to-end-test ()
+    "Run e2e test for project."
+    (interactive)
+    (let* ((project-name (projectile-project-name))
+           (command
+            (cond
+             ((string= project-name "tachometer")
+              "make check")
+             (t (user-error (concat "Unknown project name: " project-name)))))
+           (compilation-read-command nil))
+      (projectile--run-project-cmd command
+                                   nil
+                                   :prompt-prefix "e2e command: "
+                                   :save-buffers t)))
+
+  (define-key projectile-command-map (kbd "`") #'my-end-to-end-test))
 
 (use-package ag)
 
