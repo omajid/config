@@ -55,8 +55,7 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode 0))
 (if (fboundp 'tooltip-mode) (tooltip-mode 0))
 (setq
- inhibit-splash-screen t
- tooltip-use-echo-area t)
+ inhibit-splash-screen t)
 
 (setq org-directory (expand-file-name "~/notebook"))
 (setq my-default-notes-file (concat org-directory "/daily-log.org"))
