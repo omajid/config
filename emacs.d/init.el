@@ -1004,11 +1004,7 @@ Uses `my-bug-alist' to select the bug."
          (hugo-program "hugo")
          (hugo-args (list "new" (concat "posts/" blog-post-filename))))
     (apply #'process-file hugo-program nil nil nil hugo-args)
-    (find-file blog-post-file)
-    ;; git-gutter-mode messes with writeroom-mode's text-centering
-    ;; https://github.com/joostkremers/writeroom-mode/issues/40
-    (when (fboundp 'writeroom-mode)
-      (writeroom-mode 1))))
+    (find-file blog-post-file)))
 
 (defun my-blog-last-post ()
   "Get to the last blog post."
@@ -1019,9 +1015,6 @@ Uses `my-bug-alist' to select the bug."
          ;; so the last item in the list is the latest post
          (last-blog-post (nth (- (safe-length blog-files ) 1) blog-files))
          (last-blog-post-file (concat blog-post-dir last-blog-post)))
-    (find-file last-blog-post-file)
-    (when (fboundp 'writeroom-mode)
-      (writeroom-mode 1))))
-
+    (find-file last-blog-post-file)))
 
 ;;; init.el ends here
