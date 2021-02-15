@@ -6,7 +6,7 @@
 ;;; Code:
 
 (defun my-display-startup-time ()
-  "Show startup time for emacs."
+  "Show startup time for Emacs."
   (message "Emacs loaded in %s with %d garbage collections."
            (format "%.2f seconds"
                    (float-time
@@ -198,7 +198,7 @@
 
 (use-package recentf
   :config
-  (setq recentf-max-saved-items 100))
+  (setq recentf-max-saved-items 1000))
 
 (use-package smex
   :demand
@@ -328,7 +328,9 @@
 
 (use-package git-gutter
   :diminish ""
-  :demand
+  :init
+  (add-hook 'text-mode-hook #'git-gutter-mode)
+  (add-hook 'prog-mode-hook #'git-gutter-mode)
   :config
   (global-git-gutter-mode))
 
@@ -354,8 +356,6 @@
     "Org"
     ("a" (org-agenda nil "n") "agenda")
     ("c" org-capture "capture")
-    ("d" (find-file (concat org-directory "/to-discuss.org")) "to discuss")
-    ("k" (find-file (concat org-directory "/checklist-professional.org")) "checklist")
     ("l" (find-file my-default-notes-file) "daily log"))
   (defhydra my-hydra-projects (:color blue)
     "Projects"
@@ -396,6 +396,7 @@
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (use-package flycheck-package
+    :after flycheck
     :init
     (add-hook 'after-init-hook #'flycheck-package-setup))
   (use-package flycheck-mypy)
@@ -409,14 +410,15 @@
   :diminish company-mode
   :config
   (add-hook 'after-init-hook #'global-company-mode)
-  (setq company-idle-delay 0.5)
-  (setq company-tooltip-align-annotations t))
+  (setq company-idle-delay 1
+        company-minimum-prefix-length 1
+        company-tooltip-align-annotations t))
 
 (use-package abbrev
   :ensure nil
-  :demand
   :diminish ""
   :init
+  (add-hook 'after-init-hook #'abbrev-mode)
   (setq-default abbrev-mode t))
 
 (use-package yasnippet
@@ -478,8 +480,8 @@
 
 (use-package hideshow
   :ensure nil ;; builtin
-  :demand
-  :config
+  :after evil
+  :init
   (add-hook 'json-mode-hook #'hs-minor-mode)
   (add-hook 'prog-mode-hook #'hs-minor-mode)
   (define-key evil-normal-state-map (kbd "TAB") #'hs-toggle-hiding))
