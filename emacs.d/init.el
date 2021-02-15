@@ -447,8 +447,7 @@
   :config
   (editorconfig-mode 1))
 
-(use-package undo-tree
-  :diminish undo-tree-mode)
+(use-package undo-fu)
 
 (use-package expand-region
   :commands er/expand-region
