@@ -369,13 +369,6 @@
 ;;; Buffers
 ;;;
 
-(use-package eyebrowse
-  :demand
-  :init
-  (setq eyebrowse-new-workspace t)
-  :config
-  (eyebrowse-mode 1))
-
 (use-package ace-window
   :config
   (set-face-attribute 'aw-leading-char-face nil :height 4.0)
