@@ -5,11 +5,12 @@
 {
     "name": "`(file-name-nondirectory (directory-file-name (file-name-directory (buffer-file-name))))`",
     "enabled": true,
+    "requiresSdk": true,
     "version": "$1",
     "versionSpecific": ${2:$$(yas-choose-value '("true" "false"))},
     "type": "${3:$$(yas-choose-value '("xunit" "bash"))}",
     "cleanup": true,
-    "platformBlacklist":[
+    "ignoredRIDs":[
         $0
     ]
 }
