@@ -1,0 +1,28 @@
+- [ ] Why
+  - [ ] Why am I doing this?
+  - [ ] Who is the target audience?
+  - [ ] How does it help them?
+- [ ] Overall Approach
+  - [ ] Does this make it easier to change the product/software in the future?
+  - [ ] Principle of least surprise
+    - [ ] Is there anything not clear?
+    - [ ] Is there anything surprising?
+    - [ ] Is there anything that looks "wrong"?
+- [ ] License
+- [ ] Compatibility impact
+  - [ ] Are there any breaking changes?
+- [ ] What can go wrong?
+  - [ ] Any accidental culture/language specific code
+    - C#: ~StartsWith~, ~EndsWith~
+- [ ] Readability (with comments for tricky aspects)
+- [ ] Parallelism/Thread Safety
+- [ ] Algorithms and boundry cases
+- [ ] Performance
+  - [ ] Is this code performance sensitive?
+  - [ ] Do I have any benchmarks?
+- [ ] Error Handling
+- [ ] Resource Handling
+- [ ] Unit/Integration Tests
+- [ ] Documentation
+  - [ ] Does this need announcement?
+  - [ ] Release notes?

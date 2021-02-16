@@ -2,19 +2,6 @@
 # name: Checklist: Patch review
 # key: checklist_patch_review
 # --
-- [ ] License
-- [ ] Overall Approach
-- [ ] Compatibility impact
-- [ ] Principle of least surprise
-- [ ] What can go wrong?
-  - [ ] Any accidental culture specific code
-    - C#: ~StartsWith~, ~EndsWith~
-- [ ] Readability (with comments for tricky aspects)
-- [ ] Parallelism/Thread Safety
-- [ ] Algorithms and boundry cases
-- [ ] Performance
-  - [ ] Is this code performance sensitive?
-- [ ] Error Handling
-- [ ] Resource Handling
-- [ ] Unit/Integration Tests
-- [ ] Documentation
+`(with-temp-buffer
+  (insert-file-contents (expand-file-name "~/config/gitmessage"))
+  (buffer-string))`
