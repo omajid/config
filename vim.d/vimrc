@@ -18,6 +18,11 @@ set ignorecase
 
 filetype plugin on
 autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.targets set filetype=xml
+autocmd BufNewFile,BufRead *.props set filetype=xml
+autocmd BufNewFile,BufRead *.pkgproj set filetype=xml
+autocmd BufNewFile,BufRead *.csproj set filetype=xml
+autocmd BufNewFile,BufRead *.proj set filetype=xml
 autocmd BufReadCmd *.nupkg call zip#Browse(expand("<amatch>"))
 syntax enable
 
