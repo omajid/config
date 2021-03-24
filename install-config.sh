@@ -112,3 +112,9 @@ install-config "$CONFIG_DIR"/gdbinit ~/.gdbinit
 # dictionary
 install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_US
 install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_CA
+
+# mbsync
+install-config "$CONFIG_DIR"/mbsyncrc ~/.mbsyncrc
+sudo cp mbsync@.timer mbsync@.service /etc/systemd/system/
+sudo systemctl enable mbsync@omajid.timer
+
