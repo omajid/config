@@ -1,6 +1,7 @@
 [Unit]
 Description=Mailbox syncrhonization service for user %I
-After=network.target netwokr-online.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=oneshot
