@@ -87,8 +87,6 @@
     (add-to-list 'all-the-icons-ivy-file-commands 'counsel-find-library)
     (all-the-icons-ivy-setup)))
 
-(use-package diminish)
-
 (use-package doom-modeline
   :init
   (doom-modeline-mode 1))
@@ -132,7 +130,6 @@
   (evil-collection-init))
 
 (use-package which-key
-  :diminish which-key-mode
   :commands which-key-mode
   :init
   (add-hook 'after-init-hook #'which-key-mode))
@@ -246,7 +243,6 @@
 
 (use-package ivy
   :demand
-  :diminish ivy-mode
   ;; ido-style keybindings
   :bind (:map ivy-minibuffer-map
               ("C-j" . ivy-immediate-done)
@@ -285,7 +281,6 @@
     ("C-s" . swiper))
   (use-package counsel
     :demand
-    :diminish counsel-mode
     :bind
     ("M-x" . counsel-M-x)
     ("C-c i" . counsel-imenu)
@@ -328,7 +323,6 @@
   :commands magit-status)
 
 (use-package git-gutter
-  :diminish ""
   :init
   (add-hook 'text-mode-hook #'git-gutter-mode)
   (add-hook 'prog-mode-hook #'git-gutter-mode)
@@ -387,7 +381,6 @@
 
 (use-package flyspell
   :ensure nil ;; builtin
-  :diminish flyspell-mode
   :init
   (add-hook 'text-mode-hook #'turn-on-flyspell)
   (add-hook 'prog-mode-hook #'flyspell-prog-mode))
@@ -407,7 +400,6 @@
 
 (use-package company
   :demand
-  :diminish company-mode
   :config
   (add-hook 'after-init-hook #'global-company-mode)
   (setq company-idle-delay 1
@@ -416,13 +408,11 @@
 
 (use-package abbrev
   :ensure nil ;; builtin
-  :diminish ""
   :init
   (add-hook 'after-init-hook #'abbrev-mode)
   (setq-default abbrev-mode t))
 
 (use-package yasnippet
-  :diminish yas-minor-mode
   :bind ("M-/" . company-yasnippet)
   :init
   (progn
@@ -435,7 +425,6 @@
   (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/"))
 
 (use-package editorconfig
-  :diminish ""
   :config
   (editorconfig-mode 1))
 
@@ -490,7 +479,6 @@
   (rainbow-mode))
 
 (use-package aggressive-indent
-  :diminish aggressive-indent-mode
   :init
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
   (add-hook 'scheme-mode-hook #'aggressive-indent-mode)
@@ -770,7 +758,6 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
 
 (use-package simple
   :ensure nil ;; builtin
-  :diminish auto-fill-function
   :init
   (add-hook 'text-mode-hook #'turn-on-auto-fill))
 
