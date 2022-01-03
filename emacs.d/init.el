@@ -76,6 +76,8 @@
 (use-package all-the-icons
   :demand
   :init
+  (unless (file-exists-p (expand-file-name "~/.local/share/fonts/all-the-icons.ttf"))
+    (all-the-icons-install-fonts t))
   (use-package all-the-icons-ivy
     :demand
     :after (all-the-icons ivy)
@@ -99,16 +101,26 @@
 (use-package evil
   :demand
   :init
-  (setq evil-want-keybinding nil ; needed by evil-collection
+  (setq evil-want-C-u-scroll t
+        evil-want-keybinding nil ; needed by evil-collection
         evil-undo-system 'undo-fu)
   (add-hook 'git-commit-mode-hook #'evil-insert-state)
   :config
-  (progn
-    (evil-set-initial-state 'project-explorer-mode 'emacs)
-    (evil-set-initial-state 'term-mode 'emacs)
-    ;; make * and # behave like vim: include _ and - in search
-    (setq-default evil-symbol-word-search t)
-    (evil-mode 1)))
+  (evil-set-initial-state 'project-explorer-mode 'emacs)
+  (evil-set-initial-state 'term-mode 'emacs)
+  ;; make * and # behave like vim: include _ and - in search
+  (setq-default evil-symbol-word-search t)
+  (evil-mode 1)
+
+  ;; fix "gf" to not prompt
+  (defun my-find-file-at-point ()
+    (interactive)
+    (require 'ffap)
+    (let* ((guess (ffap-guesser))
+           (filename (expand-file-name guess)))
+      (find-file filename)))
+  (evil-add-command-properties #'my-find-file-at-point :jump t)
+  (evil-define-key nil evil-normal-state-map "gf" 'my-find-file-at-point))
 
 (use-package evil-collection
   :demand
@@ -132,6 +144,10 @@
 ;; Put custom definitions in another file and don't load it
 (setq custom-file (locate-user-emacs-file "custom.el"))
 ;; (load custom-file)
+
+;; dont jump screen on cursor scroll
+(setq scroll-conservatively 101
+      scroll-margin 5)
 
 (setq-default
  indent-tabs-mode nil ; tabs are evil
@@ -276,15 +292,6 @@
     :init
     (counsel-mode 1)))
 
-(use-package ivy-posframe
-  :after ivy
-  :init
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
-  (setq ivy-posframe-parameters
-        '((left-fringe . 8)
-          (right-fringe . 8)))
-  (ivy-posframe-mode 1))
-
 ;;;
 ;;; Projects
 ;;;
@@ -293,16 +300,6 @@
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :config
-  ;; "P[project name]" to indicate a project or empty string
-  (setq projectile-mode-line
-        '(:eval
-          (let ((mode-line
-                 (condition-case nil
-                     (format " P[%s]"
-                             (file-name-nondirectory
-                              (directory-file-name (projectile-project-root))))
-                   (error ""))))
-            mode-line)))
   (projectile-mode 1)
 
   (defun my-end-to-end-test ()
@@ -379,8 +376,7 @@
   :bind ("C-x o" . ace-window))
 
 (use-package uniquify
-  ;; ensure t breaks uniquify, for some reason
-  :ensure nil
+  :ensure nil ;; builtin
   :config
   (progn
     (setq uniquify-buffer-name-style 'forward)))
@@ -390,7 +386,7 @@
 ;;;
 
 (use-package flyspell
-  :ensure nil
+  :ensure nil ;; builtin
   :diminish flyspell-mode
   :init
   (add-hook 'text-mode-hook #'turn-on-flyspell)
@@ -419,7 +415,7 @@
         company-tooltip-align-annotations t))
 
 (use-package abbrev
-  :ensure nil
+  :ensure nil ;; builtin
   :diminish ""
   :init
   (add-hook 'after-init-hook #'abbrev-mode)
@@ -642,7 +638,11 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
   ;; files with '.patch.' in the middle of their name are patch files too
   :mode "\\.patch\\..*\\'")
 
-(use-package dockerfile-mode)
+(use-package docker)
+
+(use-package dockerfile-mode
+  :config
+  (setq dockerfile-mode-command "podman"))
 
 (use-package emmet-mode
   :commands emmet-mode
@@ -769,7 +769,7 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
 (use-package rpm-spec-mode)
 
 (use-package simple
-  :ensure nil ;; auto-fill is built-in
+  :ensure nil ;; builtin
   :diminish auto-fill-function
   :init
   (add-hook 'text-mode-hook #'turn-on-auto-fill))
