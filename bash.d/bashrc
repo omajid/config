@@ -1,0 +1,109 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+SOURCE=${BASH_SOURCE[0]}
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+
+##############################
+#
+# bash basics
+#
+##############################
+
+export HISTCONTROL=ignoredups:erasedups:ignorespace
+export HISTSIZE=
+export HISTFILESIZE=
+export HISTFILE=~/config/bash.d/bash_history
+shopt -s histappend
+export EDITOR=vim
+
+#############################
+#
+# Set up terminal and colours
+#
+#############################
+
+#############################
+#
+# Prompt
+#
+#############################
+
+# get current branch in git repo
+function parse_git_branch() {
+    BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    if [ ! "${BRANCH}" == "" ]
+    then
+        echo "[${BRANCH}${STAT}]"
+    else
+        echo ""
+    fi
+}
+
+PS1='$? $(parse_git_branch) \[\e[33m\][\u@\h \W]\[\e[37m\]\$\[\e[0m\] '
+
+##############################
+#
+# aliases
+#
+##############################
+
+alias grin='grep -rin'
+# force myself to use 'vi' only, not 'vim'
+function vim {
+    echo "try again"
+}
+alias e="~/bin/emacs-reuse-existing"
+function es {
+    ~/bin/emacs-reuse-existing ./*.spec
+}
+alias gitkall='gitk --all'
+
+export PATH=$PATH:$HOME/bin
+
+function mkcd {
+    mkdir -p "$1"
+    cd "$1"
+}
+
+function end-of-day() {
+    echo "Backing up configuration..."
+    daily-backup
+    echo "Publishing notes..."
+    publish-notes
+}
+
+# if this is an ssh session, use a firefox instance on the local machine
+if [[ -n "$SSH_CONNECTION" ]] && [[ -n "$DISPLAY" ]]
+then
+    alias firefox='firefox -no-remote'
+fi
+
+if [[ -f "$(DIR)/redhatconfig" ]]; then
+    source "$(DIR)/redhatconfig"
+fi
+
+##############################
+#
+# catch-all
+#
+##############################
+
+# User specific aliases and functions
+
+ulimit -c unlimited
+
+export LIBVIRT_DEFAULT_URI='qemu:///system'
+
+alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0| grep -E "state| time\ to\ |percentage"'
+
