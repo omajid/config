@@ -89,8 +89,8 @@ then
     alias firefox='firefox -no-remote'
 fi
 
-if [[ -f "$(DIR)/redhatconfig" ]]; then
-    source "$(DIR)/redhatconfig"
+if [[ -f "${DIR}/redhatconfig" ]]; then
+    source "${DIR}/redhatconfig"
 fi
 
 ##############################
