@@ -3,14 +3,14 @@
 # key: dockerfile
 # expand-env: ((yas-indent-line 'fixed))
 # --
-FROM fedora:30
+FROM fedora:33
 
 RUN dnf install --setopt tsflags=nodocs --refresh -y \\
     make \\
     python3 \\
     tar \\
     wget \\
-    which \\
+    which && \\
     dnf upgrade -y && \\
     dnf clean all -y
 

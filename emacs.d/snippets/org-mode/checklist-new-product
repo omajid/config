@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Checklist: New Product/Project
+# key: checklist_product
+# --
+- [ ] How will this provide value?
+- [ ] What business problem will this solve?
+- [ ] Is this the best solution possible?
+- [ ] What other solutions were considered?
+- [ ] RACI: Who's Responsible, Accountible, Consulted and Informed?
+- [ ] ICE: Impact x Confidence x Ease
+  - Impact: how will this improve the key metric(s)
+  - Ease: how easy is this to implement?
+  - Confidence: how sure are we about the Impact and Ease?

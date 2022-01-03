@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: meeting_notes
+# name: Meeting: Generic
 # key: meeting_notes
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
 ** $1 <`(format-time-string "%Y-%m-%d %a")`>
 
