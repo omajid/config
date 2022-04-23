@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: from-centos
+# key: from-centos
+# --
+FROM quay.io/centos/centos:stream9-development

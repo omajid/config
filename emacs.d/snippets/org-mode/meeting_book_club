@@ -1,0 +1,45 @@
+# -*- mode: snippet -*-
+# name: Meeting: Book Club
+# key: meeting_book_club
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+** Book Club Meeting <`(format-time-string "%Y-%m-%d %a")`>
+
+#+BEGIN_SRC markdown
+
+# Background:
+
+- Book: $1 (Chapter $2)
+- Lead: $3
+
+# Agenda
+
+- Doc:
+
+# Video
+
+- Link
+
+# Notes
+
+## Discussion ideas:
+
+- What did you think about the title of the book?
+- Was there anything that was unclear?
+- Was there anything that the author might have covered in more detail
+  but didn't?
+- Any questions that popped into your mind based on reading this?
+- What did you find most surprising?
+- Was there enough evidence for the suggestions presented? Any
+  unsubstantiated claims?
+- Was there anything that you might want to disagree with?
+- Was there something you read that you applied (or think you can
+  apply) to your projects?
+- What was the most important idea in this book/chapter?
+- Is there a book that you think is closely related to this one? Maybe
+  one that might server as followup or a counterpoint?
+- What did you (want to) Google while reading this?
+- Is there anything else you want to call out about this chapter/book?
+- What areas does this make you want to explore?
+
+#+END_SRC

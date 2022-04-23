@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: sourcebuild.props
+# key: sourcebuild.props
+# --
+<Project>
+
+  <PropertyGroup>
+    <GitHubRepositoryName>`(string-trim (shell-command-to-string "git remote -v | grep https: | head -1 | awk '{ print $2 }' | sed 's/.git$//' | rev | cut -d / -f 1 | rev"))`</GitHubRepositoryName>
+    <SourceBuildManagedOnly>true</SourceBuildManagedOnly>
+  </PropertyGroup>
+
+</Project>

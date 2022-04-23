@@ -1,0 +1,27 @@
+# -*- mode: snippet -*
+# name: Checklist: blog post ideas
+# key: checklist_blog_post_ideas
+# --
+
+- Advice for devops, developers or sysadmins
+- How to learn SOMETHING
+- A question I got from a user/bug-report/stackoverflow
+- Something that I have been working on lately
+  - Make sure it's not confidential/proprietary
+- Guide or tutorial for something I am familiar with
+  - Make it a series of posts to guide on a specific subject
+- Tools that I use
+- My current setup for $something
+- A story about my failures or successes
+- Write/run some benchmarks and post results
+- Comment (in detail) on some other idea/post by someone else
+- An essay/rant/praise for something I care about
+  - Something I wish more readers knew about
+- Interview people in my field
+- Review a book, service, gadget, tool, product, workflow, etc
+- Collect, organize and present links to resources
+  - Eg: a good set or resources to get up to speed on $topic
+- Cheetsheats
+- Statistics or data about my industry/field
+- A refresh of previous popular post that's now a little obsolete
+- How to use something
