@@ -14,6 +14,7 @@
 - [ ] What can go wrong?
   - [ ] Any accidental culture/language specific code
     - C#: ~StartsWith~, ~EndsWith~
+  - [ ] Update packageIndex.json and packageVersion for runtime changes
 - [ ] Readability (with comments for tricky aspects)
 - [ ] Parallelism/Thread Safety
 - [ ] Algorithms and boundry cases
