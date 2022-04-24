@@ -89,10 +89,6 @@ then
     alias firefox='firefox -no-remote'
 fi
 
-if [[ -f "${DIR}/redhatconfig" ]]; then
-    source "${DIR}/redhatconfig"
-fi
-
 ##############################
 #
 # catch-all
@@ -107,3 +103,12 @@ export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0| grep -E "state| time\ to\ |percentage"'
 
+##############################
+#
+# Work config
+#
+##############################
+
+if [[ -d "${HOME}/config-work" ]]; then
+    source "${HOME}/config-work/bash.d/bashrc"
+fi

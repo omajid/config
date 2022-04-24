@@ -64,9 +64,10 @@ if [ ! -d "$CONFIG_DIR" ] ; then
 fi
 
 # basics
-install-config "$CONFIG_DIR"/bashrc ~/.bashrc
+install-config "$CONFIG_DIR"/bash.d/bashrc ~/.bashrc
 install-config "$CONFIG_DIR"/dir-colors ~/.dir_colors
 install-config "$CONFIG_DIR"/tmux.conf ~/.tmux.conf
+install-config "$CONFIG_DIR"/gitconfig ~/.gitconfig
 
 # X
 install-config "$CONFIG_DIR"/x-modmap ~/.Xmodmap
@@ -80,6 +81,7 @@ install-config "$CONFIG_DIR"/vim.d/vim-colors-solarized/colors/solarized.vim ~/.
 mkdir -p ~/.emacs.d
 install-config "$CONFIG_DIR"/emacs.d/init.el ~/.emacs.d/init.el
 install-config "$CONFIG_DIR"/emacs.d/snippets ~/.emacs.d/snippets
+install-config "$CONFIG_DIR"/emacs.d/lisp ~/.emacs.d/lisp
 
 # custom folder names
 install-config "$CONFIG_DIR"/user-dirs ~/.config/user-dirs.dirs
@@ -114,7 +116,17 @@ install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_US
 install-config "$CONFIG_DIR"/dictionary ~/.hunspell_en_CA
 
 # mbsync
-install-config "$CONFIG_DIR"/mbsyncrc ~/.mbsyncrc
-sudo cp mbsync@.timer mbsync@.service /etc/systemd/system/
-sudo systemctl enable mbsync@omajid.timer
+# mbsyncrc is a work-specific configuration
+echo "Please run:"
+echo sudo cp mbsync@.timer mbsync@.service /etc/systemd/system/
+echo sudo systemctl enable mbsync@omajid.timer
 
+# keybindings
+
+# Free up calcualtor key, will need to rebind it to emacs manually
+gsettings set org.gnome.settings-daemon.plugins.media-keys calculator "['']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys calculator-static "['']"
+
+if [[ -d "${HOME}/config-work" ]]; then
+    "${HOME}"/config-work/install-config.sh
+fi

@@ -7,5 +7,3 @@ Wants=network-online.target
 Type=oneshot
 ExecStart=/usr/bin/mbsync -a
 User=%i
-StandardOutput=syslog
-StandardError=syslog

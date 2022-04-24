@@ -14,8 +14,6 @@ set certificate_file="~/mail/certificates"
 
 set certificate_file=~/.mutt/certificates
 
-source "~/.mutt/work-config"
-
 # General mutt options ####################################################
 set timeout = 15
 set mail_check = 60
