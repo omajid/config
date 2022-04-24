@@ -1,0 +1,32 @@
+[alias]
+    profile-work = !git config --local user.email "omajid@redhat.com"
+    profile-personal = !git config --local user.email "omair.majid@gmail.com"
+
+[color]
+    ui = auto
+
+[commit]
+    template = ~/config/gitmessage
+
+[core]
+    #pager = less -+F
+    #autocrlf = input
+
+[diff]
+    renameLimit = 99999
+
+[github]
+    user = omajid
+
+[init]
+    defaultBranch = main
+
+[pull]
+    ff = only
+
+[push]
+    default = simple
+
+[user]
+    name = Omair Majid
+    email = "omajid@redhat.com"
