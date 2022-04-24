@@ -3,6 +3,7 @@ ansible
 API
 APIs
 applet
+arm64
 async
 backend
 backends
@@ -13,11 +14,13 @@ bugfixes
 bugzilla
 byteman
 corefx
+cryptographic
 customizable
 deactivate
 decompile
 Deepak
 Dockerfile
+dotnet
 dotnetcore
 download
 downloading
@@ -36,6 +39,7 @@ IcedTea6
 IcedTea7
 IcedTea8
 idempotent
+ildasm
 imagestream
 imagestreams
 installable
@@ -44,10 +48,10 @@ Javadoc
 javaws
 JDK
 JEP
-jnlp
 JNLP
-junit
+jnlp
 JUnit
+junit
 JVM
 jvmstat
 Kubernetes
@@ -58,6 +62,7 @@ malformed
 mongodb
 NetX
 NuGet
+observability
 Omair
 OpenJDK
 OpenJDK6
@@ -65,6 +70,7 @@ OpenJDK7
 OpenJDK8
 OpenJDK9
 OpenShift
+OpenSSL
 plugin
 plugins
 podcasts
@@ -74,6 +80,7 @@ registry
 RHBZ
 RHEL
 runtime
+s390x
 scalability
 scalable
 SDK
