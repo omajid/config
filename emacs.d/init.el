@@ -158,8 +158,6 @@
 ;; single space after period ends sentence
 (setq sentence-end-double-space nil)
 
-(setq
- user-mail-address "omajid@redhat.com")
 
 ;; show matching parenthesis
 (show-paren-mode 1)
@@ -601,10 +599,6 @@ URLs. The urls are fetched to `mu4e-attachment-dir'."
         (search-forward "\n\n")
         (insert text)))))
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'my-redhat-mail-config)
-
-
 ;;;
 ;;; Text/Markup Editing Modes
 ;;;
@@ -1014,5 +1008,10 @@ human-time can be text like 'next month' or 'tomorrow'."
                   (call-process "env" nil t nil "LC_ALL=C" "LANGUAGE=" "date" "-Rd" human-time)
                   (or (bobp) (delete-backward-char 1))
                   (buffer-string))))
+
+(let ((work-config (expand-file-name "~/config-work/emacs.d/lisp")))
+  (when (file-exists-p work-config)
+    (add-to-list 'load-path work-config)
+    (require 'my-config-work)))
 
 ;;; init.el ends here
